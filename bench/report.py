@@ -68,7 +68,9 @@ def main() -> int:
               "The full prompt is in each AI result file (`requests.<name>.prompt`), or "
               "`python3 bench/ai_prompt.py --dry-run --only <name>`."]
     (HERE / "RESULTS.md").write_text("\n".join(lines) + "\n")
-    print("\n".join(lines[:4 + 2 + 3 * (len(got))]))
+    print("\n".join(lines[:lines.index("## Definitions")]))
+    if not any(k.startswith("ai:") for k in got):
+        print("WARNING: no AI result in bench/results; run bench/ai_prompt.py first")
     return 0
 
 
