@@ -8,8 +8,8 @@ import os
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
-from tckg_backtest.core import (CONTRACT, CONTRACT_REVISION, ENGINE_VERSION, MOCK_VERSION, mock_backtest, response,
-                                run_backtest)
+from tckg_backtest.core import CONTRACT, CONTRACT_REVISION, ENGINE_VERSION, MOCK_VERSION, mock_backtest, response
+from tckg_backtest.engine import run_backtest
 
 MAX_BODY = 1_000_000   # io-v0 7: 1 MB of inline bars
 ERROR_HTTP = {"unauthorized": 401, "prices_unavailable": 503}
@@ -18,8 +18,8 @@ app = FastAPI(title="tckg-backtest", version=ENGINE_VERSION)
 
 
 def _engine() -> str:
-    """TCKG_BACKTEST_ENGINE=mock serves the goldens; engine runs the engine. Stage A: only mock exists."""
-    return "mock" if os.environ.get("TCKG_BACKTEST_ENGINE", "mock") == "mock" else "engine"
+    """TCKG_BACKTEST_ENGINE=mock serves the goldens (io-v0 6.7 service_mock); anything else runs the engine."""
+    return "mock" if os.environ.get("TCKG_BACKTEST_ENGINE") == "mock" else "engine"
 
 
 def _reply(body: dict) -> JSONResponse:

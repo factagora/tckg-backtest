@@ -11,7 +11,7 @@ Contract: `tckg-backtest-io/v0` revision v0.2 (`contract/v0/`, byte copies of fa
 - `GET /v0/health`: open, returns contract, revision, engine version and `engine` (`mock` or `engine`).
 - `POST /v0/backtest`: needs `Authorization: Bearer $TCKG_BACKTEST_TOKEN` (401 `unauthorized` otherwise). Body is a `request.schema.json` request; reply is a `response.schema.json` response.
 
-Env: `TCKG_BACKTEST_TOKEN` (required, no token means every POST is 401), `TCKG_BACKTEST_ENGINE` (`mock` serves the goldens, `engine` computes).
+Env: `TCKG_BACKTEST_TOKEN` (required, no token means every POST is 401), `TCKG_BACKTEST_ENGINE` (unset: the engine computes; `mock`: serve the goldens with `mock_reason: service_mock`).
 
 ## Library
 

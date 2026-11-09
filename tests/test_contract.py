@@ -6,7 +6,7 @@ import jsonschema
 import pytest
 from fastapi.testclient import TestClient
 
-from tckg_backtest import request_sha256, validate_request
+from tckg_backtest import ENGINE_VERSION, request_sha256, run_backtest, validate_request
 from tckg_backtest.core import CONTRACT_DIR, mock_backtest
 from tckg_backtest.server import app
 
@@ -115,3 +115,72 @@ def test_backtest_http_invalid(client):
     r = client.post("/v0/backtest", json={"contract": "tckg-backtest-io/v0"}, headers=h)
     assert r.status_code == 400 and r.json()["errors"][0]["code"] == "invalid_request"
     schema("response.schema.json").validate(r.json())
+
+
+def same(got, want, path="$"):
+    """io-v0 6.6: strings and ints exactly, floats within 1e-12."""
+    if isinstance(want, float) or isinstance(got, float):
+        assert abs(got - want) <= 1e-12, path
+    elif isinstance(want, dict):
+        assert isinstance(got, dict) and set(got) == set(want), (path, set(got) ^ set(want))
+        for k in want:
+            same(got[k], want[k], f"{path}.{k}")
+    elif isinstance(want, list):
+        assert isinstance(got, list) and len(got) == len(want), path
+        for i, (g, w) in enumerate(zip(got, want)):
+            same(g, w, f"{path}[{i}]")
+    else:
+        assert got == want, (path, got, want)
+
+
+@pytest.mark.parametrize("name", NAMES)
+def test_engine_recomputes_golden(name):
+    got = run_backtest(load(f"request-{name}.json"), now=NOW)
+    schema("response.schema.json").validate(got)
+    want = load(f"response-{name}.json")
+    assert got["certificate"]["mock"] is False and got["certificate"]["engine_version"] == ENGINE_VERSION
+    got["certificate"]["engine_version"] = want["certificate"]["engine_version"]
+    same(strip(got), strip(want))
+
+
+def engine(req, now=NOW):
+    got = run_backtest(req, now=now)
+    schema("response.schema.json").validate(got)
+    return got
+
+
+def code(got):
+    return got["errors"][0]["code"] if got["errors"] else got["no_trade_reason"]
+
+
+def test_engine_edge_cases():
+    r01, r02, r03 = (load(f"request-{n}.json") for n in NAMES[:3])
+    masked_verdict = engine({**r03, "as_of": "2026-10-25T00:00:00Z"})
+    assert masked_verdict["status"] == "no_trade" and code(masked_verdict) == "trigger_not_met"
+    assert [m["input"] for m in masked_verdict["certificate"]["masked"]] == ["factblock.verdict", "prices.bars", "prices.bars"]
+    assert code(engine({**r01, "as_of": "2026-10-20T20:00:00Z"})) == "entry_after_as_of"
+    mid = engine({**r01, "as_of": "2026-10-21T03:00:00Z"})   # inside the entry session: close not known yet
+    assert mid["status"] == "ok" and mid["trades"][0]["open"] and mid["trades"][0]["ret"] == 0
+    assert {"input": "prices.close", "symbol": "000660", "from": "2026-10-21", "to": "2026-10-21", "count": 1} \
+        in mid["certificate"]["masked"]
+    assert code(engine({**r02, "playbook": r03["playbook"]})) == "unsupported_combination"
+    fb = {**r01["factblock"], "assets": [{"symbol": "AAPL", "market": "XNAS"}]}
+    assert code(engine({**r01, "factblock": fb})) == "market_not_on_calendar"
+    bars = {**r03["prices"]["inline"]["bars"], "000660": r03["prices"]["inline"]["bars"]["000660"][1:]}
+    got = engine({**r03, "prices": {"inline": {**r03["prices"]["inline"], "bars": bars}}})
+    assert got["status"] == "refused" and got["errors"][0]["detail"] == {"symbol": "000660", "date": "2026-10-30", "side": "open"}
+    assert code(engine({**r01, "as_of": "2026-11-10T00:00:00Z"})) == "as_of_in_future"
+    late = {**r01["factblock"], "known_at": "2027-12-29T00:00:00Z"}
+    assert code(engine({**r01, "factblock": late, "as_of": "2028-01-05T00:00:00Z"}, now=datetime(2028, 2, 1, tzinfo=UTC))) \
+        == "calendar_out_of_range"
+    assert code(engine({**r01, "calendar": {"id": "XKRX", "sha256": "0" * 64}})) == "invalid_request"
+    assert engine({**r01, "calendar": {"id": "XKRX", "sha256": load("response-01-known-open.json")["certificate"]["calendar"]["sha256"]}})["status"] == "ok"
+    ref = engine({**r01, "prices": {"ref": {"uri": "gs://b/p.csv", "format": "tckg-trader-prices-csv"}}})
+    assert ref["status"] == "error" and code(ref) == "prices_unavailable"
+
+
+def test_backtest_http_mock_mode(client, monkeypatch):
+    monkeypatch.setenv("TCKG_BACKTEST_ENGINE", "mock")
+    assert client.get("/v0/health").json()["engine"] == "mock"
+    r = client.post("/v0/backtest", json=load("request-01-known-open.json"), headers={"Authorization": f"Bearer {TOKEN}"})
+    assert r.json()["certificate"]["mock_reason"] == "service_mock" and r.headers["X-Tckg-Backtest-Version"] == "0.0.0+mock"

@@ -6,7 +6,6 @@ import json
 from datetime import UTC, datetime
 from functools import cache
 from pathlib import Path
-from typing import Callable
 
 import jsonschema
 
@@ -77,8 +76,3 @@ def mock_backtest(request: dict, *, now: datetime | None = None) -> dict:
     out["computed_at"] = _iso(now or datetime.now(UTC))
     return out
 
-
-def run_backtest(request: dict, *, load_prices: Callable[[str], bytes] | None = None,
-                 now: datetime | None = None) -> dict:
-    # Stage A: goldens only; the engine replaces this in Stage B.
-    return mock_backtest(request, now=now)
