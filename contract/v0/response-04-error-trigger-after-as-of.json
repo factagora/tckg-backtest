@@ -1,0 +1,50 @@
+{
+  "contract": "tckg-backtest-io/v0",
+  "status": "refused",
+  "no_trade_reason": null,
+  "request_sha256": "c7b40f093a718cf29b4145f7d4633873a22bf77a9f433d3cf118444e4861f7f1",
+  "trades": [],
+  "summary": null,
+  "certificate": {
+    "as_of": "2026-10-15T00:00:00Z",
+    "mode": "as_known",
+    "engine_version": "0.0.0+golden",
+    "mock": false,
+    "request_sha256": "c7b40f093a718cf29b4145f7d4633873a22bf77a9f433d3cf118444e4861f7f1",
+    "prices_sha256": "281637d31511c33b295f0356654947c9f1a028df18ad72d46dd50bfc524cd7c2",
+    "playbook_sha256": "9fb041d306a22c0d69f26b32024d8a66e25f6da16c19d4bb71434eaf745b4574",
+    "calendar": {
+      "id": "XKRX",
+      "sha256": "3d3fb1164075c491b3742aa2b8b0047084c488690cbc6ad2dfd287b12469d790"
+    },
+    "hindsight": false,
+    "backfilled": false,
+    "reproducible": true,
+    "not_reproducible_because": [],
+    "masked": [
+      {
+        "input": "factblock.verdict",
+        "known_at": "2026-10-29T00:45:00Z"
+      }
+    ],
+    "used_before_known": [],
+    "assumptions": [
+      "gross of costs and taxes",
+      "no dividends",
+      "filled at the session's open or close price",
+      "unadjusted prices; an open is known from open_at and a close from close_at"
+    ]
+  },
+  "errors": [
+    {
+      "code": "trigger_after_as_of",
+      "field": "factblock.known_at",
+      "message": "The trigger (known_at 2026-10-20T13:04:41Z) is after as_of 2026-10-15T00:00:00Z: the FactBlock was not in the ledger yet.",
+      "detail": {
+        "trigger_at": "2026-10-20T13:04:41Z",
+        "as_of": "2026-10-15T00:00:00Z"
+      }
+    }
+  ],
+  "computed_at": "2026-11-08T00:00:00Z"
+}
