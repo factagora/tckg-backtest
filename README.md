@@ -52,16 +52,15 @@ Contract: `tckg-backtest-io/v0` revision v0.3 (`contract/v0/`, byte copies of fa
 
 ## Console
 
-`GET /` serves a one-page console: pick a case, drag `as_of` over the XKRX sessions, and the real engine reruns
-(before `known_at` it refuses with `trigger_after_as_of`; while the trade is open it is marked at the last close
-before `as_of`; after the exit it is closed). It shows the trades, the server time, the certificate, a "Run 5 times"
-check (response hashes), a price chart where bars after `as_of` are drawn faded (masked, not used), and, next to it, the recorded AI-prompt runs for the same request from
-`bench/results/` (recorded, not live; see [bench/RESULTS.md](bench/RESULTS.md)).
-Case 06 runs contract v1 on mock FactBlocks and synthetic prices (labelled as such): many calls on one price chart,
-each decision with the FactBlock it acted on and what else the ledger held at that moment; calls not yet in the ledger
-at `as_of` are drawn as grey rings and never trade.
+`GET /` serves a one-page console in three parts: a time bar ("Pretend today is", slider, play) at the top; what happened
+by that date (result tiles and the price chart with each decision; the future is greyed out); and why you can trust it
+(the evidence each decision used, a knowledge graph of what was public at that date, the proof of what was hidden, the
+same answer on 5 automatic runs, and the recorded AI-prompt runs for the same request from `bench/results/`, recorded,
+not live; see [bench/RESULTS.md](bench/RESULTS.md)). Scenarios 01 to 05 use one real claim; 06 runs contract v1 on mock
+FactBlocks and synthetic prices (labelled as such): calls not public yet at the chosen date are drawn as grey rings
+and never trade.
 
-![console, case 05 leak trap](docs/console.png)
+![console, scenario 06 (mock data)](docs/console.png)
 
 ```
 pip install -e '.[dev]'
@@ -69,8 +68,8 @@ TCKG_BACKTEST_TOKEN=dev uvicorn tckg_backtest.server:app --port 8080
 open http://127.0.0.1:8080/
 ```
 
-The console calls `GET /v0/demo` and `POST /v0/demo/run {"case": "01"|"02"|"03"|"05", "as_of"?: ISO}` with no token.
-These run only the bundled `contract/v0` requests (05 = request 01 plus the bench leak bars after `as_of`); a client
+The console calls `GET /v0/demo` and `POST /v0/demo/run {"case": "01"|"02"|"03"|"05"|"06", "as_of"?: ISO}` with no token.
+These run only the bundled `contract/v0` requests (05 = request 01 plus the bench leak bars after `as_of`; 06 = the mock v1 request in `tckg_backtest/demo-06-many-claims.json`); a client
 cannot send prices or playbooks. `POST /v0/backtest` still needs the Bearer token.
 
 ## API
