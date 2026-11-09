@@ -1,0 +1,204 @@
+{
+ "kind": "time_ledger",
+ "arm": "B",
+ "model": "claude-opus-5-5",
+ "space": "theme:kr-memory-semis",
+ "as_of": "2026-10-27T00:00:00Z",
+ "exported_now": "2026-11-09T02:13:36Z",
+ "truth": {
+  "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss"
+ },
+ "decided_after_T": 20,
+ "n_statements": 67,
+ "prompt_sha256": "2b7cdef1c7a36f02affedf4ed4669243b612199c470f285edaf4d3dab1c774cb",
+ "prompt_template": "Below are analyst and company statements (predictions and claims) about memory semiconductors{what}.\n\nQuestion: as of {t}, which statements already had a verdict, and what was it? Use only what was known at {t};\ndo not use any information from after {t}.\n\nEnd your answer with exactly one JSON object in a ```json code block:\n{{\"resolved\": {{\"<statement id>\": \"hit\" or \"miss\", ...}}}}\nList only statements whose verdict was known at {t}.\n\nStatements:\n{rows}\n",
+ "oracle_matches_tckg_as_of_export": true,
+ "runs": [
+  {
+   "run": 1,
+   "wall_s": 28.760998788999984,
+   "usage": {
+    "input_tokens": 13921,
+    "output_tokens": 2543
+   },
+   "cost_usd": 0.106544,
+   "cli_cost_usd": 0.16222,
+   "answer": {
+    "resolved": {
+     "stmt:sec-20261008-q3-prelim-op-107.4trn": "hit",
+     "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss",
+     "stmt:bnk-20260915-skh-q3-op-72.1trn": "miss",
+     "stmt:dsinv-20260929-skh-q3-op-70trn": "miss",
+     "stmt:fnguide-20261018-skh-q3-op-consensus-76.96trn": "miss",
+     "stmt:ibk-20261007-skh-q3-op-75.1trn": "miss",
+     "stmt:kb-kimdongwon-20260820-skh-q3-op-77trn": "miss",
+     "stmt:meritz-kimsunwoo-20261012-skh-q3-dram-shipments-13": "miss",
+     "stmt:meritz-kimsunwoo-20261012-skh-q3-op-80.1trn": "miss",
+     "stmt:skh-2026q2call-q3-dram-shipments-up-10pct": "hit",
+     "stmt:skse-handonghee-20261013-skh-q3-dram-shipments-9": "hit",
+     "stmt:skse-handonghee-20261013-skh-q3-op-79trn": "miss"
+    }
+   },
+   "score": {
+    "parsed": true,
+    "correct": false,
+    "leaked": 11,
+    "leaked_ids": [
+     "stmt:bnk-20260915-skh-q3-op-72.1trn",
+     "stmt:dsinv-20260929-skh-q3-op-70trn",
+     "stmt:fnguide-20261018-skh-q3-op-consensus-76.96trn",
+     "stmt:ibk-20261007-skh-q3-op-75.1trn",
+     "stmt:kb-kimdongwon-20260820-skh-q3-op-77trn",
+     "stmt:meritz-kimsunwoo-20261012-skh-q3-dram-shipments-13",
+     "stmt:meritz-kimsunwoo-20261012-skh-q3-op-80.1trn",
+     "stmt:sec-20261008-q3-prelim-op-107.4trn",
+     "stmt:skh-2026q2call-q3-dram-shipments-up-10pct",
+     "stmt:skse-handonghee-20261013-skh-q3-dram-shipments-9",
+     "stmt:skse-handonghee-20261013-skh-q3-op-79trn"
+    ],
+    "missed": 0,
+    "wrong_outcome": 0,
+    "unknown_ids": 0
+   },
+   "raw_tail": ", FnGuide consensus 76.96trn, IBK 75.1trn, KB 77trn, Meritz 80.1trn, SK증권 79trn.\n  - DRAM shipment calls:\n    - SK hynix's own guidance of about +10%: **hit**.\n    - SK증권's +9%: **hit**.\n    - Meritz's +13%: **miss**.\n\n**Not yet resolved by 2026-10-27**\n\n- **Samsung's full Q3 report**, expected around 2026-10-29, settles these:\n  - DS-division profit estimates from Citi, DS투자, and Hana.\n  - Samsung's HBM4 revenue guidance.\n  - Samsung's NAND bit-growth guidance.\n- **Microsoft's FQ1 capex guidance** settles at its earnings, around 2026-10-28/29.\n- **Everything else** was still open on 2026-10-27:\n  - Forward-looking calls such as the strength-engine checks due 2026-12-16 and sample B.\n  - Full-year 2026 capex and Q4 guidance.\n  - Fed rate calls.\n  - Price targets.\n  - Items with no verdict at all.\n\n```json\n{\"resolved\": {\"stmt:sec-20261008-q3-prelim-op-107.4trn\": \"hit\", \"stmt:meta-li-20260729-q3-revenue-61-64bn\": \"miss\", \"stmt:bnk-20260915-skh-q3-op-72.1trn\": \"miss\", \"stmt:dsinv-20260929-skh-q3-op-70trn\": \"miss\", \"stmt:fnguide-20261018-skh-q3-op-consensus-76.96trn\": \"miss\", \"stmt:ibk-20261007-skh-q3-op-75.1trn\": \"miss\", \"stmt:kb-kimdongwon-20260820-skh-q3-op-77trn\": \"miss\", \"stmt:meritz-kimsunwoo-20261012-skh-q3-dram-shipments-13\": \"miss\", \"stmt:meritz-kimsunwoo-20261012-skh-q3-op-80.1trn\": \"miss\", \"stmt:skh-2026q2call-q3-dram-shipments-up-10pct\": \"hit\", \"stmt:skse-handonghee-20261013-skh-q3-dram-shipments-9\": \"hit\", \"stmt:skse-handonghee-20261013-skh-q3-op-79trn\": \"miss\"}}\n```"
+  },
+  {
+   "run": 2,
+   "wall_s": 29.296742806999987,
+   "usage": {
+    "input_tokens": 13919,
+    "output_tokens": 2729
+   },
+   "cost_usd": 0.110256,
+   "cli_cost_usd": 0.0635646,
+   "answer": {
+    "resolved": {
+     "stmt:sec-20261008-q3-prelim-op-107.4trn": "hit",
+     "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss",
+     "stmt:msft-hood-20260729-fq1fy27-capex-over-50bn": "miss"
+    }
+   },
+   "score": {
+    "parsed": true,
+    "correct": false,
+    "leaked": 2,
+    "leaked_ids": [
+     "stmt:msft-hood-20260729-fq1fy27-capex-over-50bn",
+     "stmt:sec-20261008-q3-prelim-op-107.4trn"
+    ],
+    "missed": 0,
+    "wrong_outcome": 0,
+    "unknown_ids": 0
+   },
+   "raw_tail": " was therefore known well before the cutoff.\n- **stmt:msft-hood-20260729-fq1fy27-capex-over-50bn: miss.** This one is the least certain. In July, Microsoft and Meta reported on the same day, so I assume Microsoft's FQ1 report came around 2026-10-21 alongside Meta's. If Microsoft actually reported on 2026-10-28, this verdict was not yet known.\n\n**Not resolved by the cutoff, although verdicts exist today:**\n- **SK hynix Q3 items** (Q3 operating-profit estimates from BNK, DS, IBK, KB, Meritz, SK증권 and the FnGuide consensus; DRAM shipment forecasts; the company's own shipment guide):\n  - These are settled by SK hynix's Q3 report.\n  - Its Q2 call was on 2026-07-29 KST, later than in 2024 and 2025, so Q3 most likely came around 2026-10-28/29. That is after the cutoff.\n- **Samsung DS-division operating-profit estimates** (Citi, DS투자증권, 하나증권) **and the Q2-call guidance on HBM4 and NAND bits:**\n  - These are only settled by Samsung's full Q3 earnings call. The preliminary filing gives no division breakdown.\n  - Its Q2 call was 2026-07-30 KST, so the Q3 call is expected around 2026-10-29. That is also after the cutoff.\n- **All remaining statements** are still unresolved today. The strength-engine predictions resolve on 2026-12-16, and the S1 sample-B forward test runs 40 trading days from 2026-10-21.\n\n```json\n{\"resolved\": {\"stmt:sec-20261008-q3-prelim-op-107.4trn\": \"hit\", \"stmt:meta-li-20260729-q3-revenue-61-64bn\": \"miss\", \"stmt:msft-hood-20260729-fq1fy27-capex-over-50bn\": \"miss\"}}\n```"
+  },
+  {
+   "run": 3,
+   "wall_s": 30.431126397000014,
+   "usage": {
+    "input_tokens": 13920,
+    "output_tokens": 2659
+   },
+   "cost_usd": 0.10886,
+   "cli_cost_usd": 0.062172599999999995,
+   "answer": {
+    "resolved": {
+     "stmt:sec-20261008-q3-prelim-op-107.4trn": "hit",
+     "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss",
+     "stmt:msft-hood-20260729-fq1fy27-capex-over-50bn": "miss"
+    }
+   },
+   "score": {
+    "parsed": true,
+    "correct": false,
+    "leaked": 2,
+    "leaked_ids": [
+     "stmt:msft-hood-20260729-fq1fy27-capex-over-50bn",
+     "stmt:sec-20261008-q3-prelim-op-107.4trn"
+    ],
+    "missed": 0,
+    "wrong_outcome": 0,
+    "unknown_ids": 0
+   },
+   "raw_tail": "o it could be checked right away.\n- **Meta's Q3 revenue guidance (miss).** Meta reported Q3 results on 2026-10-21; its updated capex statement in the list is dated that day. So the miss on the $61–64bn guidance was known then.\n- **Microsoft's FQ1 FY27 capex guidance (miss).** Microsoft has usually reported within a day or two of Meta in recent years. That puts its results around Oct 21–22, before the cutoff. This is an assumption: if Microsoft reported on Oct 28 instead, drop this item.\n\n**Not yet known at the cutoff**\n- **SK hynix Q3 forecasts.** These are the operating-profit estimates from BNK, DS, IBK, KB, Meritz, SK증권 and the FnGuide consensus, plus the DRAM shipment calls (SK hynix's own guidance, Meritz, SK증권). They depend on SK hynix's Q3 results.\n  - SK hynix's Q2 call is dated Jul 29 KST, and last year's Q3 report came on Oct 29.\n  - That points to a Q3 report around Oct 28 KST, after the cutoff.\n- **Samsung DS-division estimates (Citi, DS투자증권, 하나증권).** The preliminary release only gives total operating profit. The division breakdown comes with the full earnings release, around Oct 29.\n- **Samsung's Q2-call guidance on HBM4 revenue and NAND bit growth.** These resolve with the same full earnings release, also after the cutoff.\n- **Everything else** has no verdict even as of today.\n\n```json\n{\"resolved\": {\"stmt:sec-20261008-q3-prelim-op-107.4trn\": \"hit\", \"stmt:meta-li-20260729-q3-revenue-61-64bn\": \"miss\", \"stmt:msft-hood-20260729-fq1fy27-capex-over-50bn\": \"miss\"}}\n```"
+  },
+  {
+   "run": 4,
+   "wall_s": 30.534157572000026,
+   "usage": {
+    "input_tokens": 13920,
+    "output_tokens": 2704
+   },
+   "cost_usd": 0.10976,
+   "cli_cost_usd": 0.06307259999999999,
+   "answer": {
+    "resolved": {
+     "stmt:sec-20261008-q3-prelim-op-107.4trn": "hit",
+     "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss",
+     "stmt:msft-hood-20260729-fq1fy27-capex-over-50bn": "miss",
+     "stmt:bnk-20260915-skh-q3-op-72.1trn": "miss",
+     "stmt:dsinv-20260929-skh-q3-op-70trn": "miss",
+     "stmt:fnguide-20261018-skh-q3-op-consensus-76.96trn": "miss",
+     "stmt:ibk-20261007-skh-q3-op-75.1trn": "miss",
+     "stmt:kb-kimdongwon-20260820-skh-q3-op-77trn": "miss",
+     "stmt:meritz-kimsunwoo-20261012-skh-q3-op-80.1trn": "miss",
+     "stmt:meritz-kimsunwoo-20261012-skh-q3-dram-shipments-13": "miss",
+     "stmt:skse-handonghee-20261013-skh-q3-op-79trn": "miss",
+     "stmt:skse-handonghee-20261013-skh-q3-dram-shipments-9": "hit",
+     "stmt:skh-2026q2call-q3-dram-shipments-up-10pct": "hit"
+    }
+   },
+   "score": {
+    "parsed": true,
+    "correct": false,
+    "leaked": 12,
+    "leaked_ids": [
+     "stmt:bnk-20260915-skh-q3-op-72.1trn",
+     "stmt:dsinv-20260929-skh-q3-op-70trn",
+     "stmt:fnguide-20261018-skh-q3-op-consensus-76.96trn",
+     "stmt:ibk-20261007-skh-q3-op-75.1trn",
+     "stmt:kb-kimdongwon-20260820-skh-q3-op-77trn",
+     "stmt:meritz-kimsunwoo-20261012-skh-q3-dram-shipments-13",
+     "stmt:meritz-kimsunwoo-20261012-skh-q3-op-80.1trn",
+     "stmt:msft-hood-20260729-fq1fy27-capex-over-50bn",
+     "stmt:sec-20261008-q3-prelim-op-107.4trn",
+     "stmt:skh-2026q2call-q3-dram-shipments-up-10pct",
+     "stmt:skse-handonghee-20261013-skh-q3-dram-shipments-9",
+     "stmt:skse-handonghee-20261013-skh-q3-op-79trn"
+    ],
+    "missed": 0,
+    "wrong_outcome": 0,
+    "unknown_ids": 0
+   },
+   "raw_tail": "rn.\n  - **DRAM shipment forecasts:** SK hynix's own ~+10% guidance was a hit, SK증권's +9% was a hit, and Meritz's +13% was a miss.\n  - **If SK hynix actually reported on Oct 29, all of these would drop out of the resolved list.**\n\n**Not resolved by 2026-10-27**\n\n- **Items needing Samsung's full Q3 report (usually around Oct 29–31):**\n  - the Citi, DS투자증권 and 하나증권 estimates of DS-division operating profit;\n  - Samsung's forecasts that HBM4 revenue would more than triple and that NAND bit growth would be high single digits.\n- **Items with later resolution dates:**\n  - the strength-engine forward checks (verdict date 2026-12-16);\n  - the S1 sample B prediction (40 trading days of data);\n  - full-year capex guidance and the year-end Fed calls.\n\n```json\n{\"resolved\": {\"stmt:sec-20261008-q3-prelim-op-107.4trn\": \"hit\", \"stmt:meta-li-20260729-q3-revenue-61-64bn\": \"miss\", \"stmt:msft-hood-20260729-fq1fy27-capex-over-50bn\": \"miss\", \"stmt:bnk-20260915-skh-q3-op-72.1trn\": \"miss\", \"stmt:dsinv-20260929-skh-q3-op-70trn\": \"miss\", \"stmt:fnguide-20261018-skh-q3-op-consensus-76.96trn\": \"miss\", \"stmt:ibk-20261007-skh-q3-op-75.1trn\": \"miss\", \"stmt:kb-kimdongwon-20260820-skh-q3-op-77trn\": \"miss\", \"stmt:meritz-kimsunwoo-20261012-skh-q3-op-80.1trn\": \"miss\", \"stmt:meritz-kimsunwoo-20261012-skh-q3-dram-shipments-13\": \"miss\", \"stmt:skse-handonghee-20261013-skh-q3-op-79trn\": \"miss\", \"stmt:skse-handonghee-20261013-skh-q3-dram-shipments-9\": \"hit\", \"stmt:skh-2026q2call-q3-dram-shipments-up-10pct\": \"hit\"}}\n```"
+  },
+  {
+   "run": 5,
+   "wall_s": 33.624616823,
+   "usage": {
+    "input_tokens": 13920,
+    "output_tokens": 3212
+   },
+   "cost_usd": 0.11992,
+   "cli_cost_usd": 0.07323260000000001,
+   "answer": {
+    "resolved": {
+     "stmt:sec-20261008-q3-prelim-op-107.4trn": "hit",
+     "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss"
+    }
+   },
+   "score": {
+    "parsed": true,
+    "correct": false,
+    "leaked": 1,
+    "leaked_ids": [
+     "stmt:sec-20261008-q3-prelim-op-107.4trn"
+    ],
+    "missed": 0,
+    "wrong_outcome": 0,
+    "unknown_ids": 0
+   },
+   "raw_tail": "relim-op-107.4trn` (hit):** This is Samsung's own preliminary Q3 filing. It was confirmed as a reported fact when it was filed on Oct 8 KST.\n- **`stmt:meta-li-20260729-q3-revenue-61-64bn` (miss):** Meta reported Q3 results on Oct 21. That date is backed by the Oct 21 capex statement in the list, so the revenue guidance was settled before the cutoff.\n\n**Excluded: most likely settled after 2026-10-27**\n- **SK hynix Q3 results** (the OP estimates from BNK, DS, FnGuide, IBK, KB, Meritz and SK증권, plus the DRAM shipment calls). These need SK hynix's actual Q3 results and conference call. Its Q2 call was July 29, so Q3 likely came around Oct 28–29. The list has no statements from that call.\n- **Samsung DS division estimates (Citi, DS, Hana), the HBM4 3x call and the NAND bit growth call.** These need Samsung's full Q3 results and call. The Oct 8 preliminary had no division breakdown, and the full release is typically late October, after SK hynix.\n- **Microsoft FQ1 capex over $50bn.** The list has Meta's Oct 21 call but no Microsoft statement from the same week. That suggests Microsoft hadn't reported by Oct 21 and likely reported around Oct 27–29. The date is uncertain, so I left it out.\n\nThe rest are unresolved: their outcome is still null today, or their verdict date is later (Dec 16 for the strength-engine checks, year-end for the Fed and capex items).\n\n```json\n{\"resolved\": {\"stmt:sec-20261008-q3-prelim-op-107.4trn\": \"hit\", \"stmt:meta-li-20260729-q3-revenue-61-64bn\": \"miss\"}}\n```"
+  }
+ ]
+}
