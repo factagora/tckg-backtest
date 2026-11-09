@@ -45,6 +45,9 @@ td.n{text-align:right;font-variant-numeric:tabular-nums}
 .row{display:flex;gap:18px;align-items:baseline;flex-wrap:wrap}
 button.act{border:0;background:var(--ink);color:#fff;border-radius:8px;padding:7px 12px;font:inherit;font-weight:600;cursor:pointer}
 .note{color:var(--mute);font-size:12px;margin:6px 0 0}
+.chart{width:100%;height:auto;display:block;margin:2px 0 6px}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--mute);margin-bottom:2px}
+.legend b{display:inline-block;width:18px;height:0;border-top:2px solid;vertical-align:middle;margin-right:4px}
 .masked{margin-top:8px;font-size:12.5px}
 .masked.hit{background:var(--warnbg);border:1px solid #fedf89;border-radius:8px;padding:8px 10px;font-size:13.5px}
 .masked.hit h3{margin:0 0 4px;font-size:14px;color:var(--warn)}
@@ -72,6 +75,8 @@ button.act{border:0;background:var(--ink);color:#fff;border-radius:8px;padding:7
     </section>
     <section class="card">
       <h2>Result: 000660 vs benchmark 069500 <span class="pill p-acc">live</span><span class="pill p-mute" id="ms"></span></h2>
+      <div class="legend"><span><b style="border-color:var(--ink)"></b>000660 close</span><span><b style="border-color:#98a2b3;border-top-style:dashed"></b>069500 close</span><span><b style="border-color:#d0d5dd;border-top-style:dotted"></b>after as_of: masked, not used</span><span style="margin-left:auto">rebased to 0% at the first bar</span></div>
+      <svg class="chart" id="chart" viewBox="0 0 640 150"></svg>
       <div id="trades"></div>
     </section>
     <section class="card">
@@ -168,6 +173,7 @@ function drawResult(out) {
   const [k, txt] = stateLine(r); $("state").className = "state " + k; $("state").textContent = txt;
   $("ms").textContent = out.server_ms.toFixed(2) + " ms on the server";
   marks(r);
+  chart(r, out.as_of);
   $("trades").innerHTML = r.trades.length ? `<table><tr><th>entry</th><th>exit</th><th>mark</th><th class="n">ret</th><th class="n">benchmark</th><th class="n">excess</th></tr>` +
     r.trades.map(t => `<tr><td>${t.entry.date} @ ${num(t.entry.price)}</td>
       <td>${t.exit.date} ${t.exit.price != null ? "@ " + num(t.exit.price) : "(planned)"}</td>
@@ -190,6 +196,48 @@ function drawResult(out) {
       ? `${m.symbol} bars ${m.from}..${m.to} (${m.count})` : `${m.input} (known ${day(m.known_at)})`).join("<br>")
       + (CASE === "05" && nBars ? `<br><span class="pos">The leak-trap bars after as_of are masked; the answer is the same as case 01 at this as_of.</span>` : "")
     : "Masked: nothing. Every input was known at as_of.";
+}
+
+function chart(r, asOf) {
+  const c = INFO.cases[CASE], fb = c.factblock, t = r.trades[0];
+  const syms = Object.keys(c.bars), main = syms[0], bench = syms[1];
+  const all = c.bars[main].map(b => b.date);
+  // x range: the bars plus the trigger, entry and exit; other events only when they fall inside it
+  const trig = t ? t.trigger_at : null;
+  const core = [all[0], all[all.length - 1], trig, t && t.entry.date, t && t.exit.date].filter(Boolean).map(sessionIdx);
+  const S = INFO.sessions, lo = Math.max(0, Math.min(...core) - 1), hi = Math.max(...core);
+  const evs = [["said", fb.said_at, "var(--mute)"], ["known", fb.known_at, "var(--acc)"]];
+  if (fb.verdict) evs.push(["verdict", fb.verdict.decided_at, "var(--bad)"]);
+  if (t) { evs.push(["entry", t.entry.date, "var(--ok)"]); evs.push([t.exit.planned ? "exit (planned)" : "exit", t.exit.date, "var(--warn)"]); }
+  const inRange = evs.filter(e => sessionIdx(e[1]) >= lo && sessionIdx(e[1]) <= hi && day(e[1]) >= S[lo]);
+  const W = 640, H = 150, L = 40, R = 8, T = 34, B = 16;
+  const X = d => L + (sessionIdx(d) - lo) / Math.max(1, hi - lo) * (W - L - R);
+  // a bar is knowable once its close (06:30Z) is at or before as_of
+  const known = d => Date.parse(d + "T06:30:00Z") <= Date.parse(asOf);
+  const series = syms.map(s => { const b0 = c.bars[s][0].close; return c.bars[s].map(b => [b.date, b.close / b0 - 1]); });
+  const ys = series.flat().map(p => p[1]), ymin = Math.min(0, ...ys), ymax = Math.max(0, ...ys);
+  const Y = v => T + (ymax - v) / ((ymax - ymin) || 1) * (H - T - B);
+  const path = (pts, dash, color, w) => pts.length > 1 ? `<polyline fill="none" stroke="${color}" stroke-width="${w}" ${dash ? `stroke-dasharray="${dash}"` : ""} points="${pts.map(([d, v]) => X(d).toFixed(1) + "," + Y(v).toFixed(1)).join(" ")}"/>` : "";
+  let svg = "";
+  [...new Set([ymin, 0, ymax])].forEach(v => { svg += `<line x1="${L}" x2="${W - R}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${L - 4}" y="${Y(v) + 4}" font-size="10" text-anchor="end" fill="var(--mute)">${(v * 100).toFixed(0)}%</text>`; });
+  const ax = Date.parse(asOf) >= Date.parse(S[hi] + "T23:59:59Z") ? W - R : Math.min(W - R, Math.max(L, X(day(asOf)) + (known(day(asOf)) ? 0 : -1)));
+  if (ax < W - R) svg += `<rect x="${ax}" y="${T}" width="${W - R - ax}" height="${H - T - B}" fill="#f2f4f7"/>`;
+  series.forEach((pts, k) => {
+    const col = k ? "#98a2b3" : "var(--ink)", dash = k ? "4 3" : "";
+    const kn = pts.filter(p => known(p[0])), ms = pts.filter(p => !known(p[0]));
+    if (kn.length && ms.length) ms.unshift(kn[kn.length - 1]);
+    svg += path(kn, dash, col, k ? 1.5 : 2) + path(ms, "2 3", "#d0d5dd", 1.5);
+  });
+  const ends = [-1e9, -1e9, -1e9];
+  inRange.map(e => [...e, X(day(e[1]))]).sort((a, b) => a[3] - b[3]).forEach(([l, d, col, x]) => {
+    const text = `${l} ${day(d).slice(5)}`, wpx = text.length * 5.6;
+    let row = ends.findIndex(e => e < x - 2); if (row < 0) row = ends.indexOf(Math.min(...ends));
+    ends[row] = x + wpx + 4;
+    const tx = Math.min(x + 2, W - R - wpx);
+    svg += `<line x1="${x}" x2="${x}" y1="${T - 26 + row * 10}" y2="${H - B}" stroke="${col}" stroke-width="1.5"/><text x="${tx}" y="${T - 20 + row * 10}" font-size="10" fill="${col}">${text}</text>`;
+  });
+  svg += `<line x1="${ax}" x2="${ax}" y1="${T - 4}" y2="${H - B + 4}" stroke="var(--ink)" stroke-width="2"/><text x="${Math.min(ax + 3, W - 62)}" y="${H - 3}" font-size="10.5" font-weight="600" fill="var(--ink)">as_of ${day(asOf).slice(5)}</text>`;
+  $("chart").innerHTML = svg;
 }
 
 let pending = 0;

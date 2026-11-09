@@ -97,5 +97,6 @@ def info() -> dict:
         req = request(case)
         cases[case] = {"label": label, "name": name, "as_of": req["as_of"], "mode": req["mode"],
                        "factblock": req["factblock"], "playbook": req["playbook"],
-                       "prices_source": req["prices"]["inline"]["source"], "ai": _ai(name)}
+                       "prices_source": req["prices"]["inline"]["source"], "bars": req["prices"]["inline"]["bars"],
+                       "ai": _ai(name)}
     return {"cases": cases, "sessions": _sessions()}

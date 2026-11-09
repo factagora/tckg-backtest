@@ -55,7 +55,7 @@ Contract: `tckg-backtest-io/v0` revision v0.3 (`contract/v0/`, byte copies of fa
 `GET /` serves a one-page console: pick a case, drag `as_of` over the XKRX sessions, and the real engine reruns
 (before `known_at` it refuses with `trigger_after_as_of`; while the trade is open it is marked at the last close
 before `as_of`; after the exit it is closed). It shows the trades, the server time, the certificate, a "Run 5 times"
-check (response hashes) and, next to it, the recorded AI-prompt runs for the same request from
+check (response hashes), a price chart where bars after `as_of` are drawn faded (masked, not used), and, next to it, the recorded AI-prompt runs for the same request from
 `bench/results/` (recorded, not live; see [bench/RESULTS.md](bench/RESULTS.md)).
 
 ![console, case 05 leak trap](docs/console.png)
