@@ -1,6 +1,56 @@
 # tckg-backtest
 
-Point-in-time backtest for one FactBlock x one Playbook rule, with a certificate.
+**Can I trust this claim?** Backtest any claim using only what was knowable at the time, and get a receipt that proves it.
+
+**Try it live:** [tckg-backtest console](https://tckg-backtest-i3fb43emgq-du.a.run.app/?case=01) (no sign-in)
+
+![console: a real claim, backtested from the moment it became knowable](docs/shots/01-default.png)
+
+## The problem
+
+Every day people hear claims that move money: "SK hynix will announce more shareholder returns with its Q3 results." The natural question is "what if I had acted on it?"
+
+The usual answer quietly cheats. A normal backtest starts from the day the claim was said, but most people only learned about it later, and the backtest also sees how the story ended. The result looks better than anything a real person could have done.
+
+Asking an AI model to run the backtest has a different problem: it is slow, and the same question gives different answers on different runs. You cannot check which answer is right.
+
+## What tckg-backtest does
+
+- **Point in time.** Pick any date ("Rewind to"). The engine trades only from the first market open after the claim became public, and sees nothing that happened after that date.
+- **The future is blocked, and the receipt lists it.** Every response carries a certificate: hashes of the claim, prices, calendar and rule it used, and every input it masked because it was not known yet.
+- **Same answer, every run, in milliseconds.** The engine is a pure function. Anyone can rerun the request and get the same response hash.
+
+## A real example
+
+SK hynix said on 2026-08-19 (KST) that it would announce additional shareholder returns with its Q3 results. The claim entered the public ledger on 2026-10-20 and came true on 2026-10-29. Rule: buy at the first open after the claim is public, hold 20 trading days, compare with the KOSPI 200 ETF.
+
+| How the backtest is run | Result vs the market |
+|---|---|
+| From the moment it was knowable (bought 2026-10-21, open trade marked at the 2026-11-06 close) | **+4.2%** |
+| The usual hindsight backtest, from the day it was said | +7.5% |
+| Gap: information nobody had at the time | 3.2 points |
+
+Rewind the console to 2026-10-15 and it refuses to trade: [nobody knew the claim yet](https://tckg-backtest-i3fb43emgq-du.a.run.app/?case=01&as_of=2026-10-15T07:00:00Z). Plant fake future prices in the input and they are [masked, with the same answer](https://tckg-backtest-i3fb43emgq-du.a.run.app/?case=05).
+
+## Measured against prompting an AI model
+
+Same request JSON, same calendar, same rules, 4 requests x 5 runs each ([bench/RESULTS.md](bench/RESULTS.md), raw results in `bench/results/`):
+
+| | Time per request | Correct | Different answers to the same request |
+|---|---|---|---|
+| tckg-backtest engine | 1.7 to 3.1 ms | 20 of 20 | 1 (identical every run) |
+| Claude Sonnet 5.5, short prompt | 11.2 to 12.6 s | 16 of 20 | 2 to 5 of 5 |
+| Claude Opus 5.5, short prompt | 16.2 to 23.6 s, about $0.04 to $0.05 | 20 of 20 | 1 to 2 of 5 |
+
+No AI run used future data (0 of 60). The difference is speed, consistency, and an answer you can verify.
+
+## Who uses it
+
+[factagora.ai](https://factagora.ai/proof/sk-hynix-announces-additional-shareholder-returns-with-its-q3-results) calls this service for each claim's track record: when it was said, when it became knowable, how it resolved, and what acting on it would have returned.
+
+Built at the hackathon on 2026-11-09: the contract tests, the engine, the Cloud Run service with bearer auth, the console and the benchmark.
+
+## What TCKG and FactBlock are
 
 TCKG (Temporal Causal Knowledge Graph) is a knowledge graph database specialized for time series and causal relationships. FactBlock is an open-source knowledge ledger format optimized for linking and proving knowledge such as predictions and claims as track-record evidence ordered by causality and time; TCKG is built on FactBlock.
 
@@ -36,7 +86,7 @@ With a key the FactBlock is read from TCKG (`TCKG_URL` defaults to `https://tckg
 `GET /v1/export` at `as_of` (nodes and verdict resolutions) and `POST /v1/memories/lookup` (backfill). Read only.
 
 ```
-export TCKG_API_KEY="$(gcloud secrets versions access latest --secret=tckg-api-key --project=tckg-trader)"
+export TCKG_API_KEY=<your TCKG API key>
 python -m tckg_backtest.sources.tckg --id stmt:skh-20260819-additional-return-at-q3 --space theme:kr-memory-semis --run
 ```
 
