@@ -77,7 +77,7 @@ def client(monkeypatch):
 def test_health_is_open(client):
     r = client.get("/v0/health")
     assert r.status_code == 200
-    assert r.json()["contract"] == "tckg-backtest-io/v0" and r.json()["contract_revision"] == "v0.2"
+    assert r.json()["contract"] == "tckg-backtest-io/v0" and r.json()["contract_revision"] == "v0.3"
     assert r.json()["engine_version"]
 
 

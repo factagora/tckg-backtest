@@ -12,7 +12,7 @@ import jsonschema
 from tckg_backtest.canonical import canonical, request_sha256
 
 CONTRACT = "tckg-backtest-io/v0"
-CONTRACT_REVISION = "v0.2"
+CONTRACT_REVISION = "v0.3"
 ENGINE_VERSION = "0.1.0"
 MOCK_VERSION = "0.0.0+mock"
 CONTRACT_DIR = Path(__file__).resolve().parent.parent / "contract" / "v0"

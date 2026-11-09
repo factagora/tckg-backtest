@@ -48,7 +48,7 @@ Checked 2026-11-09: the ledger's own block gives the same trades as goldens 01-0
 
 Benchmark (engine vs an AI prompt doing the same backtest): [bench/RESULTS.md](bench/RESULTS.md).
 
-Contract: `tckg-backtest-io/v0` revision v0.2 (`contract/v0/`, byte copies of factagora/tckg-trader `docs/tckg-backtest/v0/`).
+Contract: `tckg-backtest-io/v0` revision v0.3 (`contract/v0/`, byte copies of factagora/tckg-trader `docs/tckg-backtest/v0/`).
 
 ## API
 
