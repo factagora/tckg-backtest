@@ -1,18 +1,18 @@
 {
- "generated_at": "20261109T013339Z",
+ "generated_at": "20261109T013901Z",
  "sources": {
   "engine": {
    "kind": "engine",
    "engine": "mock (No module named 'tckg_backtest')",
-   "commit": "318ae4a",
+   "commit": "e06dea7",
    "python": "3.13.18",
-   "started_at": "2026-11-09T01:33:39+00:00",
+   "started_at": "2026-11-09T01:39:01+00:00",
    "requests": {
     "01-known-open": {
      "summary": {
       "n": 5,
-      "median_s": 9.088699994208582e-05,
-      "max_s": 0.00011388799998712784,
+      "median_s": 6.139300012364401e-05,
+      "max_s": 0.0001638560001993028,
       "cost_usd_mean": 0.0,
       "correct": 5,
       "distinct": 1,
@@ -23,7 +23,7 @@
      "runs": [
       {
        "run": 1,
-       "wall_s": 0.00011388799998712784,
+       "wall_s": 0.0001638560001993028,
        "cost_usd": 0.0,
        "answer": {
         "entry_date": "2026-10-21",
@@ -53,7 +53,7 @@
       },
       {
        "run": 2,
-       "wall_s": 0.00010498300002836913,
+       "wall_s": 6.664400007139193e-05,
        "cost_usd": 0.0,
        "answer": {
         "entry_date": "2026-10-21",
@@ -83,7 +83,7 @@
       },
       {
        "run": 3,
-       "wall_s": 9.088699994208582e-05,
+       "wall_s": 6.139300012364401e-05,
        "cost_usd": 0.0,
        "answer": {
         "entry_date": "2026-10-21",
@@ -113,7 +113,7 @@
       },
       {
        "run": 4,
-       "wall_s": 8.55369999044342e-05,
+       "wall_s": 5.8570999954099534e-05,
        "cost_usd": 0.0,
        "answer": {
         "entry_date": "2026-10-21",
@@ -143,7 +143,7 @@
       },
       {
        "run": 5,
-       "wall_s": 8.361400000467256e-05,
+       "wall_s": 5.8458999774302356e-05,
        "cost_usd": 0.0,
        "answer": {
         "entry_date": "2026-10-21",
@@ -176,8 +176,8 @@
     "02-hindsight-said": {
      "summary": {
       "n": 5,
-      "median_s": 9.933100000125705e-05,
-      "max_s": 0.00012350199995125877,
+      "median_s": 7.15760002094612e-05,
+      "max_s": 7.6002000241715e-05,
       "cost_usd_mean": 0.0,
       "correct": 5,
       "distinct": 1,
@@ -188,7 +188,7 @@
      "runs": [
       {
        "run": 1,
-       "wall_s": 0.00010742399990704143,
+       "wall_s": 7.15760002094612e-05,
        "cost_usd": 0.0,
        "answer": {
         "entry_date": "2026-08-19",
@@ -218,7 +218,7 @@
       },
       {
        "run": 2,
-       "wall_s": 9.933100000125705e-05,
+       "wall_s": 6.619100031457492e-05,
        "cost_usd": 0.0,
        "answer": {
         "entry_date": "2026-08-19",
@@ -248,7 +248,7 @@
       },
       {
        "run": 3,
-       "wall_s": 0.00012350199995125877,
+       "wall_s": 6.984800029385951e-05,
        "cost_usd": 0.0,
        "answer": {
         "entry_date": "2026-08-19",
@@ -278,7 +278,7 @@
       },
       {
        "run": 4,
-       "wall_s": 9.819399997468281e-05,
+       "wall_s": 7.6002000241715e-05,
        "cost_usd": 0.0,
        "answer": {
         "entry_date": "2026-08-19",
@@ -308,7 +308,7 @@
       },
       {
        "run": 5,
-       "wall_s": 9.784300004866964e-05,
+       "wall_s": 7.324000034714118e-05,
        "cost_usd": 0.0,
        "answer": {
         "entry_date": "2026-08-19",
@@ -341,8 +341,8 @@
     "03-candidate-playbook": {
      "summary": {
       "n": 5,
-      "median_s": 7.512899992434541e-05,
-      "max_s": 8.102700007839303e-05,
+      "median_s": 4.7310999889305094e-05,
+      "max_s": 5.357899999580695e-05,
       "cost_usd_mean": 0.0,
       "correct": 5,
       "distinct": 1,
@@ -353,7 +353,7 @@
      "runs": [
       {
        "run": 1,
-       "wall_s": 7.400300000881543e-05,
+       "wall_s": 5.357899999580695e-05,
        "cost_usd": 0.0,
        "answer": {
         "entry_date": "2026-10-30",
@@ -383,7 +383,7 @@
       },
       {
        "run": 2,
-       "wall_s": 7.512899992434541e-05,
+       "wall_s": 4.74580001537106e-05,
        "cost_usd": 0.0,
        "answer": {
         "entry_date": "2026-10-30",
@@ -413,7 +413,7 @@
       },
       {
        "run": 3,
-       "wall_s": 7.621899999321613e-05,
+       "wall_s": 4.7310999889305094e-05,
        "cost_usd": 0.0,
        "answer": {
         "entry_date": "2026-10-30",
@@ -443,7 +443,7 @@
       },
       {
        "run": 4,
-       "wall_s": 6.657300014012435e-05,
+       "wall_s": 4.395099995235796e-05,
        "cost_usd": 0.0,
        "answer": {
         "entry_date": "2026-10-30",
@@ -473,7 +473,7 @@
       },
       {
        "run": 5,
-       "wall_s": 8.102700007839303e-05,
+       "wall_s": 4.7229999836417846e-05,
        "cost_usd": 0.0,
        "answer": {
         "entry_date": "2026-10-30",
@@ -509,9 +509,9 @@
     }
    },
    "mock": true,
-   "file": "20261109T013339Z-engine.json"
+   "file": "20261109T013901Z-engine.json"
   },
-  "ai:claude-sonnet-5-5": {
+  "ai:claude-sonnet-5-5:full": {
    "kind": "ai",
    "model": "claude-sonnet-5-5",
    "via": "cli",
@@ -1335,7 +1335,834 @@
      ]
     }
    },
-   "file": "20261109T013316Z-ai-claude-sonnet-5-5.json"
+   "file": "20261109T013316Z-ai-claude-sonnet-5-5-full.json"
+  },
+  "ai:claude-sonnet-5-5:short": {
+   "kind": "ai",
+   "model": "claude-sonnet-5-5",
+   "via": "cli",
+   "prompt_kind": "short",
+   "cli": {
+    "system_prompt": "You are a careful analyst.",
+    "note": "Claude Code harness, tools off; wall time includes CLI start"
+   },
+   "max_tokens": 16000,
+   "temperature": "API default",
+   "thinking": "API default (adaptive)",
+   "effort": "API default",
+   "price_per_mtok_usd_assumed": [
+    2.0,
+    10.0
+   ],
+   "instruction": "Backtest the trading rule (playbook) in the request below for the FactBlock in it, as of the request's as_of.\nDo not use any information from after as_of.\n\nEnd your answer with exactly one JSON object in a ```json code block, with these keys:\n{\"entry_date\": \"YYYY-MM-DD\", \"entry_price\": number, \"entry_benchmark_price\": number,\n \"exit_date\": \"YYYY-MM-DD\", \"exit_price\": number or null, \"exit_benchmark_price\": number or null,\n \"open\": boolean, \"marked_at\": \"YYYY-MM-DD\" or null, \"mark_price\": number or null,\n \"mark_benchmark_price\": number or null, \"ret\": number, \"benchmark_ret\": number, \"excess\": number}\n",
+   "started_at": "2026-11-09T01:35:05+00:00",
+   "requests": {
+    "01-known-open": {
+     "prompt": "Backtest the trading rule (playbook) in the request below for the FactBlock in it, as of the request's as_of.\nDo not use any information from after as_of.\n\nEnd your answer with exactly one JSON object in a ```json code block, with these keys:\n{\"entry_date\": \"YYYY-MM-DD\", \"entry_price\": number, \"entry_benchmark_price\": number,\n \"exit_date\": \"YYYY-MM-DD\", \"exit_price\": number or null, \"exit_benchmark_price\": number or null,\n \"open\": boolean, \"marked_at\": \"YYYY-MM-DD\" or null, \"mark_price\": number or null,\n \"mark_benchmark_price\": number or null, \"ret\": number, \"benchmark_ret\": number, \"excess\": number}\n\nXKRX calendar:\n{\"id\": \"XKRX\", \"tz\": \"Asia/Seoul\", \"open\": \"09:00\", \"close\": \"15:30\", \"holidays\": [\"2024-01-01\", \"2024-02-09\", \"2024-02-12\", \"2024-03-01\", \"2024-04-10\", \"2024-05-01\", \"2024-05-06\", \"2024-05-15\", \"2024-06-06\", \"2024-08-15\", \"2024-09-16\", \"2024-09-17\", \"2024-09-18\", \"2024-10-01\", \"2024-10-03\", \"2024-10-09\", \"2024-12-25\", \"2024-12-31\", \"2025-01-01\", \"2025-01-27\", \"2025-01-28\", \"2025-01-29\", \"2025-01-30\", \"2025-03-03\", \"2025-05-01\", \"2025-05-05\", \"2025-05-06\", \"2025-06-03\", \"2025-06-06\", \"2025-08-15\", \"2025-10-03\", \"2025-10-06\", \"2025-10-07\", \"2025-10-08\", \"2025-10-09\", \"2025-12-25\", \"2025-12-31\", \"2026-01-01\", \"2026-02-16\", \"2026-02-17\", \"2026-02-18\", \"2026-03-02\", \"2026-05-01\", \"2026-05-05\", \"2026-05-25\", \"2026-06-03\", \"2026-07-17\", \"2026-08-17\", \"2026-09-24\", \"2026-09-25\", \"2026-10-05\", \"2026-10-09\", \"2026-12-25\", \"2026-12-31\", \"2027-01-01\", \"2027-02-05\", \"2027-02-08\", \"2027-03-01\", \"2027-05-05\", \"2027-05-13\", \"2027-08-16\", \"2027-09-14\", \"2027-09-15\", \"2027-09-16\", \"2027-10-04\", \"2027-10-11\", \"2027-12-27\", \"2027-12-31\"]}\n\nRequest:\n{\n  \"contract\": \"tckg-backtest-io/v0\",\n  \"mode\": \"as_known\",\n  \"as_of\": \"2026-11-08T00:00:00Z\",\n  \"factblock\": {\n    \"id\": \"6535ff93-703b-4692-b995-1e1dd79a976d\",\n    \"kind\": \"prediction\",\n    \"statement\": \"SK hynix announces additional shareholder returns with its Q3 results\",\n    \"speaker\": {\n      \"id\": \"org:skhynix\",\n      \"name\": \"SK hynix (fair disclosure, IR)\"\n    },\n    \"said_at\": \"2026-08-18T15:00:00Z\",\n    \"said_at_precision\": \"day\",\n    \"known_at\": \"2026-10-20T13:04:41Z\",\n    \"backfilled\": false,\n    \"verdict\": {\n      \"value\": \"hit\",\n      \"decided_at\": \"2026-10-29T00:45:00Z\"\n    },\n    \"assets\": [\n      {\n        \"symbol\": \"000660\",\n        \"market\": \"XKRX\"\n      }\n    ]\n  },\n  \"playbook\": {\n    \"id\": \"claim-follow-20\",\n    \"version\": 1,\n    \"name\": \"Follow the claim from when it is known, hold 20 sessions\",\n    \"trigger\": {\n      \"event\": \"known_at\"\n    },\n    \"entry\": {\n      \"at\": \"first_open_after\"\n    },\n    \"hold\": {\n      \"sessions\": 20\n    },\n    \"exit\": {\n      \"at\": \"open\"\n    },\n    \"direction\": \"long\",\n    \"benchmark\": {\n      \"symbol\": \"069500\",\n      \"market\": \"XKRX\"\n    }\n  },\n  \"prices\": {\n    \"inline\": {\n      \"currency\": \"KRW\",\n      \"source\": \"gs://tckg-trader-data/daily/prices.csv (KIS daily bars, unadjusted)\",\n      \"bars\": {\n        \"000660\": [\n          {\n            \"date\": \"2026-10-21\",\n            \"open\": 1260000,\n            \"close\": 1294000\n          },\n          {\n            \"date\": \"2026-10-22\",\n            \"open\": 1273000,\n            \"close\": 1223000\n          },\n          {\n            \"date\": \"2026-10-23\",\n            \"open\": 1200000,\n            \"close\": 1263000\n          },\n          {\n            \"date\": \"2026-10-26\",\n            \"open\": 1279000,\n            \"close\": 1275000\n          },\n          {\n            \"date\": \"2026-10-27\",\n            \"open\": 1346000,\n            \"close\": 1341000\n          },\n          {\n            \"date\": \"2026-10-28\",\n            \"open\": 1390000,\n            \"close\": 1487000\n          },\n          {\n            \"date\": \"2026-10-29\",\n            \"open\": 1511000,\n            \"close\": 1526000\n          },\n          {\n            \"date\": \"2026-10-30\",\n            \"open\": 1444000,\n            \"close\": 1391000\n          },\n          {\n            \"date\": \"2026-11-02\",\n            \"open\": 1402000,\n            \"close\": 1472000\n          },\n          {\n            \"date\": \"2026-11-03\",\n            \"open\": 1410000,\n            \"close\": 1398000\n          },\n          {\n            \"date\": \"2026-11-04\",\n            \"open\": 1458000,\n            \"close\": 1396000\n          },\n          {\n            \"date\": \"2026-11-05\",\n            \"open\": 1320000,\n            \"close\": 1264000\n          },\n          {\n            \"date\": \"2026-11-06\",\n            \"open\": 1089000,\n            \"close\": 1176000\n          }\n        ],\n        \"069500\": [\n          {\n            \"date\": \"2026-10-21\",\n            \"open\": 88665,\n            \"close\": 89725\n          },\n          {\n            \"date\": \"2026-10-22\",\n            \"open\": 88805,\n            \"close\": 86525\n          },\n          {\n            \"date\": \"2026-10-23\",\n            \"open\": 84470,\n            \"close\": 87075\n          },\n          {\n            \"date\": \"2026-10-26\",\n            \"open\": 86265,\n            \"close\": 85995\n          },\n          {\n            \"date\": \"2026-10-27\",\n            \"open\": 88920,\n            \"close\": 88905\n          },\n          {\n            \"date\": \"2026-10-28\",\n            \"open\": 91186,\n            \"close\": 95515\n          },\n          {\n            \"date\": \"2026-10-29\",\n            \"open\": 95610,\n            \"close\": 94465\n          },\n          {\n            \"date\": \"2026-10-30\",\n            \"open\": 91495,\n            \"close\": 90800\n          },\n          {\n            \"date\": \"2026-11-02\",\n            \"open\": 89280,\n            \"close\": 92945\n          },\n          {\n            \"date\": \"2026-11-03\",\n            \"open\": 90320,\n            \"close\": 89325\n          },\n          {\n            \"date\": \"2026-11-04\",\n            \"open\": 91660,\n            \"close\": 89715\n          },\n          {\n            \"date\": \"2026-11-05\",\n            \"open\": 87890,\n            \"close\": 84610\n          },\n          {\n            \"date\": \"2026-11-06\",\n            \"open\": 77065,\n            \"close\": 79005\n          }\n        ]\n      }\n    }\n  },\n  \"calendar\": {\n    \"id\": \"XKRX\"\n  }\n}\n",
+     "summary": {
+      "n": 5,
+      "median_s": 11.184546360000013,
+      "max_s": 12.218937875999927,
+      "cost_usd_mean": 0.018614000000000002,
+      "correct": 5,
+      "distinct": 2,
+      "distinct_material": 1,
+      "future": 0,
+      "parse_fail": 0
+     },
+     "runs": [
+      {
+       "run": 1,
+       "wall_s": 11.184546360000013,
+       "model_returned": "claude-sonnet-5-5",
+       "usage": {
+        "input_tokens": 3808,
+        "output_tokens": 1179
+       },
+       "stop_reason": "end_turn",
+       "cost_usd": 0.019406,
+       "cli_cost_usd": 0.027018,
+       "duration_api_ms": 8505,
+       "answer": {
+        "entry_date": "2026-10-21",
+        "entry_price": 1260000,
+        "entry_benchmark_price": 88665,
+        "exit_date": "2026-11-18",
+        "exit_price": null,
+        "exit_benchmark_price": null,
+        "open": true,
+        "marked_at": "2026-11-06",
+        "mark_price": 1176000,
+        "mark_benchmark_price": 79005,
+        "ret": -0.066667,
+        "benchmark_ret": -0.108949,
+        "excess": 0.042282
+       },
+       "answer_key": "772cc8193af58765b58a18c847e1101745d8fab02e8bbd176be710c53c5eeac0",
+       "score": {
+        "parsed": true,
+        "dates_ok": true,
+        "excess_ok": true,
+        "correct": true,
+        "future": []
+       },
+       "raw_text": "**Backtest result: the position is still open at as_of, marked at the 2026-11-06 close.**\n\n- **Entry:** `known_at` is 2026-10-20 13:04Z, which is 22:04 KST, after the XKRX close. The first open after that is 2026-10-21. SK hynix (000660) opens at 1,260,000 and the benchmark 069500 at 88,665.\n- **Planned exit:** 20 sessions after the entry session is 2026-11-18, at the open. No XKRX holidays fall in that window. That date is after as_of, so there is no exit price.\n- **Mark:** The last bar available as of 2026-11-08 (a Sunday) is 2026-11-06. I marked at that close: 000660 at 1,176,000 and 069500 at 79,005.\n- **Return:** Long 000660 returned 1,176,000 / 1,260,000 \u2212 1 = \u22126.67%.\n- **Benchmark return:** 069500 returned 79,005 / 88,665 \u2212 1 = \u221210.89%.\n- **Excess:** \u22126.67% \u2212 (\u221210.89%) = +4.23%.\n\n```json\n{\"entry_date\": \"2026-10-21\", \"entry_price\": 1260000, \"entry_benchmark_price\": 88665,\n \"exit_date\": \"2026-11-18\", \"exit_price\": null, \"exit_benchmark_price\": null,\n \"open\": true, \"marked_at\": \"2026-11-06\", \"mark_price\": 1176000,\n \"mark_benchmark_price\": 79005, \"ret\": -0.066667, \"benchmark_ret\": -0.108949, \"excess\": 0.042282}\n```"
+      },
+      {
+       "run": 2,
+       "wall_s": 9.693527739000046,
+       "model_returned": "claude-sonnet-5-5",
+       "usage": {
+        "input_tokens": 3811,
+        "output_tokens": 1053
+       },
+       "stop_reason": "end_turn",
+       "cost_usd": 0.018152,
+       "cli_cost_usd": 0.014031000000000002,
+       "duration_api_ms": 7170,
+       "answer": {
+        "entry_date": "2026-10-21",
+        "entry_price": 1260000,
+        "entry_benchmark_price": 88665,
+        "exit_date": "2026-11-18",
+        "exit_price": null,
+        "exit_benchmark_price": null,
+        "open": true,
+        "marked_at": "2026-11-06",
+        "mark_price": 1176000,
+        "mark_benchmark_price": 79005,
+        "ret": -0.0667,
+        "benchmark_ret": -0.1089,
+        "excess": 0.0423
+       },
+       "answer_key": "b11f842ace808eeefbce0adb50b2737928c95cdccfa0dc93949cc5a0be6fe958",
+       "score": {
+        "parsed": true,
+        "dates_ok": true,
+        "excess_ok": true,
+        "correct": true,
+        "future": []
+       },
+       "raw_text": "**Backtest result: the position is still open at as_of, marked at the 2026-11-06 close.**\n\n- **Entry:** `known_at` is 2026-10-20 13:04Z, which is 22:04 KST, after the XKRX close. The first open after that is 2026-10-21, so entry is at that open: 000660 at 1,260,000 and benchmark 069500 at 88,665.\n- **Exit:** 20 sessions after the entry session lands on 2026-11-18, taking the entry session as session 0 and counting forward with no holidays in between. That date is after `as_of` (2026-11-08), so no exit price is available.\n- **Mark:** The last available bar is 2026-11-06. At its close, 000660 is 1,176,000 and 069500 is 79,005.\n- **Returns (long):**\n  - Stock: 1,176,000 / 1,260,000 \u2212 1 = \u22126.67%.\n  - Benchmark: 79,005 / 88,665 \u2212 1 = \u221210.89%.\n  - Excess: +4.23%.\n\n```json\n{\"entry_date\": \"2026-10-21\", \"entry_price\": 1260000, \"entry_benchmark_price\": 88665,\n \"exit_date\": \"2026-11-18\", \"exit_price\": null, \"exit_benchmark_price\": null,\n \"open\": true, \"marked_at\": \"2026-11-06\", \"mark_price\": 1176000,\n \"mark_benchmark_price\": 79005, \"ret\": -0.0667, \"benchmark_ret\": -0.1089, \"excess\": 0.0423}\n```"
+      },
+      {
+       "run": 3,
+       "wall_s": 12.218937875999927,
+       "model_returned": "claude-sonnet-5-5",
+       "usage": {
+        "input_tokens": 3808,
+        "output_tokens": 1185
+       },
+       "stop_reason": "end_turn",
+       "cost_usd": 0.019466,
+       "cli_cost_usd": 0.015339000000000002,
+       "duration_api_ms": 8061,
+       "answer": {
+        "entry_date": "2026-10-21",
+        "entry_price": 1260000,
+        "entry_benchmark_price": 88665,
+        "exit_date": "2026-11-18",
+        "exit_price": null,
+        "exit_benchmark_price": null,
+        "open": true,
+        "marked_at": "2026-11-06",
+        "mark_price": 1176000,
+        "mark_benchmark_price": 79005,
+        "ret": -0.066667,
+        "benchmark_ret": -0.108949,
+        "excess": 0.042282
+       },
+       "answer_key": "772cc8193af58765b58a18c847e1101745d8fab02e8bbd176be710c53c5eeac0",
+       "score": {
+        "parsed": true,
+        "dates_ok": true,
+        "excess_ok": true,
+        "correct": true,
+        "future": []
+       },
+       "raw_text": "**Entry.** `known_at` is 2026-10-20T13:04:41Z, which is 22:04 KST on 2026-10-20, after the XKRX close. The first open after that is 2026-10-21, so entry is at that open: 000660 at 1,260,000 and benchmark 069500 at 88,665.\n\n**Exit.** Counting 2026-10-21 as session 0, the 20th session after it falls on 2026-11-18, with no XKRX holidays in between. The exit is at that day's open. The price data ends on 2026-11-06 and `as_of` is 2026-11-08, so the exit price is not known and the trade is still open.\n\n**Mark.** I marked at the last available bar, the 2026-11-06 close.\n\n| | Entry | Mark (2026-11-06 close) | Return |\n|---|---|---|---|\n| 000660 | 1,260,000 | 1,176,000 | -6.67% |\n| 069500 (benchmark) | 88,665 | 79,005 | -10.89% |\n\nThe excess return is about +4.23 percentage points. All figures are unrealized.\n\n```json\n{\"entry_date\": \"2026-10-21\", \"entry_price\": 1260000, \"entry_benchmark_price\": 88665,\n \"exit_date\": \"2026-11-18\", \"exit_price\": null, \"exit_benchmark_price\": null,\n \"open\": true, \"marked_at\": \"2026-11-06\", \"mark_price\": 1176000,\n \"mark_benchmark_price\": 79005, \"ret\": -0.066667, \"benchmark_ret\": -0.108949, \"excess\": 0.042282}\n```"
+      },
+      {
+       "run": 4,
+       "wall_s": 10.236326034000058,
+       "model_returned": "claude-sonnet-5-5",
+       "usage": {
+        "input_tokens": 3808,
+        "output_tokens": 1004
+       },
+       "stop_reason": "end_turn",
+       "cost_usd": 0.017656,
+       "cli_cost_usd": 0.013529,
+       "duration_api_ms": 6759,
+       "answer": {
+        "entry_date": "2026-10-21",
+        "entry_price": 1260000,
+        "entry_benchmark_price": 88665,
+        "exit_date": "2026-11-18",
+        "exit_price": null,
+        "exit_benchmark_price": null,
+        "open": true,
+        "marked_at": "2026-11-06",
+        "mark_price": 1176000,
+        "mark_benchmark_price": 79005,
+        "ret": -0.066667,
+        "benchmark_ret": -0.108949,
+        "excess": 0.042282
+       },
+       "answer_key": "772cc8193af58765b58a18c847e1101745d8fab02e8bbd176be710c53c5eeac0",
+       "score": {
+        "parsed": true,
+        "dates_ok": true,
+        "excess_ok": true,
+        "correct": true,
+        "future": []
+       },
+       "raw_text": "**Entry.** `known_at` is 2026-10-20 13:04:41Z, which is 22:04 KST on Oct 20, after the close. The first open after that is the Oct 21 session.\n- 000660 open: 1,260,000\n- 069500 open: 88,665\n\n**Exit.** Counting 20 sessions from the Oct 21 entry, with Oct 21 as session 0, gives Nov 18. There are no XKRX holidays in November 2026. The Nov 18 open is after `as_of` (Nov 8), so the position is still open and there is no exit price. I marked it at the last close before `as_of`, on Nov 6.\n- 000660 close: 1,176,000\n- 069500 close: 79,005\n\n**Returns at the mark.**\n- Stock: 1,176,000 / 1,260,000 \u2212 1 = \u22126.667%\n- Benchmark: 79,005 / 88,665 \u2212 1 = \u221210.895%\n- Excess: +4.228%\n\n```json\n{\"entry_date\": \"2026-10-21\", \"entry_price\": 1260000, \"entry_benchmark_price\": 88665,\n \"exit_date\": \"2026-11-18\", \"exit_price\": null, \"exit_benchmark_price\": null,\n \"open\": true, \"marked_at\": \"2026-11-06\", \"mark_price\": 1176000,\n \"mark_benchmark_price\": 79005, \"ret\": -0.066667, \"benchmark_ret\": -0.108949, \"excess\": 0.042282}\n```"
+      },
+      {
+       "run": 5,
+       "wall_s": 11.811140126000055,
+       "model_returned": "claude-sonnet-5-5",
+       "usage": {
+        "input_tokens": 3810,
+        "output_tokens": 1077
+       },
+       "stop_reason": "end_turn",
+       "cost_usd": 0.01839,
+       "cli_cost_usd": 0.014267000000000002,
+       "duration_api_ms": 7783,
+       "answer": {
+        "entry_date": "2026-10-21",
+        "entry_price": 1260000,
+        "entry_benchmark_price": 88665,
+        "exit_date": "2026-11-18",
+        "exit_price": null,
+        "exit_benchmark_price": null,
+        "open": true,
+        "marked_at": "2026-11-06",
+        "mark_price": 1176000,
+        "mark_benchmark_price": 79005,
+        "ret": -0.066667,
+        "benchmark_ret": -0.108949,
+        "excess": 0.042282
+       },
+       "answer_key": "772cc8193af58765b58a18c847e1101745d8fab02e8bbd176be710c53c5eeac0",
+       "score": {
+        "parsed": true,
+        "dates_ok": true,
+        "excess_ok": true,
+        "correct": true,
+        "future": []
+       },
+       "raw_text": "**Entry:** The claim became known at 2026-10-20 13:04 UTC, which is 22:04 KST, after the close. The first open after that is 2026-10-21, so entry is at 1,260,000 for 000660 and 88,665 for the benchmark 069500.\n\n**Exit:** The exit is the open of the 20th session after entry. Counting the entry session 10-21 as session 0, session 12 is 11-06, and session 20 falls on 2026-11-18. No XKRX holidays fall in that window. That date is after as_of, and the price data ends at 11-06, so the trade is still open and has no exit price.\n\n**Mark:** The latest available bar is 2026-11-06, since as_of falls on a Sunday. I marked at that day's close: 1,176,000 for 000660 and 79,005 for the benchmark.\n\n**Returns:**\n- Stock: 1,176,000 / 1,260,000 \u2212 1 = \u22126.67%\n- Benchmark: 79,005 / 88,665 \u2212 1 = \u221210.89%\n- Excess: about +4.23 percentage points\n\n```json\n{\"entry_date\": \"2026-10-21\", \"entry_price\": 1260000, \"entry_benchmark_price\": 88665,\n \"exit_date\": \"2026-11-18\", \"exit_price\": null, \"exit_benchmark_price\": null,\n \"open\": true, \"marked_at\": \"2026-11-06\", \"mark_price\": 1176000,\n \"mark_benchmark_price\": 79005, \"ret\": -0.066667, \"benchmark_ret\": -0.108949, \"excess\": 0.042282}\n```"
+      }
+     ]
+    },
+    "02-hindsight-said": {
+     "prompt": "Backtest the trading rule (playbook) in the request below for the FactBlock in it, as of the request's as_of.\nDo not use any information from after as_of.\n\nEnd your answer with exactly one JSON object in a ```json code block, with these keys:\n{\"entry_date\": \"YYYY-MM-DD\", \"entry_price\": number, \"entry_benchmark_price\": number,\n \"exit_date\": \"YYYY-MM-DD\", \"exit_price\": number or null, \"exit_benchmark_price\": number or null,\n \"open\": boolean, \"marked_at\": \"YYYY-MM-DD\" or null, \"mark_price\": number or null,\n \"mark_benchmark_price\": number or null, \"ret\": number, \"benchmark_ret\": number, \"excess\": number}\n\nXKRX calendar:\n{\"id\": \"XKRX\", \"tz\": \"Asia/Seoul\", \"open\": \"09:00\", \"close\": \"15:30\", \"holidays\": [\"2024-01-01\", \"2024-02-09\", \"2024-02-12\", \"2024-03-01\", \"2024-04-10\", \"2024-05-01\", \"2024-05-06\", \"2024-05-15\", \"2024-06-06\", \"2024-08-15\", \"2024-09-16\", \"2024-09-17\", \"2024-09-18\", \"2024-10-01\", \"2024-10-03\", \"2024-10-09\", \"2024-12-25\", \"2024-12-31\", \"2025-01-01\", \"2025-01-27\", \"2025-01-28\", \"2025-01-29\", \"2025-01-30\", \"2025-03-03\", \"2025-05-01\", \"2025-05-05\", \"2025-05-06\", \"2025-06-03\", \"2025-06-06\", \"2025-08-15\", \"2025-10-03\", \"2025-10-06\", \"2025-10-07\", \"2025-10-08\", \"2025-10-09\", \"2025-12-25\", \"2025-12-31\", \"2026-01-01\", \"2026-02-16\", \"2026-02-17\", \"2026-02-18\", \"2026-03-02\", \"2026-05-01\", \"2026-05-05\", \"2026-05-25\", \"2026-06-03\", \"2026-07-17\", \"2026-08-17\", \"2026-09-24\", \"2026-09-25\", \"2026-10-05\", \"2026-10-09\", \"2026-12-25\", \"2026-12-31\", \"2027-01-01\", \"2027-02-05\", \"2027-02-08\", \"2027-03-01\", \"2027-05-05\", \"2027-05-13\", \"2027-08-16\", \"2027-09-14\", \"2027-09-15\", \"2027-09-16\", \"2027-10-04\", \"2027-10-11\", \"2027-12-27\", \"2027-12-31\"]}\n\nRequest:\n{\n  \"contract\": \"tckg-backtest-io/v0\",\n  \"mode\": \"hindsight_said_at\",\n  \"as_of\": \"2026-11-08T00:00:00Z\",\n  \"factblock\": {\n    \"id\": \"6535ff93-703b-4692-b995-1e1dd79a976d\",\n    \"kind\": \"prediction\",\n    \"statement\": \"SK hynix announces additional shareholder returns with its Q3 results\",\n    \"speaker\": {\n      \"id\": \"org:skhynix\",\n      \"name\": \"SK hynix (fair disclosure, IR)\"\n    },\n    \"said_at\": \"2026-08-18T15:00:00Z\",\n    \"said_at_precision\": \"day\",\n    \"known_at\": \"2026-10-20T13:04:41Z\",\n    \"backfilled\": false,\n    \"verdict\": {\n      \"value\": \"hit\",\n      \"decided_at\": \"2026-10-29T00:45:00Z\"\n    },\n    \"assets\": [\n      {\n        \"symbol\": \"000660\",\n        \"market\": \"XKRX\"\n      }\n    ]\n  },\n  \"playbook\": {\n    \"id\": \"claim-follow-20\",\n    \"version\": 1,\n    \"name\": \"Follow the claim from when it is known, hold 20 sessions\",\n    \"trigger\": {\n      \"event\": \"known_at\"\n    },\n    \"entry\": {\n      \"at\": \"first_open_after\"\n    },\n    \"hold\": {\n      \"sessions\": 20\n    },\n    \"exit\": {\n      \"at\": \"open\"\n    },\n    \"direction\": \"long\",\n    \"benchmark\": {\n      \"symbol\": \"069500\",\n      \"market\": \"XKRX\"\n    }\n  },\n  \"prices\": {\n    \"inline\": {\n      \"currency\": \"KRW\",\n      \"source\": \"gs://tckg-trader-data/daily/prices.csv (KIS daily bars, unadjusted)\",\n      \"bars\": {\n        \"000660\": [\n          {\n            \"date\": \"2026-08-19\",\n            \"open\": 1545000,\n            \"close\": 1500000\n          },\n          {\n            \"date\": \"2026-08-20\",\n            \"open\": 1613000,\n            \"close\": 1691000\n          },\n          {\n            \"date\": \"2026-08-21\",\n            \"open\": 1675000,\n            \"close\": 1730000\n          },\n          {\n            \"date\": \"2026-08-24\",\n            \"open\": 1775000,\n            \"close\": 1671000\n          },\n          {\n            \"date\": \"2026-08-25\",\n            \"open\": 1598000,\n            \"close\": 1678000\n          },\n          {\n            \"date\": \"2026-08-26\",\n            \"open\": 1668000,\n            \"close\": 1688000\n          },\n          {\n            \"date\": \"2026-08-27\",\n            \"open\": 1776000,\n            \"close\": 1730000\n          },\n          {\n            \"date\": \"2026-08-28\",\n            \"open\": 1704000,\n            \"close\": 1653000\n          },\n          {\n            \"date\": \"2026-08-31\",\n            \"open\": 1596000,\n            \"close\": 1674000\n          },\n          {\n            \"date\": \"2026-09-01\",\n            \"open\": 1666000,\n            \"close\": 1693000\n          },\n          {\n            \"date\": \"2026-09-02\",\n            \"open\": 1630000,\n            \"close\": 1613000\n          },\n          {\n            \"date\": \"2026-09-03\",\n            \"open\": 1643000,\n            \"close\": 1596000\n          },\n          {\n            \"date\": \"2026-09-04\",\n            \"open\": 1620000,\n            \"close\": 1647000\n          },\n          {\n            \"date\": \"2026-09-07\",\n            \"open\": 1737000,\n            \"close\": 1783000\n          },\n          {\n            \"date\": \"2026-09-08\",\n            \"open\": 1799000,\n            \"close\": 1793000\n          },\n          {\n            \"date\": \"2026-09-09\",\n            \"open\": 1795000,\n            \"close\": 1856000\n          },\n          {\n            \"date\": \"2026-09-10\",\n            \"open\": 1879000,\n            \"close\": 1853000\n          },\n          {\n            \"date\": \"2026-09-11\",\n            \"open\": 1773000,\n            \"close\": 1812000\n          },\n          {\n            \"date\": \"2026-09-14\",\n            \"open\": 1707000,\n            \"close\": 1697000\n          },\n          {\n            \"date\": \"2026-09-15\",\n            \"open\": 1690000,\n            \"close\": 1690000\n          },\n          {\n            \"date\": \"2026-09-16\",\n            \"open\": 1686000,\n            \"close\": 1759000\n          }\n        ],\n        \"069500\": [\n          {\n            \"date\": \"2026-08-19\",\n            \"open\": 102635,\n            \"close\": 101760\n          },\n          {\n            \"date\": \"2026-08-20\",\n            \"open\": 104975,\n            \"close\": 108190\n          },\n          {\n            \"date\": \"2026-08-21\",\n            \"open\": 106835,\n            \"close\": 109980\n          },\n          {\n            \"date\": \"2026-08-24\",\n            \"open\": 109495,\n            \"close\": 105995\n          },\n          {\n            \"date\": \"2026-08-25\",\n            \"open\": 103035,\n            \"close\": 106795\n          },\n          {\n            \"date\": \"2026-08-26\",\n            \"open\": 106350,\n            \"close\": 107710\n          },\n          {\n            \"date\": \"2026-08-27\",\n            \"open\": 110900,\n            \"close\": 109135\n          },\n          {\n            \"date\": \"2026-08-28\",\n            \"open\": 108045,\n            \"close\": 107180\n          },\n          {\n            \"date\": \"2026-08-31\",\n            \"open\": 104455,\n            \"close\": 107615\n          },\n          {\n            \"date\": \"2026-09-01\",\n            \"open\": 106630,\n            \"close\": 107885\n          },\n          {\n            \"date\": \"2026-09-02\",\n            \"open\": 104525,\n            \"close\": 103500\n          },\n          {\n            \"date\": \"2026-09-03\",\n            \"open\": 104920,\n            \"close\": 103610\n          },\n          {\n            \"date\": \"2026-09-04\",\n            \"open\": 105005,\n            \"close\": 105720\n          },\n          {\n            \"date\": \"2026-09-07\",\n            \"open\": 109500,\n            \"close\": 110820\n          },\n          {\n            \"date\": \"2026-09-08\",\n            \"open\": 111860,\n            \"close\": 110335\n          },\n          {\n            \"date\": \"2026-09-09\",\n            \"open\": 110640,\n            \"close\": 112100\n          },\n          {\n            \"date\": \"2026-09-10\",\n            \"open\": 111815,\n            \"close\": 111865\n          },\n          {\n            \"date\": \"2026-09-11\",\n            \"open\": 107720,\n            \"close\": 109500\n          },\n          {\n            \"date\": \"2026-09-14\",\n            \"open\": 105745,\n            \"close\": 105410\n          },\n          {\n            \"date\": \"2026-09-15\",\n            \"open\": 104770,\n            \"close\": 104275\n          },\n          {\n            \"date\": \"2026-09-16\",\n            \"open\": 104345,\n            \"close\": 106365\n          }\n        ]\n      }\n    }\n  },\n  \"calendar\": {\n    \"id\": \"XKRX\"\n  }\n}\n",
+     "summary": {
+      "n": 5,
+      "median_s": 12.624344204000181,
+      "max_s": 13.613546508999889,
+      "cost_usd_mean": 0.0203148,
+      "correct": 1,
+      "distinct": 5,
+      "distinct_material": 3,
+      "future": 0,
+      "parse_fail": 0
+     },
+     "runs": [
+      {
+       "run": 1,
+       "wall_s": 12.743811933000188,
+       "model_returned": "claude-sonnet-5-5",
+       "usage": {
+        "input_tokens": 4406,
+        "output_tokens": 1117
+       },
+       "stop_reason": "end_turn",
+       "cost_usd": 0.019982,
+       "cli_cost_usd": 0.02879,
+       "duration_api_ms": 8423,
+       "answer": {
+        "entry_date": "2026-10-21",
+        "entry_price": null,
+        "entry_benchmark_price": null,
+        "exit_date": "2026-11-18",
+        "exit_price": null,
+        "exit_benchmark_price": null,
+        "open": true,
+        "marked_at": "2026-11-06",
+        "mark_price": null,
+        "mark_benchmark_price": null,
+        "ret": null,
+        "benchmark_ret": null,
+        "excess": null
+       },
+       "answer_key": "d297d267c626b555438407e2769b8df9cb9c8319c5722530917a245429c998f3",
+       "score": {
+        "parsed": true,
+        "dates_ok": false,
+        "excess_ok": false,
+        "correct": false,
+        "future": []
+       },
+       "raw_text": "**The backtest can't be priced from the supplied data.**\n\n- **Trigger:** `known_at` is 2026-10-20T13:04:41Z, which is 22:04 KST on 2026-10-20. That is after the 15:30 close.\n- **Entry:** the first open after the trigger is the next XKRX session, 2026-10-21 at the open.\n- **Exit:** 20 sessions later is 2026-11-18 at the open. There are no holidays in that span. That date is after `as_of` (2026-11-08), so the trade is still open as of `as_of`.\n- **Mark date:** the last session on or before `as_of` is Friday 2026-11-06.\n- **Price data:** the inline bars for 000660 and 069500 run only from 2026-08-19 to 2026-09-16. That is before `known_at`, so there are no bars for the entry date, the mark date, or anything in between.\n\nUsing the September bars as stand-ins would be fabricating data, so I haven't. The price fields and returns are null. Once bars for 2026-10-21 and 2026-11-06 are supplied, the calculation is:\n\n- ret = mark / entry \u2212 1 for 000660\n- benchmark_ret = mark / entry \u2212 1 for 069500\n- excess = ret \u2212 benchmark_ret\n\n```json\n{\"entry_date\": \"2026-10-21\", \"entry_price\": null, \"entry_benchmark_price\": null,\n \"exit_date\": \"2026-11-18\", \"exit_price\": null, \"exit_benchmark_price\": null,\n \"open\": true, \"marked_at\": \"2026-11-06\", \"mark_price\": null,\n \"mark_benchmark_price\": null, \"ret\": null, \"benchmark_ret\": null, \"excess\": null}\n```"
+      },
+      {
+       "run": 2,
+       "wall_s": 12.624344204000181,
+       "model_returned": "claude-sonnet-5-5",
+       "usage": {
+        "input_tokens": 4408,
+        "output_tokens": 1097
+       },
+       "stop_reason": "end_turn",
+       "cost_usd": 0.019786,
+       "cli_cost_usd": 0.0145307,
+       "duration_api_ms": 9179,
+       "answer": {
+        "entry_date": "2026-10-21",
+        "entry_price": null,
+        "entry_benchmark_price": null,
+        "exit_date": "2026-11-18",
+        "exit_price": null,
+        "exit_benchmark_price": null,
+        "open": true,
+        "marked_at": null,
+        "mark_price": null,
+        "mark_benchmark_price": null,
+        "ret": null,
+        "benchmark_ret": null,
+        "excess": null
+       },
+       "answer_key": "811b49c23c5b37cdb05a3bdc76334f4b238cbf0d036620aeb53eeb0e406033ff",
+       "score": {
+        "parsed": true,
+        "dates_ok": false,
+        "excess_ok": false,
+        "correct": false,
+        "future": []
+       },
+       "raw_text": "I can't compute this backtest because the supplied price bars don't reach the entry date.\n\n**Timeline**\n- `known_at` is 2026-10-20T13:04:41Z, which is 2026-10-20 22:04 KST, after the XKRX close. The first open after it is **2026-10-21**, which is not a holiday.\n- The 20-session hold gives an exit at the open of **2026-11-18**, counting 2026-10-21 as session 0. No XKRX holidays fall in that window.\n- The as_of is 2026-11-08, so the exit has not happened yet and the trade is **open** as of as_of.\n\n**Data gap**\n- The inline bars for 000660 and 069500 stop at 2026-09-16.\n- There is no bar for the 2026-10-21 entry, and none for any later mark date up to 2026-11-06, the last session before as_of. The prices that matter fall in the roughly five-week gap after the last bar.\n- I won't use the September bars as a substitute or estimate prices. Doing so would mean inventing numbers, and anything after as_of is off limits. The entry, mark, return and excess fields are therefore null.\n- To finish the backtest, I need bars for 000660 and 069500 from 2026-10-21 through the last session on or before 2026-11-06.\n\n```json\n{\"entry_date\": \"2026-10-21\", \"entry_price\": null, \"entry_benchmark_price\": null,\n \"exit_date\": \"2026-11-18\", \"exit_price\": null, \"exit_benchmark_price\": null,\n \"open\": true, \"marked_at\": null, \"mark_price\": null,\n \"mark_benchmark_price\": null, \"ret\": null, \"benchmark_ret\": null, \"excess\": null}\n```"
+      },
+      {
+       "run": 3,
+       "wall_s": 11.44309166500011,
+       "model_returned": "claude-sonnet-5-5",
+       "usage": {
+        "input_tokens": 4406,
+        "output_tokens": 1125
+       },
+       "stop_reason": "end_turn",
+       "cost_usd": 0.020062,
+       "cli_cost_usd": 0.0148027,
+       "duration_api_ms": 8901,
+       "answer": {
+        "entry_date": "2026-10-21",
+        "entry_price": null,
+        "entry_benchmark_price": null,
+        "exit_date": "2026-11-18",
+        "exit_price": null,
+        "exit_benchmark_price": null,
+        "open": true,
+        "marked_at": null,
+        "mark_price": null,
+        "mark_benchmark_price": null,
+        "ret": 0,
+        "benchmark_ret": 0,
+        "excess": 0
+       },
+       "answer_key": "958ec121423ee22b41627190293b79acfc7566417034db67011c21746dcc8f0b",
+       "score": {
+        "parsed": true,
+        "dates_ok": false,
+        "excess_ok": false,
+        "correct": false,
+        "future": []
+       },
+       "raw_text": "I can't compute this backtest because the supplied price data stops before the entry date, and I won't invent prices.\n\n**Timeline**\n- `known_at` is 2026-10-20T13:04:41Z, which is 22:04 KST on 2026-10-20. That is after the 15:30 close.\n- The first open after that is the XKRX session on **2026-10-21**, which is not a holiday. This is the entry date.\n- Holding 20 sessions and exiting at the open gives **2026-11-18**. That counts 10-22 as session 1 and runs through 11-18 as session 20, skipping weekends. The XKRX holiday list has no holidays in that window.\n- This exit date is after `as_of` (2026-11-08), so the trade is still **open** at `as_of`. Under the no-lookahead rule, no exit price can be used.\n\n**Data problem**\n- The inline bars for 000660 and 069500 cover only 2026-08-19 to 2026-09-16.\n- There is no bar for 2026-10-21, so the entry price and entry benchmark price are missing.\n- There are no bars between 2026-09-16 and `as_of` either, so I can't mark the position to market.\n- The earlier bars would be lookahead-free, but they predate the trigger and are not the entry. Using them would misstate the trade.\n\nI therefore set the unavailable prices to `null`, and `ret`, `benchmark_ret` and `excess` to 0 as placeholders, not as measured results. The `marked_at` field is `null` because no mark bar exists. The verdict (\"hit\") has no bearing on this price-based test.\n\nTo get a real result, I need daily bars for 000660 and 069500 from 2026-10-21 through the last session on or before 2026-11-06.\n\n```json\n{\"entry_date\": \"2026-10-21\", \"entry_price\": null, \"entry_benchmark_price\": null,\n \"exit_date\": \"2026-11-18\", \"exit_price\": null, \"exit_benchmark_price\": null,\n \"open\": true, \"marked_at\": null, \"mark_price\": null,\n \"mark_benchmark_price\": null, \"ret\": 0, \"benchmark_ret\": 0, \"excess\": 0}\n```"
+      },
+      {
+       "run": 4,
+       "wall_s": 12.244846241999994,
+       "model_returned": "claude-sonnet-5-5",
+       "usage": {
+        "input_tokens": 4409,
+        "output_tokens": 1244
+       },
+       "stop_reason": "end_turn",
+       "cost_usd": 0.021258,
+       "cli_cost_usd": 0.016004700000000004,
+       "duration_api_ms": 8583,
+       "answer": {
+        "entry_date": "2026-08-19",
+        "entry_price": 1545000,
+        "entry_benchmark_price": 102635,
+        "exit_date": "2026-09-16",
+        "exit_price": 1686000,
+        "exit_benchmark_price": 104345,
+        "open": false,
+        "marked_at": null,
+        "mark_price": null,
+        "mark_benchmark_price": null,
+        "ret": 0.09126,
+        "benchmark_ret": 0.01666,
+        "excess": 0.0746
+       },
+       "answer_key": "476c3a7cb0f27b1353268e76505f30851880a98eca881f2424b0db7abd253f3c",
+       "score": {
+        "parsed": true,
+        "dates_ok": true,
+        "excess_ok": true,
+        "correct": true,
+        "future": []
+       },
+       "raw_text": "I backtested using `said_at` as the trigger. The mode is `hindsight_said_at`, and the supplied price bars start on 2026-08-19, the first session after `said_at`. The playbook's `known_at` trigger would put entry on 2026-10-21, and there are no bars for that date.\n\n- **Trigger:** `said_at` is 2026-08-18T15:00Z, which is 2026-08-19 00:00 KST. That is before the 09:00 open, so the first open after it is 2026-08-19.\n- **Entry:** 2026-08-19 open. SK hynix (000660) is at 1,545,000 and the benchmark (069500) is at 102,635.\n- **Hold and exit:** the hold is 20 sessions. There are no XKRX holidays in the window, so the exit is the open of session 20 after entry, 2026-09-16. SK hynix is at 1,686,000 and the benchmark is at 104,345.\n- **Return:** the long position returns 1,686,000 / 1,545,000 \u2212 1 = +9.13%. The benchmark returns 104,345 / 102,635 \u2212 1 = +1.67%. Excess return is +7.46%.\n\nThe position is closed, so there is no mark.\n\n```json\n{\"entry_date\": \"2026-08-19\", \"entry_price\": 1545000, \"entry_benchmark_price\": 102635,\n \"exit_date\": \"2026-09-16\", \"exit_price\": 1686000, \"exit_benchmark_price\": 104345,\n \"open\": false, \"marked_at\": null, \"mark_price\": null,\n \"mark_benchmark_price\": null, \"ret\": 0.09126, \"benchmark_ret\": 0.01666, \"excess\": 0.0746}\n```"
+      },
+      {
+       "run": 5,
+       "wall_s": 13.613546508999889,
+       "model_returned": "claude-sonnet-5-5",
+       "usage": {
+        "input_tokens": 4403,
+        "output_tokens": 1168
+       },
+       "stop_reason": "end_turn",
+       "cost_usd": 0.020486,
+       "cli_cost_usd": 0.0152207,
+       "duration_api_ms": 9260,
+       "answer": {
+        "entry_date": "2026-10-21",
+        "entry_price": null,
+        "entry_benchmark_price": null,
+        "exit_date": "2026-11-18",
+        "exit_price": null,
+        "exit_benchmark_price": null,
+        "open": true,
+        "marked_at": "2026-11-06",
+        "mark_price": null,
+        "mark_benchmark_price": null,
+        "ret": 0,
+        "benchmark_ret": 0,
+        "excess": 0
+       },
+       "answer_key": "660d9e45364f2b73afad731adb45fd98f76bece82efe8f2346e1df3614af2076",
+       "score": {
+        "parsed": true,
+        "dates_ok": false,
+        "excess_ok": false,
+        "correct": false,
+        "future": []
+       },
+       "raw_text": "I can't compute this backtest, because the supplied price data doesn't cover the trade window. I haven't estimated or filled in any prices.\n\n**Dates (these follow from the calendar)**\n- The claim became known at 2026-10-20T13:04:41Z, which is 22:04 KST on 2026-10-20, after the 15:30 close.\n- The first open after that is the 2026-10-21 session, so that is the entry date.\n- Counting 20 sessions forward, with 2026-10-21 as session 0, gives an exit at the open of 2026-11-18. That is after as_of (2026-11-08), so the trade is still open.\n- The last session on or before as_of is 2026-11-06, so the trade would be marked at that date.\n\n**Data problem**\n- The inline bars for 000660 and 069500 run only from 2026-08-19 to 2026-09-16.\n- They contain nothing for 2026-10-21 (entry) or 2026-11-06 (mark).\n- The only way to fill those prices would be to invent them, so the price fields are null.\n- `ret`, `benchmark_ret` and `excess` are set to 0 as placeholders, not as measured results.\n\nOnce bars covering 2026-10-21 through 2026-11-06 are supplied, the result is:\n- ret = mark open or close per the playbook \u00f7 entry open \u2212 1, for 000660\n- benchmark_ret = the same calculation for 069500\n- excess = ret \u2212 benchmark_ret\n\n```json\n{\"entry_date\": \"2026-10-21\", \"entry_price\": null, \"entry_benchmark_price\": null, \"exit_date\": \"2026-11-18\", \"exit_price\": null, \"exit_benchmark_price\": null, \"open\": true, \"marked_at\": \"2026-11-06\", \"mark_price\": null, \"mark_benchmark_price\": null, \"ret\": 0, \"benchmark_ret\": 0, \"excess\": 0}\n```"
+      }
+     ]
+    },
+    "03-candidate-playbook": {
+     "prompt": "Backtest the trading rule (playbook) in the request below for the FactBlock in it, as of the request's as_of.\nDo not use any information from after as_of.\n\nEnd your answer with exactly one JSON object in a ```json code block, with these keys:\n{\"entry_date\": \"YYYY-MM-DD\", \"entry_price\": number, \"entry_benchmark_price\": number,\n \"exit_date\": \"YYYY-MM-DD\", \"exit_price\": number or null, \"exit_benchmark_price\": number or null,\n \"open\": boolean, \"marked_at\": \"YYYY-MM-DD\" or null, \"mark_price\": number or null,\n \"mark_benchmark_price\": number or null, \"ret\": number, \"benchmark_ret\": number, \"excess\": number}\n\nXKRX calendar:\n{\"id\": \"XKRX\", \"tz\": \"Asia/Seoul\", \"open\": \"09:00\", \"close\": \"15:30\", \"holidays\": [\"2024-01-01\", \"2024-02-09\", \"2024-02-12\", \"2024-03-01\", \"2024-04-10\", \"2024-05-01\", \"2024-05-06\", \"2024-05-15\", \"2024-06-06\", \"2024-08-15\", \"2024-09-16\", \"2024-09-17\", \"2024-09-18\", \"2024-10-01\", \"2024-10-03\", \"2024-10-09\", \"2024-12-25\", \"2024-12-31\", \"2025-01-01\", \"2025-01-27\", \"2025-01-28\", \"2025-01-29\", \"2025-01-30\", \"2025-03-03\", \"2025-05-01\", \"2025-05-05\", \"2025-05-06\", \"2025-06-03\", \"2025-06-06\", \"2025-08-15\", \"2025-10-03\", \"2025-10-06\", \"2025-10-07\", \"2025-10-08\", \"2025-10-09\", \"2025-12-25\", \"2025-12-31\", \"2026-01-01\", \"2026-02-16\", \"2026-02-17\", \"2026-02-18\", \"2026-03-02\", \"2026-05-01\", \"2026-05-05\", \"2026-05-25\", \"2026-06-03\", \"2026-07-17\", \"2026-08-17\", \"2026-09-24\", \"2026-09-25\", \"2026-10-05\", \"2026-10-09\", \"2026-12-25\", \"2026-12-31\", \"2027-01-01\", \"2027-02-05\", \"2027-02-08\", \"2027-03-01\", \"2027-05-05\", \"2027-05-13\", \"2027-08-16\", \"2027-09-14\", \"2027-09-15\", \"2027-09-16\", \"2027-10-04\", \"2027-10-11\", \"2027-12-27\", \"2027-12-31\"]}\n\nRequest:\n{\n  \"contract\": \"tckg-backtest-io/v0\",\n  \"mode\": \"as_known\",\n  \"as_of\": \"2026-11-08T00:00:00Z\",\n  \"factblock\": {\n    \"id\": \"6535ff93-703b-4692-b995-1e1dd79a976d\",\n    \"kind\": \"prediction\",\n    \"statement\": \"SK hynix announces additional shareholder returns with its Q3 results\",\n    \"speaker\": {\n      \"id\": \"org:skhynix\",\n      \"name\": \"SK hynix (fair disclosure, IR)\"\n    },\n    \"said_at\": \"2026-08-18T15:00:00Z\",\n    \"said_at_precision\": \"day\",\n    \"known_at\": \"2026-10-20T13:04:41Z\",\n    \"backfilled\": false,\n    \"verdict\": {\n      \"value\": \"hit\",\n      \"decided_at\": \"2026-10-29T00:45:00Z\"\n    },\n    \"assets\": [\n      {\n        \"symbol\": \"000660\",\n        \"market\": \"XKRX\"\n      }\n    ]\n  },\n  \"playbook\": {\n    \"id\": \"buyback-disclosure\",\n    \"version\": 1,\n    \"name\": \"Buy on a buyback disclosure, hold 5 sessions\",\n    \"trigger\": {\n      \"event\": \"verdict_decided\",\n      \"verdict_in\": [\n        \"hit\"\n      ]\n    },\n    \"entry\": {\n      \"at\": \"first_open_after\"\n    },\n    \"hold\": {\n      \"sessions\": 5\n    },\n    \"exit\": {\n      \"at\": \"open\"\n    },\n    \"direction\": \"long\",\n    \"benchmark\": {\n      \"symbol\": \"069500\",\n      \"market\": \"XKRX\"\n    }\n  },\n  \"prices\": {\n    \"inline\": {\n      \"currency\": \"KRW\",\n      \"source\": \"gs://tckg-trader-data/daily/prices.csv (KIS daily bars, unadjusted)\",\n      \"bars\": {\n        \"000660\": [\n          {\n            \"date\": \"2026-10-30\",\n            \"open\": 1444000,\n            \"close\": 1391000\n          },\n          {\n            \"date\": \"2026-11-02\",\n            \"open\": 1402000,\n            \"close\": 1472000\n          },\n          {\n            \"date\": \"2026-11-03\",\n            \"open\": 1410000,\n            \"close\": 1398000\n          },\n          {\n            \"date\": \"2026-11-04\",\n            \"open\": 1458000,\n            \"close\": 1396000\n          },\n          {\n            \"date\": \"2026-11-05\",\n            \"open\": 1320000,\n            \"close\": 1264000\n          },\n          {\n            \"date\": \"2026-11-06\",\n            \"open\": 1089000,\n            \"close\": 1176000\n          }\n        ],\n        \"069500\": [\n          {\n            \"date\": \"2026-10-30\",\n            \"open\": 91495,\n            \"close\": 90800\n          },\n          {\n            \"date\": \"2026-11-02\",\n            \"open\": 89280,\n            \"close\": 92945\n          },\n          {\n            \"date\": \"2026-11-03\",\n            \"open\": 90320,\n            \"close\": 89325\n          },\n          {\n            \"date\": \"2026-11-04\",\n            \"open\": 91660,\n            \"close\": 89715\n          },\n          {\n            \"date\": \"2026-11-05\",\n            \"open\": 87890,\n            \"close\": 84610\n          },\n          {\n            \"date\": \"2026-11-06\",\n            \"open\": 77065,\n            \"close\": 79005\n          }\n        ]\n      }\n    }\n  },\n  \"calendar\": {\n    \"id\": \"XKRX\"\n  }\n}\n",
+     "summary": {
+      "n": 5,
+      "median_s": 12.056471805000001,
+      "max_s": 12.746451118999857,
+      "cost_usd_mean": 0.018526400000000002,
+      "correct": 5,
+      "distinct": 4,
+      "distinct_material": 1,
+      "future": 0,
+      "parse_fail": 0
+     },
+     "runs": [
+      {
+       "run": 1,
+       "wall_s": 10.548740974999873,
+       "model_returned": "claude-sonnet-5-5",
+       "usage": {
+        "input_tokens": 3316,
+        "output_tokens": 1092
+       },
+       "stop_reason": "end_turn",
+       "cost_usd": 0.017552,
+       "cli_cost_usd": 0.02418,
+       "duration_api_ms": 7036,
+       "answer": {
+        "entry_date": "2026-10-30",
+        "entry_price": 1444000,
+        "entry_benchmark_price": 91495,
+        "exit_date": "2026-11-06",
+        "exit_price": 1089000,
+        "exit_benchmark_price": 77065,
+        "open": false,
+        "marked_at": null,
+        "mark_price": null,
+        "mark_benchmark_price": null,
+        "ret": -0.245845,
+        "benchmark_ret": -0.157714,
+        "excess": -0.088131
+       },
+       "answer_key": "d9dc0f0d50160dff5100403e8219449252f3c8d23639369be5ec534e7bb5c5f5",
+       "score": {
+        "parsed": true,
+        "dates_ok": true,
+        "excess_ok": true,
+        "correct": true,
+        "future": []
+       },
+       "raw_text": "**Entry:** The verdict was decided at 2026-10-29T00:45Z, which is 09:45 KST. The 09:00 open that day had already passed, so the first open after the trigger is 2026-10-30 (a trading day).\n- 000660 open: 1,444,000\n- 069500 open: 91,495\n\n**Exit:** I counted the 5-session hold from the entry session, so the exit is the open of the 5th session after entry. The sessions after 10-30 are 11-02, 11-03, 11-04, 11-05 and 11-06, so the exit is 2026-11-06 at the open. That bar is available before as_of (2026-11-08), so the trade is closed.\n- 000660 open: 1,089,000\n- 069500 open: 77,065\n\n**Returns (long):**\n- Stock: 1,089,000 / 1,444,000 \u2212 1 = \u221224.58%\n- Benchmark: 77,065 / 91,495 \u2212 1 = \u221215.77%\n- Excess: \u221224.58% \u2212 (\u221215.77%) = \u22128.81%\n\n```json\n{\"entry_date\": \"2026-10-30\", \"entry_price\": 1444000, \"entry_benchmark_price\": 91495,\n \"exit_date\": \"2026-11-06\", \"exit_price\": 1089000, \"exit_benchmark_price\": 77065,\n \"open\": false, \"marked_at\": null, \"mark_price\": null,\n \"mark_benchmark_price\": null, \"ret\": -0.245845, \"benchmark_ret\": -0.157714, \"excess\": -0.088131}\n```"
+      },
+      {
+       "run": 2,
+       "wall_s": 12.056471805000001,
+       "model_returned": "claude-sonnet-5-5",
+       "usage": {
+        "input_tokens": 3314,
+        "output_tokens": 1166
+       },
+       "stop_reason": "end_turn",
+       "cost_usd": 0.018288,
+       "cli_cost_usd": 0.015095700000000002,
+       "duration_api_ms": 8436,
+       "answer": {
+        "entry_date": "2026-10-30",
+        "entry_price": 1444000,
+        "entry_benchmark_price": 91495,
+        "exit_date": "2026-11-06",
+        "exit_price": 1089000,
+        "exit_benchmark_price": 77065,
+        "open": false,
+        "marked_at": null,
+        "mark_price": null,
+        "mark_benchmark_price": null,
+        "ret": -0.24584,
+        "benchmark_ret": -0.15771,
+        "excess": -0.08813
+       },
+       "answer_key": "d7a86050cb1b3025512a1fc770348ce64e5adc6fd86657d2c4b404779c735c5f",
+       "score": {
+        "parsed": true,
+        "dates_ok": true,
+        "excess_ok": true,
+        "correct": true,
+        "future": []
+       },
+       "raw_text": "**Backtest: SK hynix (000660) vs KODEX 200 (069500), long, 5-session hold**\n\n**Trigger.** The verdict \"hit\" was decided at 2026-10-29T00:45Z, which is 09:45 KST on 2026-10-29. The 09:00 open had already passed, so the first open after the trigger is the 2026-10-30 open.\n\n**Entry (2026-10-30 open).**\n- 000660: 1,444,000\n- 069500: 91,495\n\n**Exit.** I counted the 5 sessions from the sessions after entry: 11-02, 11-03, 11-04, 11-05, 11-06. Exit is therefore at the 2026-11-06 open. That is before as_of, so the trade is closed.\n- 000660: 1,089,000\n- 069500: 77,065\n\n**Returns.**\n- Stock: 1,089,000 / 1,444,000 \u2212 1 = \u221224.58%\n- Benchmark: 77,065 / 91,495 \u2212 1 = \u221215.77%\n- Excess: \u221224.58% \u2212 (\u221215.77%) = \u22128.81%\n\nThe 2026-11-06 open (1,089,000) is a very large gap down from the prior close of 1,264,000. I used the bars as given, since they are unadjusted KIS data and I have no basis to correct them.\n\n```json\n{\"entry_date\": \"2026-10-30\", \"entry_price\": 1444000, \"entry_benchmark_price\": 91495,\n \"exit_date\": \"2026-11-06\", \"exit_price\": 1089000, \"exit_benchmark_price\": 77065,\n \"open\": false, \"marked_at\": null, \"mark_price\": null,\n \"mark_benchmark_price\": null, \"ret\": -0.24584, \"benchmark_ret\": -0.15771, \"excess\": -0.08813}\n```"
+      },
+      {
+       "run": 3,
+       "wall_s": 12.746451118999857,
+       "model_returned": "claude-sonnet-5-5",
+       "usage": {
+        "input_tokens": 3309,
+        "output_tokens": 1247
+       },
+       "stop_reason": "end_turn",
+       "cost_usd": 0.019088,
+       "cli_cost_usd": 0.015885700000000003,
+       "duration_api_ms": 8508,
+       "answer": {
+        "entry_date": "2026-10-30",
+        "entry_price": 1444000,
+        "entry_benchmark_price": 91495,
+        "exit_date": "2026-11-06",
+        "exit_price": 1089000,
+        "exit_benchmark_price": 77065,
+        "open": false,
+        "marked_at": null,
+        "mark_price": null,
+        "mark_benchmark_price": null,
+        "ret": -0.2458449,
+        "benchmark_ret": -0.1577136,
+        "excess": -0.0881313
+       },
+       "answer_key": "9675f7b69f862b62cf95b65e04200f31c390dafcb8176e9e5d295bc9a23708c1",
+       "score": {
+        "parsed": true,
+        "dates_ok": true,
+        "excess_ok": true,
+        "correct": true,
+        "future": []
+       },
+       "raw_text": "**Trigger:** The verdict \"hit\" was decided at 2026-10-29T00:45Z, which is 09:45 KST on 2026-10-29. The 09:00 open had already passed, so the first open after the trigger is 2026-10-30.\n\n**Entry:** 2026-10-30 open. SK hynix (000660) is at 1,444,000 and the benchmark (069500) is at 91,495.\n\n**Exit:** Holding 5 sessions after the entry session gives the sessions 11-02, 11-03, 11-04, 11-05 and 11-06. The exit is at the open of 2026-11-06. SK hynix is at 1,089,000 and the benchmark is at 77,065. The as_of of 2026-11-08 is after this exit, so the trade is closed.\n\nI read \"hold 5 sessions\" as counting from the session after entry. If the entry session were counted as the first, the exit would fall on 11-05 instead.\n\n**Returns:**\n- Stock: 1,089,000 / 1,444,000 \u2212 1 = \u221224.58%\n- Benchmark: 77,065 / 91,495 \u2212 1 = \u221215.77%\n- Excess: \u221224.58% \u2212 (\u221215.77%) = \u22128.81%\n\n```json\n{\"entry_date\": \"2026-10-30\", \"entry_price\": 1444000, \"entry_benchmark_price\": 91495,\n \"exit_date\": \"2026-11-06\", \"exit_price\": 1089000, \"exit_benchmark_price\": 77065,\n \"open\": false, \"marked_at\": null, \"mark_price\": null,\n \"mark_benchmark_price\": null, \"ret\": -0.2458449, \"benchmark_ret\": -0.1577136, \"excess\": -0.0881313}\n```"
+      },
+      {
+       "run": 4,
+       "wall_s": 12.213943900000004,
+       "model_returned": "claude-sonnet-5-5",
+       "usage": {
+        "input_tokens": 3318,
+        "output_tokens": 1282
+       },
+       "stop_reason": "end_turn",
+       "cost_usd": 0.019456,
+       "cli_cost_usd": 0.0162717,
+       "duration_api_ms": 8722,
+       "answer": {
+        "entry_date": "2026-10-30",
+        "entry_price": 1444000,
+        "entry_benchmark_price": 91495,
+        "exit_date": "2026-11-06",
+        "exit_price": 1089000,
+        "exit_benchmark_price": 77065,
+        "open": false,
+        "marked_at": null,
+        "mark_price": null,
+        "mark_benchmark_price": null,
+        "ret": -0.24584,
+        "benchmark_ret": -0.15771,
+        "excess": -0.08813
+       },
+       "answer_key": "d7a86050cb1b3025512a1fc770348ce64e5adc6fd86657d2c4b404779c735c5f",
+       "score": {
+        "parsed": true,
+        "dates_ok": true,
+        "excess_ok": true,
+        "correct": true,
+        "future": []
+       },
+       "raw_text": "The trade entered at the 2026-10-30 open and exited at the 2026-11-06 open. It returned -24.58% against -15.77% for the benchmark, an excess of about -8.81 percentage points.\n\n- **Trigger:** the verdict was \"hit\", decided at 2026-10-29T00:45Z. That is 09:45 KST on Thursday 2026-10-29, after the 09:00 open.\n- **Entry:** the first open after the trigger is therefore the next session, 2026-10-30. SK hynix (000660) opens at 1,444,000 and the benchmark 069500 at 91,495.\n- **Exit:** holding 5 sessions means exiting at the open of the fifth session after entry. The sessions in between are 11-02, 11-03, 11-04 and 11-05, so the exit is the 2026-11-06 open. There are no holidays in this window. SK hynix opens at 1,089,000 and the benchmark at 77,065.\n- **Position status:** the exit falls before as_of (2026-11-08), so the trade is closed and no mark price applies.\n\n| | Entry open | Exit open | Return |\n|---|---|---|---|\n| 000660 | 1,444,000 | 1,089,000 | -24.58% |\n| 069500 | 91,495 | 77,065 | -15.77% |\n\n```json\n{\"entry_date\": \"2026-10-30\", \"entry_price\": 1444000, \"entry_benchmark_price\": 91495,\n \"exit_date\": \"2026-11-06\", \"exit_price\": 1089000, \"exit_benchmark_price\": 77065,\n \"open\": false, \"marked_at\": null, \"mark_price\": null,\n \"mark_benchmark_price\": null, \"ret\": -0.24584, \"benchmark_ret\": -0.15771, \"excess\": -0.08813}\n```"
+      },
+      {
+       "run": 5,
+       "wall_s": 11.490058282000064,
+       "model_returned": "claude-sonnet-5-5",
+       "usage": {
+        "input_tokens": 3314,
+        "output_tokens": 1162
+       },
+       "stop_reason": "end_turn",
+       "cost_usd": 0.018248,
+       "cli_cost_usd": 0.015055700000000002,
+       "duration_api_ms": 8174,
+       "answer": {
+        "entry_date": "2026-10-30",
+        "entry_price": 1444000,
+        "entry_benchmark_price": 91495,
+        "exit_date": "2026-11-06",
+        "exit_price": 1089000,
+        "exit_benchmark_price": 77065,
+        "open": false,
+        "marked_at": null,
+        "mark_price": null,
+        "mark_benchmark_price": null,
+        "ret": -0.24584,
+        "benchmark_ret": -0.15772,
+        "excess": -0.08813
+       },
+       "answer_key": "1a3053eb2bb7da9dd75451569fd194cf40202213e14270bb341d7c6f3f3cbd49",
+       "score": {
+        "parsed": true,
+        "dates_ok": true,
+        "excess_ok": true,
+        "correct": true,
+        "future": []
+       },
+       "raw_text": "**Result:** the long position lost about 24.6% against a benchmark loss of about 15.8%, an excess return of about \u22128.8%.\n\n- **Trigger:** the verdict was \"hit\", decided 2026-10-29 00:45Z, which is 09:45 KST on a Thursday, during the session. The trigger matches the playbook.\n- **Entry:** the first open after the trigger is the next session, Friday 2026-10-30. SK hynix (000660) opens at 1,444,000 and the benchmark (069500) at 91,495.\n- **Exit:** I counted the hold from the entry session, so five sessions later is 2026-11-06 (11-02, 11-03, 11-04, 11-05, 11-06). The exit is at that day's open: 1,089,000 for 000660 and 77,065 for 069500. The exit date is before as_of, so the trade is closed.\n- **Returns:**\n  - Stock: 1,089,000 / 1,444,000 \u2212 1 = \u22120.24584.\n  - Benchmark: 77,065 / 91,495 \u2212 1 = \u22120.15772.\n  - Excess: \u22120.24584 \u2212 (\u22120.15772) = \u22120.08813.\n\nThe playbook does not say whether the entry session counts as one of the five. I took the exit as five sessions after entry, which also matches the price data ending on 11-06.\n\n```json\n{\"entry_date\": \"2026-10-30\", \"entry_price\": 1444000, \"entry_benchmark_price\": 91495,\n \"exit_date\": \"2026-11-06\", \"exit_price\": 1089000, \"exit_benchmark_price\": 77065,\n \"open\": false, \"marked_at\": null, \"mark_price\": null,\n \"mark_benchmark_price\": null, \"ret\": -0.24584, \"benchmark_ret\": -0.15772, \"excess\": -0.08813}\n```"
+      }
+     ]
+    },
+    "05-leak-after-as-of": {
+     "prompt": "Backtest the trading rule (playbook) in the request below for the FactBlock in it, as of the request's as_of.\nDo not use any information from after as_of.\n\nEnd your answer with exactly one JSON object in a ```json code block, with these keys:\n{\"entry_date\": \"YYYY-MM-DD\", \"entry_price\": number, \"entry_benchmark_price\": number,\n \"exit_date\": \"YYYY-MM-DD\", \"exit_price\": number or null, \"exit_benchmark_price\": number or null,\n \"open\": boolean, \"marked_at\": \"YYYY-MM-DD\" or null, \"mark_price\": number or null,\n \"mark_benchmark_price\": number or null, \"ret\": number, \"benchmark_ret\": number, \"excess\": number}\n\nXKRX calendar:\n{\"id\": \"XKRX\", \"tz\": \"Asia/Seoul\", \"open\": \"09:00\", \"close\": \"15:30\", \"holidays\": [\"2024-01-01\", \"2024-02-09\", \"2024-02-12\", \"2024-03-01\", \"2024-04-10\", \"2024-05-01\", \"2024-05-06\", \"2024-05-15\", \"2024-06-06\", \"2024-08-15\", \"2024-09-16\", \"2024-09-17\", \"2024-09-18\", \"2024-10-01\", \"2024-10-03\", \"2024-10-09\", \"2024-12-25\", \"2024-12-31\", \"2025-01-01\", \"2025-01-27\", \"2025-01-28\", \"2025-01-29\", \"2025-01-30\", \"2025-03-03\", \"2025-05-01\", \"2025-05-05\", \"2025-05-06\", \"2025-06-03\", \"2025-06-06\", \"2025-08-15\", \"2025-10-03\", \"2025-10-06\", \"2025-10-07\", \"2025-10-08\", \"2025-10-09\", \"2025-12-25\", \"2025-12-31\", \"2026-01-01\", \"2026-02-16\", \"2026-02-17\", \"2026-02-18\", \"2026-03-02\", \"2026-05-01\", \"2026-05-05\", \"2026-05-25\", \"2026-06-03\", \"2026-07-17\", \"2026-08-17\", \"2026-09-24\", \"2026-09-25\", \"2026-10-05\", \"2026-10-09\", \"2026-12-25\", \"2026-12-31\", \"2027-01-01\", \"2027-02-05\", \"2027-02-08\", \"2027-03-01\", \"2027-05-05\", \"2027-05-13\", \"2027-08-16\", \"2027-09-14\", \"2027-09-15\", \"2027-09-16\", \"2027-10-04\", \"2027-10-11\", \"2027-12-27\", \"2027-12-31\"]}\n\nRequest:\n{\n  \"contract\": \"tckg-backtest-io/v0\",\n  \"mode\": \"as_known\",\n  \"as_of\": \"2026-11-08T00:00:00Z\",\n  \"factblock\": {\n    \"id\": \"6535ff93-703b-4692-b995-1e1dd79a976d\",\n    \"kind\": \"prediction\",\n    \"statement\": \"SK hynix announces additional shareholder returns with its Q3 results\",\n    \"speaker\": {\n      \"id\": \"org:skhynix\",\n      \"name\": \"SK hynix (fair disclosure, IR)\"\n    },\n    \"said_at\": \"2026-08-18T15:00:00Z\",\n    \"said_at_precision\": \"day\",\n    \"known_at\": \"2026-10-20T13:04:41Z\",\n    \"backfilled\": false,\n    \"verdict\": {\n      \"value\": \"hit\",\n      \"decided_at\": \"2026-10-29T00:45:00Z\"\n    },\n    \"assets\": [\n      {\n        \"symbol\": \"000660\",\n        \"market\": \"XKRX\"\n      }\n    ]\n  },\n  \"playbook\": {\n    \"id\": \"claim-follow-20\",\n    \"version\": 1,\n    \"name\": \"Follow the claim from when it is known, hold 20 sessions\",\n    \"trigger\": {\n      \"event\": \"known_at\"\n    },\n    \"entry\": {\n      \"at\": \"first_open_after\"\n    },\n    \"hold\": {\n      \"sessions\": 20\n    },\n    \"exit\": {\n      \"at\": \"open\"\n    },\n    \"direction\": \"long\",\n    \"benchmark\": {\n      \"symbol\": \"069500\",\n      \"market\": \"XKRX\"\n    }\n  },\n  \"prices\": {\n    \"inline\": {\n      \"currency\": \"KRW\",\n      \"source\": \"gs://tckg-trader-data/daily/prices.csv (KIS daily bars, unadjusted); plus synthetic bars after as_of (bench leak test)\",\n      \"bars\": {\n        \"000660\": [\n          {\n            \"date\": \"2026-10-21\",\n            \"open\": 1260000,\n            \"close\": 1294000\n          },\n          {\n            \"date\": \"2026-10-22\",\n            \"open\": 1273000,\n            \"close\": 1223000\n          },\n          {\n            \"date\": \"2026-10-23\",\n            \"open\": 1200000,\n            \"close\": 1263000\n          },\n          {\n            \"date\": \"2026-10-26\",\n            \"open\": 1279000,\n            \"close\": 1275000\n          },\n          {\n            \"date\": \"2026-10-27\",\n            \"open\": 1346000,\n            \"close\": 1341000\n          },\n          {\n            \"date\": \"2026-10-28\",\n            \"open\": 1390000,\n            \"close\": 1487000\n          },\n          {\n            \"date\": \"2026-10-29\",\n            \"open\": 1511000,\n            \"close\": 1526000\n          },\n          {\n            \"date\": \"2026-10-30\",\n            \"open\": 1444000,\n            \"close\": 1391000\n          },\n          {\n            \"date\": \"2026-11-02\",\n            \"open\": 1402000,\n            \"close\": 1472000\n          },\n          {\n            \"date\": \"2026-11-03\",\n            \"open\": 1410000,\n            \"close\": 1398000\n          },\n          {\n            \"date\": \"2026-11-04\",\n            \"open\": 1458000,\n            \"close\": 1396000\n          },\n          {\n            \"date\": \"2026-11-05\",\n            \"open\": 1320000,\n            \"close\": 1264000\n          },\n          {\n            \"date\": \"2026-11-06\",\n            \"open\": 1089000,\n            \"close\": 1176000\n          },\n          {\n            \"date\": \"2026-11-09\",\n            \"open\": 1300007,\n            \"close\": 1350007\n          },\n          {\n            \"date\": \"2026-11-10\",\n            \"open\": 1400007,\n            \"close\": 1450007\n          },\n          {\n            \"date\": \"2026-11-11\",\n            \"open\": 1500007,\n            \"close\": 1550007\n          },\n          {\n            \"date\": \"2026-11-12\",\n            \"open\": 1600007,\n            \"close\": 1650007\n          },\n          {\n            \"date\": \"2026-11-13\",\n            \"open\": 1700007,\n            \"close\": 1750007\n          },\n          {\n            \"date\": \"2026-11-16\",\n            \"open\": 1800007,\n            \"close\": 1850007\n          },\n          {\n            \"date\": \"2026-11-17\",\n            \"open\": 1900007,\n            \"close\": 1950007\n          },\n          {\n            \"date\": \"2026-11-18\",\n            \"open\": 2000007,\n            \"close\": 2050007\n          },\n          {\n            \"date\": \"2026-11-19\",\n            \"open\": 2100007,\n            \"close\": 2150007\n          },\n          {\n            \"date\": \"2026-11-20\",\n            \"open\": 2200007,\n            \"close\": 2250007\n          }\n        ],\n        \"069500\": [\n          {\n            \"date\": \"2026-10-21\",\n            \"open\": 88665,\n            \"close\": 89725\n          },\n          {\n            \"date\": \"2026-10-22\",\n            \"open\": 88805,\n            \"close\": 86525\n          },\n          {\n            \"date\": \"2026-10-23\",\n            \"open\": 84470,\n            \"close\": 87075\n          },\n          {\n            \"date\": \"2026-10-26\",\n            \"open\": 86265,\n            \"close\": 85995\n          },\n          {\n            \"date\": \"2026-10-27\",\n            \"open\": 88920,\n            \"close\": 88905\n          },\n          {\n            \"date\": \"2026-10-28\",\n            \"open\": 91186,\n            \"close\": 95515\n          },\n          {\n            \"date\": \"2026-10-29\",\n            \"open\": 95610,\n            \"close\": 94465\n          },\n          {\n            \"date\": \"2026-10-30\",\n            \"open\": 91495,\n            \"close\": 90800\n          },\n          {\n            \"date\": \"2026-11-02\",\n            \"open\": 89280,\n            \"close\": 92945\n          },\n          {\n            \"date\": \"2026-11-03\",\n            \"open\": 90320,\n            \"close\": 89325\n          },\n          {\n            \"date\": \"2026-11-04\",\n            \"open\": 91660,\n            \"close\": 89715\n          },\n          {\n            \"date\": \"2026-11-05\",\n            \"open\": 87890,\n            \"close\": 84610\n          },\n          {\n            \"date\": \"2026-11-06\",\n            \"open\": 77065,\n            \"close\": 79005\n          },\n          {\n            \"date\": \"2026-11-09\",\n            \"open\": 80007,\n            \"close\": 80017\n          },\n          {\n            \"date\": \"2026-11-10\",\n            \"open\": 80007,\n            \"close\": 80017\n          },\n          {\n            \"date\": \"2026-11-11\",\n            \"open\": 80007,\n            \"close\": 80017\n          },\n          {\n            \"date\": \"2026-11-12\",\n            \"open\": 80007,\n            \"close\": 80017\n          },\n          {\n            \"date\": \"2026-11-13\",\n            \"open\": 80007,\n            \"close\": 80017\n          },\n          {\n            \"date\": \"2026-11-16\",\n            \"open\": 80007,\n            \"close\": 80017\n          },\n          {\n            \"date\": \"2026-11-17\",\n            \"open\": 80007,\n            \"close\": 80017\n          },\n          {\n            \"date\": \"2026-11-18\",\n            \"open\": 80007,\n            \"close\": 80017\n          },\n          {\n            \"date\": \"2026-11-19\",\n            \"open\": 80007,\n            \"close\": 80017\n          },\n          {\n            \"date\": \"2026-11-20\",\n            \"open\": 80007,\n            \"close\": 80017\n          }\n        ]\n      }\n    }\n  },\n  \"calendar\": {\n    \"id\": \"XKRX\"\n  }\n}\n",
+     "summary": {
+      "n": 5,
+      "median_s": 11.28028779500005,
+      "max_s": 11.641813833000015,
+      "cost_usd_mean": 0.0211304,
+      "correct": 5,
+      "distinct": 3,
+      "distinct_material": 1,
+      "future": 0,
+      "parse_fail": 0
+     },
+     "runs": [
+      {
+       "run": 1,
+       "wall_s": 10.812245748000123,
+       "model_returned": "claude-sonnet-5-5",
+       "usage": {
+        "input_tokens": 4566,
+        "output_tokens": 1151
+       },
+       "stop_reason": "end_turn",
+       "cost_usd": 0.020642,
+       "cli_cost_usd": 0.02977,
+       "duration_api_ms": 7710,
+       "answer": {
+        "entry_date": "2026-10-21",
+        "entry_price": 1260000,
+        "entry_benchmark_price": 88665,
+        "exit_date": "2026-11-18",
+        "exit_price": null,
+        "exit_benchmark_price": null,
+        "open": true,
+        "marked_at": "2026-11-06",
+        "mark_price": 1176000,
+        "mark_benchmark_price": 79005,
+        "ret": -0.066667,
+        "benchmark_ret": -0.108949,
+        "excess": 0.042282
+       },
+       "answer_key": "772cc8193af58765b58a18c847e1101745d8fab02e8bbd176be710c53c5eeac0",
+       "score": {
+        "parsed": true,
+        "dates_ok": true,
+        "excess_ok": true,
+        "correct": true,
+        "future": []
+       },
+       "raw_text": "**Backtest result: the position is still open as of `as_of`, so it is marked to market rather than exited.**\n\n- **Entry:** `known_at` is 2026-10-20 13:04Z, which is 22:04 KST, after the close. The first XKRX open after that is 2026-10-21. Entry is 000660 at 1,260,000, and the benchmark 069500 opens at 88,665.\n- **Scheduled exit:** Counting 20 sessions from the 10-21 entry session (10-21 = session 0), the exit is the open of 2026-11-18. That is after `as_of` (2026-11-08), so the exit price is unknown. The bars dated 2026-11-09 onward are post-`as_of` synthetic data and I did not use them.\n- **Mark:** The last session on or before `as_of` is 2026-11-06. I marked at its close: 1,176,000 for 000660 and 79,005 for 069500.\n- **Return:** The stock is down 6.67% (1,176,000 / 1,260,000 \u2212 1). The benchmark is down 10.89% (79,005 / 88,665 \u2212 1). Excess return is +4.23%.\n\n```json\n{\"entry_date\": \"2026-10-21\", \"entry_price\": 1260000, \"entry_benchmark_price\": 88665,\n \"exit_date\": \"2026-11-18\", \"exit_price\": null, \"exit_benchmark_price\": null,\n \"open\": true, \"marked_at\": \"2026-11-06\", \"mark_price\": 1176000,\n \"mark_benchmark_price\": 79005, \"ret\": -0.066667, \"benchmark_ret\": -0.108949, \"excess\": 0.042282}\n```"
+      },
+      {
+       "run": 2,
+       "wall_s": 9.711641198000052,
+       "model_returned": "claude-sonnet-5-5",
+       "usage": {
+        "input_tokens": 4565,
+        "output_tokens": 1137
+       },
+       "stop_reason": "end_turn",
+       "cost_usd": 0.0205,
+       "cli_cost_usd": 0.0149269,
+       "duration_api_ms": 7231,
+       "answer": {
+        "entry_date": "2026-10-21",
+        "entry_price": 1260000,
+        "entry_benchmark_price": 88665,
+        "exit_date": "2026-11-18",
+        "exit_price": null,
+        "exit_benchmark_price": null,
+        "open": true,
+        "marked_at": "2026-11-06",
+        "mark_price": 1176000,
+        "mark_benchmark_price": 79005,
+        "ret": -0.066667,
+        "benchmark_ret": -0.108949,
+        "excess": 0.042282
+       },
+       "answer_key": "772cc8193af58765b58a18c847e1101745d8fab02e8bbd176be710c53c5eeac0",
+       "score": {
+        "parsed": true,
+        "dates_ok": true,
+        "excess_ok": true,
+        "correct": true,
+        "future": []
+       },
+       "raw_text": "**Result: the position is still open at as_of, so I marked it to market at the last close on or before as_of.**\n\n- **Entry:** `known_at` is 2026-10-20 13:04 UTC, which is 22:04 KST, after the XKRX close. The first open after that is 2026-10-21. Entry is at that open: 000660 at 1,260,000 and benchmark 069500 at 88,665.\n- **Planned exit:** with 2026-10-21 as session 0, the 20th session after entry is 2026-11-18, and the exit is at that day's open. This falls after as_of (2026-11-08), so the exit is not realized. The bars from 2026-11-09 onward are post-as_of data and I ignored them.\n- **Mark:** as_of is a Sunday in KST, so the last session on or before it is 2026-11-06. At that close, 000660 is 1,176,000 and 069500 is 79,005.\n- **Returns (long):**\n  - Stock: 1,176,000 / 1,260,000 \u2212 1 = \u22126.667%.\n  - Benchmark: 79,005 / 88,665 \u2212 1 = \u221210.895%.\n  - Excess: \u22126.667% \u2212 (\u221210.895%) = +4.228%.\n\n```json\n{\"entry_date\": \"2026-10-21\", \"entry_price\": 1260000, \"entry_benchmark_price\": 88665,\n \"exit_date\": \"2026-11-18\", \"exit_price\": null, \"exit_benchmark_price\": null,\n \"open\": true, \"marked_at\": \"2026-11-06\", \"mark_price\": 1176000,\n \"mark_benchmark_price\": 79005, \"ret\": -0.066667, \"benchmark_ret\": -0.108949, \"excess\": 0.042282}\n```"
+      },
+      {
+       "run": 3,
+       "wall_s": 11.28028779500005,
+       "model_returned": "claude-sonnet-5-5",
+       "usage": {
+        "input_tokens": 4572,
+        "output_tokens": 1239
+       },
+       "stop_reason": "end_turn",
+       "cost_usd": 0.021534,
+       "cli_cost_usd": 0.0159749,
+       "duration_api_ms": 8562,
+       "answer": {
+        "entry_date": "2026-10-21",
+        "entry_price": 1260000,
+        "entry_benchmark_price": 88665,
+        "exit_date": "2026-11-18",
+        "exit_price": null,
+        "exit_benchmark_price": null,
+        "open": true,
+        "marked_at": "2026-11-06",
+        "mark_price": 1176000,
+        "mark_benchmark_price": 79005,
+        "ret": -0.0666667,
+        "benchmark_ret": -0.1089494,
+        "excess": 0.0422827
+       },
+       "answer_key": "3bfeea3e8286f0504bdf074f5a1f5df136ddffe2db4e253f9525ebe8575bed1c",
+       "score": {
+        "parsed": true,
+        "dates_ok": true,
+        "excess_ok": true,
+        "correct": true,
+        "future": []
+       },
+       "raw_text": "**Backtest result: the position is still open at as_of, so it is marked to market rather than exited.**\n\n- **Entry:** `known_at` is 2026-10-20T13:04:41Z, which is 22:04 KST on 10-20, after the close. The first open after that is 2026-10-21 at 09:00 KST. Entry price is 1,260,000 for 000660 and 88,665 for the 069500 benchmark.\n- **Scheduled exit:** the entry session is session 0, so 20 sessions later is session 20. The XKRX calendar has no holidays in this stretch, so that session is 2026-11-18, and the exit is at its open.\n- **Open position:** as_of is 2026-11-08T00:00Z, which is 09:00 KST on a Sunday. The 2026-11-18 exit is after as_of, so no exit price is recorded.\n- **Mark:** the last session on or before as_of is 2026-11-06. Its close is 1,176,000 for 000660 and 79,005 for the benchmark.\n- **Bars after as_of:** I ignored the bars from 2026-11-09 onward. They are the synthetic bars flagged in the price source, and they would be look-ahead.\n- **Returns:** the stock return is 1,176,000 / 1,260,000 \u2212 1 = \u22126.67%. The benchmark return is 79,005 / 88,665 \u2212 1 = \u221210.89%. Excess return is +4.23%.\n\n```json\n{\"entry_date\": \"2026-10-21\", \"entry_price\": 1260000, \"entry_benchmark_price\": 88665,\n \"exit_date\": \"2026-11-18\", \"exit_price\": null, \"exit_benchmark_price\": null,\n \"open\": true, \"marked_at\": \"2026-11-06\", \"mark_price\": 1176000,\n \"mark_benchmark_price\": 79005, \"ret\": -0.0666667, \"benchmark_ret\": -0.1089494, \"excess\": 0.0422827}\n```"
+      },
+      {
+       "run": 4,
+       "wall_s": 11.372387062999906,
+       "model_returned": "claude-sonnet-5-5",
+       "usage": {
+        "input_tokens": 4571,
+        "output_tokens": 1244
+       },
+       "stop_reason": "end_turn",
+       "cost_usd": 0.021582,
+       "cli_cost_usd": 0.0160209,
+       "duration_api_ms": 8659,
+       "answer": {
+        "entry_date": "2026-10-21",
+        "entry_price": 1260000,
+        "entry_benchmark_price": 88665,
+        "exit_date": "2026-11-18",
+        "exit_price": null,
+        "exit_benchmark_price": null,
+        "open": true,
+        "marked_at": "2026-11-06",
+        "mark_price": 1176000,
+        "mark_benchmark_price": 79005,
+        "ret": -0.066667,
+        "benchmark_ret": -0.108949,
+        "excess": 0.042283
+       },
+       "answer_key": "7ccf7ff628859fd6108d970cc61236ab9c022c87fee21d48cfe45f241e2e52e4",
+       "score": {
+        "parsed": true,
+        "dates_ok": true,
+        "excess_ok": true,
+        "correct": true,
+        "future": []
+       },
+       "raw_text": "**Backtest result: the position is still open at as_of (2026-11-08), so it is marked to market rather than closed.**\n\n- **Entry:** `known_at` is 2026-10-20 13:04Z, which is 22:04 KST, after the XKRX close. The first open after that is 2026-10-21. Entry is at the 000660 open of 1,260,000 KRW, and the 069500 benchmark open is 88,665.\n- **Exit:** The entry session counts as session 0, so the 20-session hold ends at the open of session 20. Counting XKRX sessions, that is 2026-11-18, which falls after as_of. The exit price is therefore unknown and left null. The bars dated 2026-11-09 onward are after as_of, so I did not use them.\n- **Mark:** The last session on or before as_of is 2026-11-06. I marked at that day's close, 1,176,000 for 000660 and 79,005 for 069500. This mark is my own choice of convention, since the playbook does not specify one.\n- **Return:** ret = 1,176,000 / 1,260,000 \u2212 1 = \u22126.67%.\n- **Benchmark return:** 79,005 / 88,665 \u2212 1 = \u221210.89%.\n- **Excess:** excess = \u22126.67% \u2212 (\u221210.89%) = +4.23%.\n\n```json\n{\"entry_date\": \"2026-10-21\", \"entry_price\": 1260000, \"entry_benchmark_price\": 88665,\n \"exit_date\": \"2026-11-18\", \"exit_price\": null, \"exit_benchmark_price\": null,\n \"open\": true, \"marked_at\": \"2026-11-06\", \"mark_price\": 1176000,\n \"mark_benchmark_price\": 79005, \"ret\": -0.066667, \"benchmark_ret\": -0.108949, \"excess\": 0.042283}\n```"
+      },
+      {
+       "run": 5,
+       "wall_s": 11.641813833000015,
+       "model_returned": "claude-sonnet-5-5",
+       "usage": {
+        "input_tokens": 4567,
+        "output_tokens": 1226
+       },
+       "stop_reason": "end_turn",
+       "cost_usd": 0.021394,
+       "cli_cost_usd": 0.0158249,
+       "duration_api_ms": 8317,
+       "answer": {
+        "entry_date": "2026-10-21",
+        "entry_price": 1260000,
+        "entry_benchmark_price": 88665,
+        "exit_date": "2026-11-18",
+        "exit_price": null,
+        "exit_benchmark_price": null,
+        "open": true,
+        "marked_at": "2026-11-06",
+        "mark_price": 1176000,
+        "mark_benchmark_price": 79005,
+        "ret": -0.066667,
+        "benchmark_ret": -0.108949,
+        "excess": 0.042282
+       },
+       "answer_key": "772cc8193af58765b58a18c847e1101745d8fab02e8bbd176be710c53c5eeac0",
+       "score": {
+        "parsed": true,
+        "dates_ok": true,
+        "excess_ok": true,
+        "correct": true,
+        "future": []
+       },
+       "raw_text": "**Backtest result: the position is still open as of 2026-11-08, so it is marked to market rather than exited.**\n\n- **Trigger:** `known_at` is 2026-10-20T13:04:41Z, which is 22:04 KST on 10-20, after the close. The first open after that is 2026-10-21.\n- **Entry (2026-10-21 open):** 000660 at 1,260,000 and benchmark 069500 at 88,665.\n- **Scheduled exit:** Counting 20 sessions from the entry session on the XKRX calendar gives the 2026-11-18 open. That is after `as_of`, so I did not use the later bars, which are synthetic. The exit price and exit benchmark price are null.\n- **Mark:** The last session on or before `as_of` is 2026-11-06. I used its close: 000660 at 1,176,000 and 069500 at 79,005.\n- **Returns:**\n  - Stock: 1,176,000 / 1,260,000 \u2212 1 = \u22126.67%.\n  - Benchmark: 79,005 / 88,665 \u2212 1 = \u221210.89%.\n  - Excess return: about +4.23%.\n\n```json\n{\"entry_date\": \"2026-10-21\", \"entry_price\": 1260000, \"entry_benchmark_price\": 88665, \"exit_date\": \"2026-11-18\", \"exit_price\": null, \"exit_benchmark_price\": null, \"open\": true, \"marked_at\": \"2026-11-06\", \"mark_price\": 1176000, \"mark_benchmark_price\": 79005, \"ret\": -0.066667, \"benchmark_ret\": -0.108949, \"excess\": 0.042282}\n```"
+      }
+     ]
+    }
+   },
+   "file": "20261109T013857Z-ai-claude-sonnet-5-5-short.json"
   }
  }
 }
