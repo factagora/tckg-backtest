@@ -1,0 +1,143 @@
+{
+ "kind": "time_ledger",
+ "arm": "A",
+ "model": "claude-sonnet-5-5",
+ "space": "theme:kr-memory-semis",
+ "as_of": "2026-10-27T00:00:00Z",
+ "exported_now": "2026-11-09T02:12:55Z",
+ "truth": {
+  "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss"
+ },
+ "decided_after_T": 20,
+ "n_statements": 67,
+ "prompt_sha256": "6a6b685dcd774889b8a7b4ffde448c1cbcd2c21c9970609165f4c9b901a350ec",
+ "prompt_template": "Below are analyst and company statements (predictions and claims) about memory semiconductors{what}.\n\nQuestion: as of {t}, which statements already had a verdict, and what was it? Use only what was known at {t};\ndo not use any information from after {t}.\n\nEnd your answer with exactly one JSON object in a ```json code block:\n{{\"resolved\": {{\"<statement id>\": \"hit\" or \"miss\", ...}}}}\nList only statements whose verdict was known at {t}.\n\nStatements:\n{rows}\n",
+ "oracle_matches_tckg_as_of_export": true,
+ "runs": [
+  {
+   "run": 1,
+   "wall_s": 7.311978807000003,
+   "usage": {
+    "input_tokens": 16557,
+    "output_tokens": 518
+   },
+   "cost_usd": 0.038294,
+   "cli_cost_usd": 0.071404,
+   "answer": {
+    "resolved": {
+     "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss"
+    }
+   },
+   "score": {
+    "parsed": true,
+    "correct": true,
+    "leaked": 0,
+    "leaked_ids": [],
+    "missed": 0,
+    "wrong_outcome": 0,
+    "unknown_ids": 0
+   },
+   "raw_tail": "As of 2026-10-27T00:00:00Z, only one statement had a recorded verdict. It is Meta's Q3 2026 revenue guidance of $61 to $64 billion (`stmt:meta-li-20260729-q3-revenue-61-64bn`), recorded as a **miss** on 2026-10-22T00:43:18Z.\n\nEvery other verdict in the export was recorded after the cutoff. The SK hynix, Meritz, SK증권, FnGuide, IBK, KB, DS and BNK Q3 estimates and the Microsoft capex outlook were recorded on 2026-10-29. The Samsung and Citi estimates and the Samsung call items were recorded on 2026-11-05. I left all of those out. The statements with no verdict at all are also excluded.\n\n```json\n{\"resolved\": {\"stmt:meta-li-20260729-q3-revenue-61-64bn\": \"miss\"}}\n```"
+  },
+  {
+   "run": 2,
+   "wall_s": 6.503495506999997,
+   "usage": {
+    "input_tokens": 16562,
+    "output_tokens": 569
+   },
+   "cost_usd": 0.038814,
+   "cli_cost_usd": 0.010477799999999999,
+   "answer": {
+    "resolved": {
+     "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss"
+    }
+   },
+   "score": {
+    "parsed": true,
+    "correct": true,
+    "leaked": 0,
+    "leaked_ids": [],
+    "missed": 0,
+    "wrong_outcome": 0,
+    "unknown_ids": 0
+   },
+   "raw_tail": "As of 2026-10-27T00:00:00Z, only one statement had a recorded verdict: **Meta's Q3 2026 revenue guidance** (`stmt:meta-li-20260729-q3-revenue-61-64bn`), recorded as a **miss** on 2026-10-22T00:43:18Z.\n\nEvery other verdict in the export was recorded after the cutoff, so I left them out:\n- The SK hynix and Meritz Q3 verdicts, the Microsoft capex verdict and the FnGuide consensus verdict were all recorded on 2026-10-29.\n- The Samsung Q3 verdicts and the Citi, DS Investment and Hana Q3 estimates were recorded on 2026-11-05.\n\nThe statements with a null verdict stay unresolved.\n\n```json\n{\"resolved\": {\"stmt:meta-li-20260729-q3-revenue-61-64bn\": \"miss\"}}\n```"
+  },
+  {
+   "run": 3,
+   "wall_s": 5.403799676999995,
+   "usage": {
+    "input_tokens": 16563,
+    "output_tokens": 360
+   },
+   "cost_usd": 0.036726,
+   "cli_cost_usd": 0.008391800000000001,
+   "answer": {
+    "resolved": {
+     "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss"
+    }
+   },
+   "score": {
+    "parsed": true,
+    "correct": true,
+    "leaked": 0,
+    "leaked_ids": [],
+    "missed": 0,
+    "wrong_outcome": 0,
+    "unknown_ids": 0
+   },
+   "raw_tail": "As of 2026-10-27T00:00:00Z, only one statement had a recorded verdict: Meta's Q3 2026 revenue guidance of $61–64 billion (`stmt:meta-li-20260729-q3-revenue-61-64bn`). Its verdict was a miss, recorded 2026-10-22T00:43:18Z.\n\nAll other verdicts in the ledger were recorded on 2026-10-29 or 2026-11-05, after the cutoff. I left them out, since they weren't known at the time.\n\n```json\n{\"resolved\": {\"stmt:meta-li-20260729-q3-revenue-61-64bn\": \"miss\"}}\n```"
+  },
+  {
+   "run": 4,
+   "wall_s": 6.487473316000006,
+   "usage": {
+    "input_tokens": 16552,
+    "output_tokens": 433
+   },
+   "cost_usd": 0.037434,
+   "cli_cost_usd": 0.0090778,
+   "answer": {
+    "resolved": {
+     "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss"
+    }
+   },
+   "score": {
+    "parsed": true,
+    "correct": true,
+    "leaked": 0,
+    "leaked_ids": [],
+    "missed": 0,
+    "wrong_outcome": 0,
+    "unknown_ids": 0
+   },
+   "raw_tail": "As of 2026-10-27T00:00:00Z, only one statement had a recorded verdict. This is `stmt:meta-li-20260729-q3-revenue-61-64bn`, Meta's Q3 2026 revenue guidance of $61–64 billion, with a verdict of **miss**, recorded 2026-10-22T00:43:18Z.\n\nEvery other verdict in the export was recorded after the cutoff, so I excluded them:\n- **2026-10-29:** the SK hynix Q3 operating-profit and shipment verdicts, the Microsoft capex verdict, and the FnGuide consensus verdict.\n- **2026-11-05:** the Samsung verdicts.\n\nThe remaining statements have no verdict at all.\n\n```json\n{\"resolved\": {\"stmt:meta-li-20260729-q3-revenue-61-64bn\": \"miss\"}}\n```"
+  },
+  {
+   "run": 5,
+   "wall_s": 7.540406547999993,
+   "usage": {
+    "input_tokens": 16556,
+    "output_tokens": 521
+   },
+   "cost_usd": 0.038322,
+   "cli_cost_usd": 0.0099738,
+   "answer": {
+    "resolved": {
+     "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss"
+    }
+   },
+   "score": {
+    "parsed": true,
+    "correct": true,
+    "leaked": 0,
+    "leaked_ids": [],
+    "missed": 0,
+    "wrong_outcome": 0,
+    "unknown_ids": 0
+   },
+   "raw_tail": "As of 2026-10-27, only one statement had a recorded verdict: Meta's Q3 2026 revenue guidance (`stmt:meta-li-20260729-q3-revenue-61-64bn`). Its verdict was a miss, recorded 2026-10-22T00:43:18Z.\n\nAll the other verdicts in the export were recorded on or after 2026-10-29, so they weren't known yet and are excluded. That covers the SK hynix Q3 operating profit and shipment verdicts, the Samsung Q3 verdicts, the Microsoft capex verdict and the Meritz, SK증권 and other analyst calls. Statements with a null verdict are also excluded.\n\n```json\n{\"resolved\": {\"stmt:meta-li-20260729-q3-revenue-61-64bn\": \"miss\"}}\n```"
+  }
+ ]
+}

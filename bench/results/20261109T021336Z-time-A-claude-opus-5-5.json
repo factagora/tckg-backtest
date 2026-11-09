@@ -1,0 +1,143 @@
+{
+ "kind": "time_ledger",
+ "arm": "A",
+ "model": "claude-opus-5-5",
+ "space": "theme:kr-memory-semis",
+ "as_of": "2026-10-27T00:00:00Z",
+ "exported_now": "2026-11-09T02:12:55Z",
+ "truth": {
+  "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss"
+ },
+ "decided_after_T": 20,
+ "n_statements": 67,
+ "prompt_sha256": "6a6b685dcd774889b8a7b4ffde448c1cbcd2c21c9970609165f4c9b901a350ec",
+ "prompt_template": "Below are analyst and company statements (predictions and claims) about memory semiconductors{what}.\n\nQuestion: as of {t}, which statements already had a verdict, and what was it? Use only what was known at {t};\ndo not use any information from after {t}.\n\nEnd your answer with exactly one JSON object in a ```json code block:\n{{\"resolved\": {{\"<statement id>\": \"hit\" or \"miss\", ...}}}}\nList only statements whose verdict was known at {t}.\n\nStatements:\n{rows}\n",
+ "oracle_matches_tckg_as_of_export": true,
+ "runs": [
+  {
+   "run": 1,
+   "wall_s": 8.009866066,
+   "usage": {
+    "input_tokens": 16553,
+    "output_tokens": 581
+   },
+   "cost_usd": 0.077832,
+   "cli_cost_usd": 0.144036,
+   "answer": {
+    "resolved": {
+     "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss"
+    }
+   },
+   "score": {
+    "parsed": true,
+    "correct": true,
+    "leaked": 0,
+    "leaked_ids": [],
+    "missed": 0,
+    "wrong_outcome": 0,
+    "unknown_ids": 0
+   },
+   "raw_tail": "As of 2026-10-27T00:00:00Z, **only one statement had a recorded verdict**:\n\n| Statement | Verdict | Recorded at |\n|---|---|---|\n| `stmt:meta-li-20260729-q3-revenue-61-64bn` (Meta Q3 2026 revenue guidance of $61–64bn) | **miss** | 2026-10-22T00:43:18Z |\n\n**Why the other verdicts are excluded:** every other verdict was recorded after the cutoff, so none of them was known on 2026-10-27.\n\n- **Recorded 2026-10-29:** These were mostly the SK hynix Q3 estimates, plus Microsoft's capex guidance.\n  - Misses: BNK, DS투자증권 70trn, FnGuide consensus, IBK, KB, Meritz OP and shipments, SK증권 OP, and Microsoft capex.\n  - Hits: SK hynix's DRAM shipments guidance and SK증권's shipments estimate.\n- **Recorded 2026-11-05:** These were the Samsung items.\n  - Hits: the Citi, DS투자증권, and 하나증권 DS-division OP estimates, Samsung's preliminary Q3 earnings claim, and the HBM4 3x forecast.\n  - Miss: the NAND bit growth forecast.\n\nAll remaining statements have no verdict.\n\n```json\n{\"resolved\": {\"stmt:meta-li-20260729-q3-revenue-61-64bn\": \"miss\"}}\n```"
+  },
+  {
+   "run": 2,
+   "wall_s": 7.8722645520000185,
+   "usage": {
+    "input_tokens": 16550,
+    "output_tokens": 642
+   },
+   "cost_usd": 0.07904,
+   "cli_cost_usd": 0.0223352,
+   "answer": {
+    "resolved": {
+     "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss"
+    }
+   },
+   "score": {
+    "parsed": true,
+    "correct": true,
+    "leaked": 0,
+    "leaked_ids": [],
+    "missed": 0,
+    "wrong_outcome": 0,
+    "unknown_ids": 0
+   },
+   "raw_tail": "As of 2026-10-27T00:00:00Z, **only one statement had a recorded verdict**.\n\n| Statement | Speaker | Verdict | Recorded at |\n|---|---|---|---|\n| `stmt:meta-li-20260729-q3-revenue-61-64bn` | Meta Platforms (Susan Li, CFO): Q3 2026 revenue of $61–64bn | **miss** | 2026-10-22T00:43:18Z |\n\n**Verdicts recorded after the cutoff, so excluded:**\n- **Recorded 2026-10-29T00:36:00Z (11 statements):**\n  - SK hynix Q3 operating-profit estimates from BNK, DS투자증권, the FnGuide consensus, IBK, KB, Meritz and SK증권.\n  - The Meritz DRAM shipment forecast.\n  - The SK증권 DRAM/NAND shipment forecast.\n  - The SK hynix guidance of about 10% DRAM shipment growth.\n  - The Microsoft CapEx guidance.\n- **Recorded 2026-11-05T09:14:59Z (7 statements):**\n  - The Citi, DS투자증권 and 하나증권 estimates for Samsung's Q3 DS-division operating profit.\n  - Samsung's preliminary Q3 operating profit of KRW 107.4trn.\n  - Samsung's Q3 HBM4 revenue growth of more than 3x.\n  - Samsung's Q3 NAND bit growth in the high single digits.\n\nAll other statements have no verdict.\n\n```json\n{\"resolved\": {\"stmt:meta-li-20260729-q3-revenue-61-64bn\": \"miss\"}}\n```"
+  },
+  {
+   "run": 3,
+   "wall_s": 8.074304966,
+   "usage": {
+    "input_tokens": 16551,
+    "output_tokens": 603
+   },
+   "cost_usd": 0.078264,
+   "cli_cost_usd": 0.0215632,
+   "answer": {
+    "resolved": {
+     "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss"
+    }
+   },
+   "score": {
+    "parsed": true,
+    "correct": true,
+    "leaked": 0,
+    "leaked_ids": [],
+    "missed": 0,
+    "wrong_outcome": 0,
+    "unknown_ids": 0
+   },
+   "raw_tail": "As of 2026-10-27T00:00:00Z, only one statement had a verdict: **stmt:meta-li-20260729-q3-revenue-61-64bn**, a **miss**. Meta had guided Q3 2026 revenue at $61–64bn, and that verdict was recorded on 2026-10-22.\n\nI counted a verdict as known only if its `verdict.recorded_at` was at or before the cutoff. Every statement entered the ledger (`known_at`) before the cutoff, so that was not a constraint.\n\nSeveral other statements have verdicts in the export, but all were recorded after the cutoff, so they were not yet known:\n\n- **Recorded 2026-10-29:** these mostly concern SK hynix Q3 results.\n  - Operating-profit estimates: BNK, DS투자증권, FnGuide consensus, IBK, KB, Meritz and SK증권.\n  - Shipment predictions: Meritz DRAM, SK hynix's own DRAM guidance, and SK증권.\n  - Microsoft's capex guidance.\n- **Recorded 2026-11-05:** Samsung Q3 statements.\n  - DS-division profit estimates from Citi, DS투자증권 and 하나증권.\n  - Samsung's preliminary Q3 results.\n  - The HBM4 3x revenue prediction and the NAND bit-growth prediction.\n\nAll remaining statements have no verdict at all.\n\n```json\n{\"resolved\": {\"stmt:meta-li-20260729-q3-revenue-61-64bn\": \"miss\"}}\n```"
+  },
+  {
+   "run": 4,
+   "wall_s": 6.966156072999979,
+   "usage": {
+    "input_tokens": 16554,
+    "output_tokens": 499
+   },
+   "cost_usd": 0.076196,
+   "cli_cost_usd": 0.0195072,
+   "answer": {
+    "resolved": {
+     "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss"
+    }
+   },
+   "score": {
+    "parsed": true,
+    "correct": true,
+    "leaked": 0,
+    "leaked_ids": [],
+    "missed": 0,
+    "wrong_outcome": 0,
+    "unknown_ids": 0
+   },
+   "raw_tail": "As of 2026-10-27T00:00:00Z, only **one** statement had a verdict on record:\n\n- **stmt:meta-li-20260729-q3-revenue-61-64bn** (Meta, Susan Li: Q3 2026 revenue of $61–64B) → **miss**. The verdict was recorded 2026-10-22T00:43:18Z.\n\nAll other verdicts in the export came after the cutoff, so they were not yet known:\n- Verdicts recorded 2026-10-29T00:36Z: the SK hynix Q3 OP estimates (BNK, DS, FnGuide, IBK, KB, Meritz, SK증권), the Meritz and SK증권 DRAM shipment calls, SK hynix's own ~10% DRAM shipment guidance, and Microsoft's capex guidance.\n- Verdicts recorded 2026-11-05T09:14Z: the Samsung DS OP estimates (Citi, DS, Hana), Samsung's Q3 preliminary results claim, the HBM4 3x call, and the NAND bit growth call.\n\nThe remaining statements have no verdict at all.\n\n```json\n{\"resolved\": {\"stmt:meta-li-20260729-q3-revenue-61-64bn\": \"miss\"}}\n```"
+  },
+  {
+   "run": 5,
+   "wall_s": 8.585163280000017,
+   "usage": {
+    "input_tokens": 16553,
+    "output_tokens": 528
+   },
+   "cost_usd": 0.076772,
+   "cli_cost_usd": 0.0200792,
+   "answer": {
+    "resolved": {
+     "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss"
+    }
+   },
+   "score": {
+    "parsed": true,
+    "correct": true,
+    "leaked": 0,
+    "leaked_ids": [],
+    "missed": 0,
+    "wrong_outcome": 0,
+    "unknown_ids": 0
+   },
+   "raw_tail": "As of 2026-10-27T00:00:00Z, only one statement had a recorded verdict:\n\n| Statement | Verdict | Recorded at |\n|---|---|---|\n| `stmt:meta-li-20260729-q3-revenue-61-64bn` (Meta Q3 2026 revenue guidance of $61–64bn) | **miss** | 2026-10-22T00:43:18Z |\n\nStatements whose verdicts were recorded only after the cutoff count as unresolved:\n- **Recorded 2026-10-29:**\n  - The SK hynix Q3 operating-profit estimates: BNK, DS투자, FnGuide, IBK, KB, Meritz and SK증권.\n  - The SK hynix DRAM shipment calls: the company's guidance, Meritz and SK증권.\n  - Microsoft's capex guidance.\n- **Recorded 2026-11-05:**\n  - The Samsung Q3 DS operating-profit estimates: Citi, DS투자 and Hana.\n  - Samsung's preliminary Q3 earnings claim.\n  - Samsung's guidance on HBM4 revenue tripling and on NAND bit growth.\n\nAll other statements have no verdict.\n\n```json\n{\"resolved\": {\"stmt:meta-li-20260729-q3-revenue-61-64bn\": \"miss\"}}\n```"
+  }
+ ]
+}
