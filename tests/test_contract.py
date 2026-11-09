@@ -6,6 +6,7 @@ import jsonschema
 import pytest
 from fastapi.testclient import TestClient
 
+from tckg_backtest.canonical import canonical
 from tckg_backtest import ENGINE_VERSION, request_sha256, run_backtest, validate_request
 from tckg_backtest.core import CONTRACT_DIR, mock_backtest
 from tckg_backtest.server import app
@@ -62,10 +63,14 @@ def test_mock_no_golden_and_invalid():
         assert got["status"] == "invalid" and got["errors"][0]["code"] == code and got["request_sha256"] is None
 
 
-def test_canonical_refuses_exponent_numbers():
+def test_canonical_writes_small_numbers_as_js():
+    # JSON.stringify output for the same values (Node 22), io-v0 6.4
+    assert canonical([5.7e-05, 1e-06, -1.5e-07, 1e-07, 9.9e-05, 0.5]) == b"[0.000057,0.000001,-1.5e-7,1e-7,0.000099,0.5]"
     req = load("request-01-known-open.json")
     req["prices"]["inline"]["bars"]["000660"][0]["open"] = 1e-5
-    assert any(e["code"] == "invalid_request" for e in validate_request(req))
+    assert not any(e["code"] == "invalid_request" for e in validate_request(req))
+    with pytest.raises(ValueError):
+        canonical(["\ue000x"])
 
 
 @pytest.fixture
