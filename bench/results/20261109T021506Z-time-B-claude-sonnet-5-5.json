@@ -1,0 +1,158 @@
+{
+ "kind": "time_ledger",
+ "arm": "B",
+ "model": "claude-sonnet-5-5",
+ "space": "theme:kr-memory-semis",
+ "as_of": "2026-10-27T00:00:00Z",
+ "exported_now": "2026-11-09T02:13:30Z",
+ "truth": {
+  "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss"
+ },
+ "decided_after_T": 20,
+ "n_statements": 67,
+ "prompt_sha256": "2b7cdef1c7a36f02affedf4ed4669243b612199c470f285edaf4d3dab1c774cb",
+ "prompt_template": "Below are analyst and company statements (predictions and claims) about memory semiconductors{what}.\n\nQuestion: as of {t}, which statements already had a verdict, and what was it? Use only what was known at {t};\ndo not use any information from after {t}.\n\nEnd your answer with exactly one JSON object in a ```json code block:\n{{\"resolved\": {{\"<statement id>\": \"hit\" or \"miss\", ...}}}}\nList only statements whose verdict was known at {t}.\n\nStatements:\n{rows}\n",
+ "oracle_matches_tckg_as_of_export": true,
+ "runs": [
+  {
+   "run": 1,
+   "wall_s": 19.15008039199998,
+   "usage": {
+    "input_tokens": 13922,
+    "output_tokens": 2079
+   },
+   "cost_usd": 0.048634,
+   "cli_cost_usd": 0.076474,
+   "answer": {
+    "resolved": {
+     "stmt:sec-20261008-q3-prelim-op-107.4trn": "hit",
+     "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss"
+    }
+   },
+   "score": {
+    "parsed": true,
+    "correct": false,
+    "leaked": 1,
+    "leaked_ids": [
+     "stmt:sec-20261008-q3-prelim-op-107.4trn"
+    ],
+    "missed": 0,
+    "wrong_outcome": 0,
+    "unknown_ids": 0
+   },
+   "raw_tail": "im was checkable straight away.\n- **`stmt:meta-li-20260729-q3-revenue-61-64bn` (miss):** Meta reported Q3 results on 2026-10-21, as shown by its 10-21 capex statement, so the revenue guidance could be checked.\n\n**Verdict present in the sheet but not yet known at 2026-10-27**\nI excluded these because the underlying results most likely came out after the cutoff. The sheet gives no release dates, so this is an inference from the usual earnings calendar.\n- **SK hynix Q3 operating profit and shipments statements:** BNK, DS Investment, IBK, KB, Meritz, SK Securities and the FnGuide consensus. SK hynix's Q3 results and call probably came around 10-28 to 10-29 KST. Its Q2 call was on 7-29 KST.\n- **Meritz DRAM shipments estimate:** this also depends on the SK hynix Q3 results.\n- **Samsung DS division operating profit estimates (Citi, DS Investment, Hana):** the 10-08 preliminary release gave only the consolidated figure. Divisional figures normally come with the full results and call around 10-29 to 10-30.\n- **Samsung HBM4 and NAND bit-growth claims:** these also depend on the full Q3 results and call.\n- **SK hynix DRAM shipments (+10% QoQ):** this depends on the SK hynix Q3 results.\n- **Microsoft's FQ1 capex \"over $50bn\":** Microsoft normally reports on the last Wednesday of October, which would be 10-28.\n\nEvery other statement has no verdict in the sheet.\n\n```json\n{\"resolved\": {\"stmt:sec-20261008-q3-prelim-op-107.4trn\": \"hit\", \"stmt:meta-li-20260729-q3-revenue-61-64bn\": \"miss\"}}\n```"
+  },
+  {
+   "run": 2,
+   "wall_s": 20.552577530000008,
+   "usage": {
+    "input_tokens": 13924,
+    "output_tokens": 2355
+   },
+   "cost_usd": 0.051398,
+   "cli_cost_usd": 0.0280545,
+   "answer": {
+    "resolved": {
+     "stmt:sec-20261008-q3-prelim-op-107.4trn": "hit",
+     "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss"
+    }
+   },
+   "score": {
+    "parsed": true,
+    "correct": false,
+    "leaked": 1,
+    "leaked_ids": [
+     "stmt:sec-20261008-q3-prelim-op-107.4trn"
+    ],
+    "missed": 0,
+    "wrong_outcome": 0,
+    "unknown_ids": 0
+   },
+   "raw_tail": "d its Q3 preliminary results on 2026-10-08 KST, so the claim was settled then.\n- **`stmt:meta-li-20260729-q3-revenue-61-64bn` (miss):** Meta reported Q3 results on 2026-10-21, as shown by the capex statement it dated that day, so the guidance was checkable by then.\n\nI excluded every other statement whose outcome field is filled in. For each, the actual figure could not have been published before 2026-10-27, so the \"today\" verdict relies on later information.\n\n- **SK hynix Q3 operating profit and shipments** (BNK, DS Investment, FnGuide, IBK, KB, Meritz, SK Securities, SK hynix's own shipment guidance): SK hynix's Q2 call was on 2026-07-29 KST, about five days later than in 2025. That points to a Q3 report around 28–29 October, after the cutoff. This date is an inference, not something the data states.\n- **Samsung Q3 DS division operating profit** (Citi, DS Investment, Hana): the division split comes with Samsung's full Q3 results, which normally follow the preliminary release by about three weeks, so after the cutoff. The 2026-10-08 preliminary release only gave the consolidated total.\n- **Samsung's HBM4 and NAND bit-growth guidance:** these are checked at the full Q3 results and call, also after the cutoff.\n- **Microsoft FQ1 capex over $50 billion:** Microsoft's quarter report normally comes in the last days of October, so not known by 2026-10-27.\n\n```json\n{\"resolved\": {\"stmt:sec-20261008-q3-prelim-op-107.4trn\": \"hit\", \"stmt:meta-li-20260729-q3-revenue-61-64bn\": \"miss\"}}\n```"
+  },
+  {
+   "run": 3,
+   "wall_s": 17.971323775999963,
+   "usage": {
+    "input_tokens": 13926,
+    "output_tokens": 2045
+   },
+   "cost_usd": 0.048302,
+   "cli_cost_usd": 0.024962500000000002,
+   "answer": {
+    "resolved": {
+     "stmt:sec-20261008-q3-prelim-op-107.4trn": "hit",
+     "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss"
+    }
+   },
+   "score": {
+    "parsed": true,
+    "correct": false,
+    "leaked": 1,
+    "leaked_ids": [
+     "stmt:sec-20261008-q3-prelim-op-107.4trn"
+    ],
+    "missed": 0,
+    "wrong_outcome": 0,
+    "unknown_ids": 0
+   },
+   "raw_tail": "w was already known.\n\n- **`stmt:sec-20261008-q3-prelim-op-107.4trn` (hit):** This is Samsung's own preliminary Q3 results disclosure, published on 2026-10-08 KST. The verdict was known as soon as it was published.\n- **`stmt:meta-li-20260729-q3-revenue-61-64bn` (miss):** Meta reported Q3 results on 2026-10-21. A later statement in the list is dated that day, with the new 2026 capex range. The actual revenue would have been known then, so the verdict was in before the cutoff.\n\nEvery other statement with an outcome is left out because its verdict probably came after 2026-10-27. The dates below are inferred from each company's usual reporting pattern, not confirmed:\n\n- **SK hynix Q3 items:** The Q2 call was on 2026-07-29 KST, so the Q3 call was probably around 2026-10-28 or later. This covers the Q3 operating-profit estimates, the DRAM shipment claims and the FnGuide consensus.\n- **Samsung full-results items:** The Q2 call was on 2026-07-30 KST, so the full Q3 results (which give the DS division operating profit) were probably around 2026-10-29. This covers the Citi, DS and Hana DS estimates, and the HBM4 and NAND bit-growth claims.\n- **Microsoft FQ1 capex claim:** Earnings usually come in the last week of October, so this was likely resolved after the cutoff.\n\nThe statements with a null outcome had no verdict by their own record, so they are excluded.\n\n```json\n{\"resolved\": {\"stmt:sec-20261008-q3-prelim-op-107.4trn\": \"hit\", \"stmt:meta-li-20260729-q3-revenue-61-64bn\": \"miss\"}}\n```"
+  },
+  {
+   "run": 4,
+   "wall_s": 20.015602537999996,
+   "usage": {
+    "input_tokens": 13922,
+    "output_tokens": 2156
+   },
+   "cost_usd": 0.049404,
+   "cli_cost_usd": 0.0260565,
+   "answer": {
+    "resolved": {
+     "stmt:sec-20261008-q3-prelim-op-107.4trn": "hit",
+     "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss"
+    }
+   },
+   "score": {
+    "parsed": true,
+    "correct": false,
+    "leaked": 1,
+    "leaked_ids": [
+     "stmt:sec-20261008-q3-prelim-op-107.4trn"
+    ],
+    "missed": 0,
+    "wrong_outcome": 0,
+    "unknown_ids": 0
+   },
+   "raw_tail": "timing, since the sheet gives no resolution dates.\n\n**Known by 2026-10-27**\n- **Samsung Q3 preliminary results** (`stmt:sec-20261008-q3-prelim-op-107.4trn`): hit. Samsung published the preliminary consolidated figures on 2026-10-07/08, and this claim restates them.\n- **Meta Q3 revenue guidance of $61–64B** (`stmt:meta-li-20260729-q3-revenue-61-64bn`): miss. Meta reported Q3 results around 2026-10-21, as shown by its 2026-10-21 capex statement, so the outcome was public.\n\n**Not known by 2026-10-27, despite a recorded outcome**\n- **SK hynix Q3 operating profit and shipment statements:** the BNK, DS, FnGuide, IBK, KB, Meritz and SK증권 operating-profit estimates, the Meritz and SK증권 shipment estimates, and SK hynix's own ~10% shipment guidance. SK hynix's Q2 call was on 2026-07-29 KST, later than in prior years, so Q3 results most likely came around 2026-10-29. I could not confirm that date.\n- **Samsung Q3 DS division operating-profit estimates** (Citi, DS투자, 하나): the preliminary release gives only consolidated figures, with the division breakdown coming with the full results and call around 2026-10-29/30.\n- **Samsung HBM4 and NAND bit-growth statements:** these depend on the full results and call, which came after the cutoff.\n- **Microsoft FQ1 capex over $50B:** Microsoft most likely reported around 2026-10-28/29.\n\nEvery other statement has no outcome.\n\n```json\n{\"resolved\": {\"stmt:sec-20261008-q3-prelim-op-107.4trn\": \"hit\", \"stmt:meta-li-20260729-q3-revenue-61-64bn\": \"miss\"}}\n```"
+  },
+  {
+   "run": 5,
+   "wall_s": 17.51484984000001,
+   "usage": {
+    "input_tokens": 13924,
+    "output_tokens": 1774
+   },
+   "cost_usd": 0.045588,
+   "cli_cost_usd": 0.0222445,
+   "answer": {
+    "resolved": {
+     "stmt:sec-20261008-q3-prelim-op-107.4trn": "hit",
+     "stmt:meta-li-20260729-q3-revenue-61-64bn": "miss"
+    }
+   },
+   "score": {
+    "parsed": true,
+    "correct": false,
+    "leaked": 1,
+    "leaked_ids": [
+     "stmt:sec-20261008-q3-prelim-op-107.4trn"
+    ],
+    "missed": 0,
+    "wrong_outcome": 0,
+    "unknown_ids": 0
+   },
+   "raw_tail": "10-27:\n\n- **`stmt:sec-20261008-q3-prelim-op-107.4trn` (hit):** This is Samsung's own preliminary Q3 filing, published 2026-10-07 UTC (Oct 8 KST). The figure was public from that day, so the verdict was known.\n- **`stmt:meta-li-20260729-q3-revenue-61-64bn` (miss):** Meta reported Q3 results around 2026-10-21, as shown by the Oct 21 capex statement. Its Q3 revenue was therefore known before the cutoff.\n\nSome statements carry a hit or miss outcome in the spreadsheet but were not yet resolvable on 2026-10-27, because the actuals had not been published by then. I excluded them:\n\n- **SK hynix Q3 operating-profit, shipment and ASP statements** (BNK, DS투자증권, FnGuide, IBK, KB, Meritz, SK증권, and SK hynix's own Q3 shipment guidance): SK hynix's Q2 call was on 2026-07-29 KST, so its Q3 results most likely came around Oct 28–29. That is my inference from the Q2 timing, not a confirmed date.\n- **Samsung Q3 DS division operating profit estimates** (Citi, DS투자증권, 하나증권): The preliminary release gave only consolidated figures. The division breakdown normally comes with the full earnings release and call, around Oct 29–30.\n- **Samsung's Q3 HBM4 and NAND bit-growth guidance:** These resolve at the same full earnings release.\n- **Microsoft's FQ1 capex guidance:** Microsoft normally reports around Oct 28, after the cutoff.\n\nStatements with a null outcome had no verdict.\n\n```json\n{\"resolved\": {\"stmt:sec-20261008-q3-prelim-op-107.4trn\": \"hit\", \"stmt:meta-li-20260729-q3-revenue-61-64bn\": \"miss\"}}\n```"
+  }
+ ]
+}
