@@ -2,6 +2,11 @@
 
 **Can I trust this claim?** Backtest any claim using only what was knowable at the time, and get a receipt that proves it.
 
+Use it to verify predictions before you act on them:
+
+- **See what trusting a prediction would have earned.** If you had traded on it from the moment it became public, what was the return against the market? Not the flattering hindsight number, the one a real person could have gotten.
+- **Decide on a track record, not a hunch.** Before a decision that rests on a forecast (an analyst's call, a company's promise, an expert's prediction), check how that source's earlier predictions actually played out, each one backtested point in time with a receipt anyone can rerun.
+
 **Try it live:** [tckg-backtest console](https://tckg-backtest-i3fb43emgq-du.a.run.app/?case=01) (no sign-in)
 
 ![console: a real claim, backtested from the moment it became knowable](docs/shots/01-default.png)
