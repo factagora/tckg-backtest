@@ -1,0 +1,195 @@
+{
+  "contract": "tckg-backtest-io/v0",
+  "mode": "as_known",
+  "as_of": "2026-11-08T00:00:00Z",
+  "factblock": {
+    "id": "6535ff93-703b-4692-b995-1e1dd79a976d",
+    "kind": "prediction",
+    "statement": "SK hynix announces additional shareholder returns with its Q3 results",
+    "speaker": {
+      "id": "org:skhynix",
+      "name": "SK hynix (fair disclosure, IR)"
+    },
+    "said_at": "2026-08-18T15:00:00Z",
+    "said_at_precision": "day",
+    "known_at": "2026-10-20T13:04:41Z",
+    "backfilled": false,
+    "verdict": {
+      "value": "hit",
+      "decided_at": "2026-10-29T00:45:00Z"
+    },
+    "assets": [
+      {
+        "symbol": "000660",
+        "market": "XKRX"
+      }
+    ]
+  },
+  "playbook": {
+    "id": "claim-follow-20",
+    "version": 1,
+    "name": "Follow the claim from when it is known, hold 20 sessions",
+    "trigger": {
+      "event": "known_at"
+    },
+    "entry": {
+      "at": "first_open_after"
+    },
+    "hold": {
+      "sessions": 20
+    },
+    "exit": {
+      "at": "open"
+    },
+    "direction": "long",
+    "benchmark": {
+      "symbol": "069500",
+      "market": "XKRX"
+    }
+  },
+  "prices": {
+    "inline": {
+      "currency": "KRW",
+      "source": "gs://tckg-trader-data/daily/prices.csv (KIS daily bars, unadjusted)",
+      "bars": {
+        "000660": [
+          {
+            "date": "2026-10-21",
+            "open": 1260000,
+            "close": 1294000
+          },
+          {
+            "date": "2026-10-22",
+            "open": 1273000,
+            "close": 1223000
+          },
+          {
+            "date": "2026-10-23",
+            "open": 1200000,
+            "close": 1263000
+          },
+          {
+            "date": "2026-10-26",
+            "open": 1279000,
+            "close": 1275000
+          },
+          {
+            "date": "2026-10-27",
+            "open": 1346000,
+            "close": 1341000
+          },
+          {
+            "date": "2026-10-28",
+            "open": 1390000,
+            "close": 1487000
+          },
+          {
+            "date": "2026-10-29",
+            "open": 1511000,
+            "close": 1526000
+          },
+          {
+            "date": "2026-10-30",
+            "open": 1444000,
+            "close": 1391000
+          },
+          {
+            "date": "2026-11-02",
+            "open": 1402000,
+            "close": 1472000
+          },
+          {
+            "date": "2026-11-03",
+            "open": 1410000,
+            "close": 1398000
+          },
+          {
+            "date": "2026-11-04",
+            "open": 1458000,
+            "close": 1396000
+          },
+          {
+            "date": "2026-11-05",
+            "open": 1320000,
+            "close": 1264000
+          },
+          {
+            "date": "2026-11-06",
+            "open": 1089000,
+            "close": 1176000
+          }
+        ],
+        "069500": [
+          {
+            "date": "2026-10-21",
+            "open": 88665,
+            "close": 89725
+          },
+          {
+            "date": "2026-10-22",
+            "open": 88805,
+            "close": 86525
+          },
+          {
+            "date": "2026-10-23",
+            "open": 84470,
+            "close": 87075
+          },
+          {
+            "date": "2026-10-26",
+            "open": 86265,
+            "close": 85995
+          },
+          {
+            "date": "2026-10-27",
+            "open": 88920,
+            "close": 88905
+          },
+          {
+            "date": "2026-10-28",
+            "open": 91186,
+            "close": 95515
+          },
+          {
+            "date": "2026-10-29",
+            "open": 95610,
+            "close": 94465
+          },
+          {
+            "date": "2026-10-30",
+            "open": 91495,
+            "close": 90800
+          },
+          {
+            "date": "2026-11-02",
+            "open": 89280,
+            "close": 92945
+          },
+          {
+            "date": "2026-11-03",
+            "open": 90320,
+            "close": 89325
+          },
+          {
+            "date": "2026-11-04",
+            "open": 91660,
+            "close": 89715
+          },
+          {
+            "date": "2026-11-05",
+            "open": 87890,
+            "close": 84610
+          },
+          {
+            "date": "2026-11-06",
+            "open": 77065,
+            "close": 79005
+          }
+        ]
+      }
+    }
+  },
+  "calendar": {
+    "id": "XKRX"
+  }
+}

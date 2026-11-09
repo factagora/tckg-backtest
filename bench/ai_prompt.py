@@ -23,9 +23,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from score import NAMES, calendar, fingerprint, load, score, summarize  # noqa: E402
 
 API = "https://api.anthropic.com/v1/messages"
-MAX_TOKENS = 8192
-# Assumed list prices, USD per million tokens (input, output). Not read from an API; edit if the price sheet differs.
-PRICE_PER_MTOK = {"claude-sonnet-5-5": (3.0, 15.0), "claude-opus-5-5": (5.0, 25.0)}
+MAX_TOKENS = 16000
+# Assumed list prices, USD per million tokens (input, output): Anthropic first-party rates as of 2026-10-06 (claude-api
+# skill model table). Not read from an API; edit if the price sheet differs. Thinking tokens bill as output.
+PRICE_PER_MTOK = {"claude-sonnet-5-5": (2.0, 10.0), "claude-opus-5-5": (4.0, 20.0)}
 
 INSTRUCTION = """Backtest the trading rule in the request below by hand, using only the data given. Rules:
 
@@ -103,18 +104,21 @@ def main(argv=None) -> int:
     key = os.environ.get("ANTHROPIC_API_KEY")
     if not key:
         raise SystemExit("ANTHROPIC_API_KEY is not set")
-    out = {"kind": "ai", "model": a.model, "max_tokens": MAX_TOKENS, "temperature": "API default",
+    out = {"kind": "ai", "model": a.model, "max_tokens": MAX_TOKENS, "temperature": "API default", "thinking": "API default (adaptive)", "effort": "API default",
            "price_per_mtok_usd_assumed": PRICE_PER_MTOK.get(a.model), "instruction": INSTRUCTION,
            "started_at": datetime.now(UTC).isoformat(timespec="seconds"), "requests": {}}
     for name in names:
         request, golden = load(name)
         text, runs = prompt(request), []
         for i in range(a.runs):
-            resp, wall = call(a.model, text, key)
+            try:
+                resp, wall = call(a.model, text, key)
+            except (SystemExit, OSError) as e:  # keep the runs already paid for; an API error counts as a parse failure
+                resp, wall = {"content": [{"type": "text", "text": f"API error: {e}"}], "usage": None}, float("nan")
             raw = "".join(b.get("text", "") for b in resp.get("content", []) if b.get("type") == "text")
             ans = parse(raw)
             runs.append({"run": i + 1, "wall_s": wall, "model_returned": resp.get("model"), "usage": resp.get("usage"),
-                         "stop_reason": resp.get("stop_reason"), "cost_usd": cost(a.model, resp["usage"]),
+                         "stop_reason": resp.get("stop_reason"), "cost_usd": cost(a.model, resp["usage"]) if resp["usage"] else None,
                          "answer": ans, "answer_key": fingerprint(ans) if ans is not None else "parse_fail:" + fingerprint(raw),
                          "score": score(ans, request, golden), "raw_text": raw})
             print(f"{name} run {i + 1}: {wall:.1f}s {runs[-1]['score']}", flush=True)

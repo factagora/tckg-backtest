@@ -1,7 +1,7 @@
 """Shared bench inputs and scoring: the io-v0 goldens 01-03 and how one answer compares with its golden.
 
-The goldens are read from TCKG_V0 (default: this repo's tckg_backtest/contract/v0, the byte copy of tckg-trader
-docs/tckg-backtest/v0).
+The goldens are read from TCKG_V0 (default: bench/v0, a byte copy of factagora/tckg-trader docs/tckg-backtest/v0
+at commit fb3e6c2, examples 01-03 and the XKRX calendar).
 """
 from __future__ import annotations
 
@@ -12,8 +12,7 @@ import statistics
 from datetime import datetime
 from pathlib import Path
 
-REPO = Path(__file__).resolve().parents[1]
-V0 = Path(os.environ.get("TCKG_V0", REPO / "tckg_backtest" / "contract" / "v0"))
+V0 = Path(os.environ.get("TCKG_V0", Path(__file__).resolve().parent / "v0"))
 NAMES = ("01-known-open", "02-hindsight-said", "03-candidate-playbook")
 EXCESS_TOL = 0.0005
 FIELDS = ("entry_date", "entry_price", "entry_benchmark_price", "exit_date", "exit_price", "exit_benchmark_price",

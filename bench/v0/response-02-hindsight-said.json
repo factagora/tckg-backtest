@@ -1,0 +1,81 @@
+{
+  "contract": "tckg-backtest-io/v0",
+  "status": "ok",
+  "no_trade_reason": null,
+  "request_sha256": "136c42028853271631a15ebc115c1f6f23a69c7ec96036be946ee21f27b70643",
+  "trades": [
+    {
+      "symbol": "000660",
+      "market": "XKRX",
+      "benchmark": "069500",
+      "direction": "long",
+      "entry_basis": "said",
+      "trigger": "known_at",
+      "trigger_at": "2026-08-18T15:00:00Z",
+      "entry": {
+        "date": "2026-08-19",
+        "at": "2026-08-19T00:00:00Z",
+        "price": 1545000,
+        "benchmark_price": 102635
+      },
+      "exit": {
+        "date": "2026-09-16",
+        "at": "2026-09-16T00:00:00Z",
+        "price": 1686000,
+        "benchmark_price": 104345,
+        "planned": false
+      },
+      "open": false,
+      "marked_at": null,
+      "mark": null,
+      "ret": 0.09126213592233001,
+      "benchmark_ret": 0.016660983095435178,
+      "excess": 0.07460115282689483,
+      "note": "Hindsight: entered as if the FactBlock were known when said (day precision, taken at the start of the speaker's local day); the ledger had it from 2026-10-20T13:04:41Z."
+    }
+  ],
+  "summary": {
+    "n_trades": 1,
+    "n_closed": 1,
+    "n_open": 0,
+    "ret_mean": 0.09126213592233001,
+    "benchmark_ret_mean": 0.016660983095435178,
+    "excess_mean": 0.07460115282689483,
+    "portfolio": null
+  },
+  "certificate": {
+    "as_of": "2026-11-08T00:00:00Z",
+    "mode": "hindsight_said_at",
+    "engine_version": "0.0.0+golden",
+    "mock": false,
+    "request_sha256": "136c42028853271631a15ebc115c1f6f23a69c7ec96036be946ee21f27b70643",
+    "prices_sha256": "fbff5426485e94ee51052a8f8ea6d47f4ddbc6e8f75490fa76bb93ceff3209e5",
+    "playbook_sha256": "9fb041d306a22c0d69f26b32024d8a66e25f6da16c19d4bb71434eaf745b4574",
+    "calendar": {
+      "id": "XKRX",
+      "sha256": "3d3fb1164075c491b3742aa2b8b0047084c488690cbc6ad2dfd287b12469d790"
+    },
+    "hindsight": true,
+    "backfilled": false,
+    "reproducible": false,
+    "not_reproducible_because": [
+      "hindsight_said_at"
+    ],
+    "masked": [],
+    "used_before_known": [
+      {
+        "input": "factblock",
+        "known_at": "2026-10-20T13:04:41Z",
+        "used_at": "2026-08-18T15:00:00Z"
+      }
+    ],
+    "assumptions": [
+      "gross of costs and taxes",
+      "no dividends",
+      "filled at the session's open or close price",
+      "unadjusted prices; an open is known from open_at and a close from close_at"
+    ]
+  },
+  "errors": [],
+  "computed_at": "2026-11-08T00:00:00Z"
+}
