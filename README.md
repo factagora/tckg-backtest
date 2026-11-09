@@ -2,6 +2,8 @@
 
 **Can I trust this claim?** Backtest any claim using only what was knowable at the time, and get a receipt that proves it.
 
+**Generative AI guesses. TCKG decides.** A language model makes up a new answer on every run. TCKG reuses knowledge already in an ontology knowledge graph, so the same question gets the same answer, deterministically, with a receipt.
+
 Use it to verify predictions before you act on them:
 
 - **See what trusting a prediction would have earned.** If you had traded on it from the moment it became public, what was the return against the market? Not the flattering hindsight number, the one a real person could have gotten.
@@ -25,17 +27,20 @@ Asking an AI model to run the backtest has a different problem: it is slow, and 
 - **The future is blocked, and the receipt lists it.** Every response carries a certificate: hashes of the claim, prices, calendar and rule it used, and every input it masked because it was not known yet.
 - **Same answer, every run, in milliseconds.** The engine is a pure function. Anyone can rerun the request and get the same response hash.
 
-## A real example
+## A real example: act when it became knowable, not on the news
 
-SK hynix said on 2026-08-19 (KST) that it would announce additional shareholder returns with its Q3 results. The claim entered the public ledger on 2026-10-20 and came true on 2026-10-29. Rule: buy at the first open after the claim is public, hold 20 trading days, compare with the KOSPI 200 ETF.
+"Buy SK hynix: it will announce bigger shareholder returns with its Q3 results." SK hynix said it on 2026-08-19 (KST). TCKG records that the claim became knowable on 2026-10-20, that SK hynix had kept 2 of 2 earlier commitments, and that the claim came true on 2026-10-29. Most people buy the news. Same claim, same rule (buy at the next open, hold 20 trading days, compare with the KOSPI 200 ETF), only the entry moment differs:
 
-| How the backtest is run | Result vs the market |
-|---|---|
-| From the moment it was knowable (bought 2026-10-21, open trade marked at the 2026-11-06 close) | **+4.2%** |
-| The usual hindsight backtest, from the day it was said | +7.5% |
-| Gap: information nobody had at the time | 3.2 points |
+| Entry | Bought | Stock | Market | vs the market |
+|---|---|---|---|---|
+| When TCKG says the claim became knowable (2026-10-20) | 2026-10-21 | -6.7% | -10.9% | **+4.2%** |
+| After the news (verdict 2026-10-29) | 2026-10-30 | -18.6% | -13.7% | **-4.9%** |
+
+A 9-point difference on one claim. Both trades are still open, valued at the 2026-11-06 close; both come from the same engine with receipts. One example, not a general result.
 
 Rewind the console to 2026-10-15 and it refuses to trade: [nobody knew the claim yet](https://tckg-backtest-i3fb43emgq-du.a.run.app/?case=01&as_of=2026-10-15T07:00:00Z). Plant fake future prices in the input and they are [masked, with the same answer](https://tckg-backtest-i3fb43emgq-du.a.run.app/?case=05).
+
+Why point in time matters: a backtest that starts from the day the claim was said, as if everyone knew then, shows +7.5% for the same rule. Nobody could have had that number. tckg-backtest blocks it and the receipt says so.
 
 ## Measured against prompting an AI model
 
