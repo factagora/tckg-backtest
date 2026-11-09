@@ -56,8 +56,17 @@ End your answer with exactly one JSON object in a ```json code block, with these
 """
 
 
-def prompt(request: dict) -> str:
-    return (INSTRUCTION + "\nXKRX calendar:\n" + json.dumps(calendar()) +
+# What a user who just asks an AI would type: same inputs, no rule book. Only the answer format is fixed, for scoring.
+SHORT = """Backtest the trading rule (playbook) in the request below for the FactBlock in it, as of the request's as_of.
+Do not use any information from after as_of.
+
+End your answer with exactly one JSON object in a ```json code block, with these keys:
+""" + INSTRUCTION[INSTRUCTION.index('{"entry_date"'):]
+PROMPTS = {"full": INSTRUCTION, "short": SHORT}
+
+
+def prompt(request: dict, kind: str = "full") -> str:
+    return (PROMPTS[kind] + "\nXKRX calendar:\n" + json.dumps(calendar()) +
             "\n\nRequest:\n" + json.dumps(request, indent=2) + "\n")
 
 
@@ -125,24 +134,25 @@ def main(argv=None) -> int:
     ap.add_argument("--runs", type=int, default=5)
     ap.add_argument("--only", choices=NAMES, action="append", help="request name; repeatable (default: 01-03)")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--prompt", choices=tuple(PROMPTS), default="full", help="full: contract rules; short: no rules")
     ap.add_argument("--via", choices=("api", "cli"), default="api", help="cli: `claude -p` with the Claude Code login")
     a = ap.parse_args(argv)
     names = a.only or list(NAMES)
     if a.dry_run:
-        print(prompt(load(names[0])[0]))
+        print(prompt(load(names[0])[0], a.prompt))
         return 0
     key = os.environ.get("ANTHROPIC_API_KEY")
     if a.via == "api" and not key:
         raise SystemExit("ANTHROPIC_API_KEY is not set (or use --via cli)")
     do_call = call if a.via == "api" else call_cli
-    out = {"kind": "ai", "model": a.model, "via": a.via,
+    out = {"kind": "ai", "model": a.model, "via": a.via, "prompt_kind": a.prompt,
            "cli": {"system_prompt": CLI_SYSTEM, "note": "Claude Code harness, tools off; wall time includes CLI start"}
            if a.via == "cli" else None, "max_tokens": MAX_TOKENS, "temperature": "API default", "thinking": "API default (adaptive)", "effort": "API default",
-           "price_per_mtok_usd_assumed": PRICE_PER_MTOK.get(a.model), "instruction": INSTRUCTION,
+           "price_per_mtok_usd_assumed": PRICE_PER_MTOK.get(a.model), "instruction": PROMPTS[a.prompt],
            "started_at": datetime.now(UTC).isoformat(timespec="seconds"), "requests": {}}
     for name in names:
         request, golden = load(name)
-        text, runs = prompt(request), []
+        text, runs = prompt(request, a.prompt), []
         for i in range(a.runs):
             try:
                 resp, wall = do_call(a.model, text, key)
@@ -159,7 +169,7 @@ def main(argv=None) -> int:
             print(f"{name} run {i + 1}: {wall:.1f}s {runs[-1]['score']}", flush=True)
         out["requests"][name] = {"prompt": text, "summary": summarize(runs), "runs": runs}
     path = Path(__file__).resolve().parent / "results" / \
-        f"{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}-ai-{a.model}.json"
+        f"{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}-ai-{a.model}-{a.prompt}.json"
     path.parent.mkdir(exist_ok=True)
     path.write_text(json.dumps(out, indent=1) + "\n")
     print(path)

@@ -18,7 +18,7 @@ def latest() -> dict:
     out = {}
     for p in sorted(RES.glob("*-engine.json")) + sorted(RES.glob("*-ai-*.json")):
         x = json.loads(p.read_text())
-        out["engine" if x["kind"] == "engine" else "ai:" + x["model"]] = x | {"file": p.name}
+        out["engine" if x["kind"] == "engine" else f"ai:{x['model']}:{x.get('prompt_kind', 'full')}"] = x | {"file": p.name}
     return out
 
 
@@ -46,7 +46,7 @@ def main() -> int:
     for name in names:
         for key, x in got.items():
             label = (f"engine ({'MOCK: ' if x['mock'] else ''}{x['engine']}, commit {x['commit']})"
-                     if key == "engine" else x["model"])
+                     if key == "engine" else f"{x['model']}, {x.get('prompt_kind', 'full')} prompt")
             lines.append(row(label, name, x["requests"][name]["summary"], x))
     ai = [x for k, x in got.items() if k != "engine"]
     lines += ["", "## Definitions", "",
@@ -58,8 +58,9 @@ def main() -> int:
               "prompt replaced by one line, from an empty directory. Time includes CLI start (about 1.5 s); "
               "`duration_api_ms` per run is in the result file. Cost column = returned tokens x list price; the "
               "CLI's own total_cost_usd (with cache pricing) is also in the file.",
-              "- The AI gets the full contract rules in plain English (see the prompt). A user who only types "
-              "'backtest this' gets less help.",
+              "- full prompt: the contract rules in plain English. short prompt: only 'backtest this as of as_of, do "
+              "not use information after as_of' plus the answer format. Both get the same request JSON and XKRX "
+              "calendar.",
               "- Future-info flags: runs whose answer enters at or before the trigger time, prices or marks a session "
               "after as_of, or uses a price from a bar after as_of.",
               "- 05-leak-after-as-of: request 01 plus synthetic bars for 2026-11-09..20 (after as_of). The correct "
