@@ -45,7 +45,9 @@ td.n{text-align:right;font-variant-numeric:tabular-nums}
 .row{display:flex;gap:18px;align-items:baseline;flex-wrap:wrap}
 button.act{border:0;background:var(--ink);color:#fff;border-radius:8px;padding:7px 12px;font:inherit;font-weight:600;cursor:pointer}
 .note{color:var(--mute);font-size:12px;margin:6px 0 0}
-.masked{margin-top:6px;font-size:12.5px}
+.masked{margin-top:8px;font-size:12.5px}
+.masked.hit{background:var(--warnbg);border:1px solid #fedf89;border-radius:8px;padding:8px 10px;font-size:13.5px}
+.masked.hit h3{margin:0 0 4px;font-size:14px;color:var(--warn)}
 </style>
 </head>
 <body>
@@ -136,10 +138,15 @@ function marks(resp) {
   if (fb.verdict) m.push(["verdict", fb.verdict.decided_at, "n"]);
   const t = resp && resp.trades && resp.trades[0];
   if (t) { m.push(["entry", t.entry.date, "e"]); m.push([t.exit.planned ? "exit (planned)" : "exit", t.exit.date, "x"]); }
-  const n = INFO.sessions.length - 1;
-  $("tl").innerHTML = '<div class="axis"></div>' + m.map(([l, d, k], j) => {
-    const left = (sessionIdx(d) / n * 100).toFixed(2);
-    return `<div class="mk ${k}" style="left:${left}%;top:${(j % 3) * 14}px;height:${58 - (j % 3) * 14}px">${l} ${day(d).slice(5)}<i></i></div>`;
+  const n = INFO.sessions.length - 1, w = $("tl").clientWidth, ends = [-1e9, -1e9, -1e9];
+  // stagger labels: each goes on the first row where it does not touch the previous label (6.5 px per char estimate)
+  const items = m.map(([l, d, k]) => ({k, text: `${l} ${day(d).slice(5)}`, x: sessionIdx(d) / n * w})).sort((a, b) => a.x - b.x);
+  $("tl").innerHTML = '<div class="axis"></div>' + items.map(it => {
+    const half = it.text.length * 3.25 + 4;
+    let row = ends.findIndex(e => e < it.x - half);
+    if (row < 0) row = ends.indexOf(Math.min(...ends));
+    ends[row] = it.x + half;
+    return `<div class="mk ${it.k}" style="left:${it.x.toFixed(1)}px;top:${row * 14}px;height:${58 - row * 14}px">${it.text}<i></i></div>`;
   }).join("");
 }
 
@@ -178,9 +185,10 @@ function drawResult(out) {
     ["calendar", c.calendar.id + " " + short(c.calendar.sha256)], ["used_before_known", c.used_before_known.length ? `<span class="pill p-bad">${c.used_before_known.length}</span>` : '<span class="pill p-ok">none</span>'],
     ["masked", `${c.masked.length} input(s), ${nBars} price bar(s)`], ["mock", yes(c.mock, false)]]
     .map(([k, v]) => `<span>${k}</span><span class="${k.endsWith("sha256") || k === "calendar" ? "mono" : ""}">${v}</span>`).join("");
-  $("masked").innerHTML = c.masked.length ? "<b>Masked (known after as_of, not used):</b> " + c.masked.map(m => m.input === "prices.bars"
-      ? `${m.symbol} bars ${m.from}..${m.to} (${m.count})` : `${m.input} (known ${day(m.known_at)})`).join("; ")
-      + (CASE === "05" && nBars ? `<br><span class="pos">The leak-trap bars after as_of are masked; the excess is the same as case 01.</span>` : "")
+  $("masked").className = "masked" + (c.masked.length ? " hit" : "");
+  $("masked").innerHTML = c.masked.length ? `<h3>Not used: known after as_of (${c.masked.length} input(s), ${nBars} price bar(s))</h3>` + c.masked.map(m => m.input === "prices.bars"
+      ? `${m.symbol} bars ${m.from}..${m.to} (${m.count})` : `${m.input} (known ${day(m.known_at)})`).join("<br>")
+      + (CASE === "05" && nBars ? `<br><span class="pos">The leak-trap bars after as_of are masked; the answer is the same as case 01 at this as_of.</span>` : "")
     : "Masked: nothing. Every input was known at as_of.";
 }
 
