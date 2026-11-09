@@ -12,6 +12,7 @@ from functools import cache
 from pathlib import Path
 
 from tckg_backtest.core import CONTRACT_DIR
+from tckg_backtest.claims import run_claims_backtest
 from tckg_backtest.engine import run_backtest
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -22,7 +23,10 @@ CASES = {
     "02": ("02-hindsight-said", "Hindsight: from the day it was said"),
     "03": ("03-candidate-playbook", "Candidate Playbook"),
     "05": ("05-leak-after-as-of", "Leak trap: prices after as_of"),
+    "06": ("06-many-claims", "Many claims (mock data)"),
 }
+# 06 runs on contract v1 (many FactBlocks, claims Playbook) with mock FactBlocks and synthetic prices.
+MOCK_06 = Path(__file__).resolve().parent / "demo-06-many-claims.json"
 
 
 def _json(path: Path):
@@ -40,6 +44,8 @@ def _leak_bars() -> dict:
 def request(case: str) -> dict:
     """The bundled request for a case (a fresh copy). 05 = contract request 01 plus bench/score.py LEAK_BARS."""
     name = CASES[case][0]
+    if case == "06":
+        return _json(MOCK_06)
     if case != "05":
         return _json(CONTRACT_DIR / f"request-{name}.json")
     req = _json(CONTRACT_DIR / "request-01-known-open.json")
@@ -60,7 +66,7 @@ def run(case: str, as_of: str | None) -> dict:
     if as_of:
         req["as_of"] = as_of
     t0 = time.perf_counter()
-    resp = run_backtest(req)
+    resp = run_claims_backtest(req) if case == "06" else run_backtest(req)
     ms = (time.perf_counter() - t0) * 1e3
     return {"case": case, "as_of": req["as_of"], "server_ms": ms, "response_sha256": response_sha256(resp),
             "response": resp}
@@ -95,6 +101,12 @@ def info() -> dict:
     cases = {}
     for case, (name, label) in CASES.items():
         req = request(case)
+        if case == "06":
+            cases[case] = {"label": label, "name": name, "contract": "v1", "as_of": req["as_of"], "mode": req["mode"],
+                           "factblocks": req["factblocks"], "playbook": req["playbook"],
+                           "prices_source": req["prices"]["inline"]["source"], "bars": req["prices"]["inline"]["bars"],
+                           "sessions": [b["date"] for b in req["prices"]["inline"]["bars"]["ACME"]], "ai": None}
+            continue
         cases[case] = {"label": label, "name": name, "as_of": req["as_of"], "mode": req["mode"],
                        "factblock": req["factblock"], "playbook": req["playbook"],
                        "prices_source": req["prices"]["inline"]["source"], "bars": req["prices"]["inline"]["bars"],

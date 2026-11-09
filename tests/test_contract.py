@@ -218,7 +218,7 @@ def test_demo_runs_bundled_requests_without_token(monkeypatch):
     c = TestClient(app)
     assert "tckg-backtest console" in c.get("/").text
     info = c.get("/v0/demo").json()
-    assert set(info["cases"]) == {"01", "02", "03", "05"} and info["cases"]["02"]["ai"]["runs"]
+    assert set(info["cases"]) == {"01", "02", "03", "05", "06"} and info["cases"]["02"]["ai"]["runs"]
     one = c.post("/v0/demo/run", json={"case": "01"}).json()
     assert one["response"]["trades"] == load("response-01-known-open.json")["trades"]
     leak = c.post("/v0/demo/run", json={"case": "05"}).json()
@@ -229,6 +229,9 @@ def test_demo_runs_bundled_requests_without_token(monkeypatch):
     hashes = {c.post("/v0/demo/run", json={"case": "03"}).json()["response_sha256"] for _ in range(3)}
     assert len(hashes) == 1
     # The client picks a case and as_of only; anything else is refused, and /v0/backtest still needs the token.
+    many = c.post("/v0/demo/run", json={"case": "06"}).json()["response"]
+    assert many["contract"] == "tckg-backtest-io/v1" and many["summary"]["n_trades"] == 8
+    assert {"factblock_id": "fb-09", "reason": "not_known_at_as_of"} in many["skipped"]
     for bad in [{"case": "04"}, {"case": "01", "prices": {}}, {"case": "01", "as_of": 5}, []]:
         assert c.post("/v0/demo/run", json=bad).status_code == 400
     assert c.post("/v0/backtest", json=load("request-01-known-open.json")).status_code == 401

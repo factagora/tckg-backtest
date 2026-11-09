@@ -61,7 +61,7 @@ button.act{border:0;background:var(--ink);color:#fff;border-radius:8px;padding:7
 <main>
   <div class="col">
     <section class="card">
-      <h2>The claim (FactBlock)</h2>
+      <h2 id="claimTitle">The claim (FactBlock)</h2>
       <p class="stmt" id="stmt"></p>
       <div class="kv" id="fb"></div>
       <p class="note" id="pb"></p>
@@ -74,8 +74,8 @@ button.act{border:0;background:var(--ink);color:#fff;border-radius:8px;padding:7
       <div class="state" id="state"></div>
     </section>
     <section class="card">
-      <h2>Result: 000660 vs benchmark 069500 <span class="pill p-acc">live</span><span class="pill p-mute" id="ms"></span></h2>
-      <div class="legend"><span><b style="border-color:var(--ink)"></b>000660 close</span><span><b style="border-color:#98a2b3;border-top-style:dashed"></b>069500 close</span><span><b style="border-color:#d0d5dd;border-top-style:dotted"></b>after as_of: masked, not used</span><span style="margin-left:auto">rebased to 0% at the first bar</span></div>
+      <h2><span id="resTitle">Result: 000660 vs benchmark 069500</span> <span class="pill p-acc">live</span><span class="pill p-mute" id="ms"></span></h2>
+      <div class="legend" id="legend"><span><b style="border-color:var(--ink)"></b>000660 close</span><span><b style="border-color:#98a2b3;border-top-style:dashed"></b>069500 close</span><span><b style="border-color:#d0d5dd;border-top-style:dotted"></b>after as_of: masked, not used</span><span style="margin-left:auto">rebased to 0% at the first bar</span></div>
       <svg class="chart" id="chart" viewBox="0 0 640 150"></svg>
       <div id="trades"></div>
     </section>
@@ -99,15 +99,17 @@ button.act{border:0;background:var(--ink);color:#fff;border-radius:8px;padding:7
 </main>
 <script>
 const $ = id => document.getElementById(id);
-let INFO, CASE = "01", IDX = 0, AS_OF = null;
+let INFO, CASE = "01", IDX = 0, AS_OF = null, SEL = null, LAST = null;
 const pct = x => x == null ? "" : (x >= 0 ? "+" : "") + (x * 100).toFixed(2) + "%";
 const cls = x => x == null ? "" : x >= 0 ? "pos" : "neg";
 const num = x => x == null ? "-" : Number(x).toLocaleString("en-US");
 const day = s => s ? s.slice(0, 10) : "";
 const short = h => h ? h.slice(0, 12) : "-";
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-// as_of for a session = after its 15:30 KST close (06:30Z)
-const asOfFor = d => d + "T07:00:00Z";
+const V1 = () => INFO.cases[CASE].contract === "v1";
+const SESS = () => INFO.cases[CASE].sessions || INFO.sessions;
+// as_of for a session = after its close: XKRX 15:30 KST (06:30Z); the v1 mock case trades in New York (16:00 ET)
+const asOfFor = d => d + (V1() ? "T22:00:00Z" : "T07:00:00Z");
 
 async function api(path, body) {
   const r = await fetch(path, body ? {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify(body)} : {});
@@ -115,7 +117,7 @@ async function api(path, body) {
 }
 
 function sessionIdx(iso) {
-  const d = iso.slice(0, 10), s = INFO.sessions;
+  const d = iso.slice(0, 10), s = SESS();
   let i = s.findIndex(x => x >= d);
   return i < 0 ? s.length - 1 : i;
 }
@@ -123,13 +125,17 @@ function sessionIdx(iso) {
 function drawCase() {
   const c = INFO.cases[CASE], fb = c.factblock, pb = c.playbook;
   document.querySelectorAll("#tabs button").forEach(b => b.classList.toggle("on", b.dataset.c === CASE));
+  SEL = null;
+  if (V1()) return drawCaseMulti();
+  $("fb").className = "kv"; $("claimTitle").textContent = "The claim (FactBlock)"; $("legend").style.display = ""; $("tl").style.display = "";
+  $("resTitle").textContent = "Result: 000660 vs benchmark 069500";
   $("stmt").textContent = "“" + fb.statement + "”";
   $("fb").innerHTML = [["speaker", fb.speaker.name], ["asset", fb.assets.map(a => a.symbol + " " + a.market).join(", ")],
     ["said_at", fb.said_at], ["known_at (ledger)", fb.known_at], ["verdict", fb.verdict ? fb.verdict.value : "-"],
     ["verdict decided", fb.verdict ? fb.verdict.decided_at : "-"], ["mode", c.mode], ["prices", "bundled daily bars"]]
     .map(([k, v]) => `<span>${k}</span><span class="${k.includes("_at") || k.includes("decided") ? "mono" : ""}">${esc(v)}</span>`).join("");
   $("pb").textContent = `Playbook ${pb.id} v${pb.version}: ${pb.name}. Trigger ${pb.trigger.event}${pb.trigger.verdict_in ? " in " + pb.trigger.verdict_in : ""}, enter at the first open after, hold ${pb.hold.sessions} sessions, benchmark ${pb.benchmark.symbol}.`;
-  const s = INFO.sessions;
+  const s = SESS();
   $("slider").max = s.length - 1;
   AS_OF = c.as_of; IDX = sessionIdx(c.as_of); $("slider").value = IDX;
   drawAI();
@@ -143,7 +149,7 @@ function marks(resp) {
   if (fb.verdict) m.push(["verdict", fb.verdict.decided_at, "n"]);
   const t = resp && resp.trades && resp.trades[0];
   if (t) { m.push(["entry", t.entry.date, "e"]); m.push([t.exit.planned ? "exit (planned)" : "exit", t.exit.date, "x"]); }
-  const n = INFO.sessions.length - 1, w = $("tl").clientWidth, ends = [-1e9, -1e9, -1e9];
+  const n = SESS().length - 1, w = $("tl").clientWidth, ends = [-1e9, -1e9, -1e9];
   // stagger labels: each goes on the first row where it does not touch the previous label (6.5 px per char estimate)
   const items = m.map(([l, d, k]) => ({k, text: `${l} ${day(d).slice(5)}`, x: sessionIdx(d) / n * w})).sort((a, b) => a.x - b.x);
   $("tl").innerHTML = '<div class="axis"></div>' + items.map(it => {
@@ -168,6 +174,7 @@ function stateLine(r) {
 
 function drawResult(out) {
   const r = out.response;
+  if (V1()) return drawResultMulti(out);
   $("asof").textContent = "as_of " + day(out.as_of);
   $("asofIso").textContent = out.as_of;
   const [k, txt] = stateLine(r); $("state").className = "state " + k; $("state").textContent = txt;
@@ -181,19 +188,22 @@ function drawResult(out) {
       <td class="n ${cls(t.ret)}">${pct(t.ret)}</td><td class="n ${cls(t.benchmark_ret)}">${pct(t.benchmark_ret)}</td>
       <td class="n ${cls(t.excess)}"><b>${pct(t.excess)}</b></td></tr>`).join("") + "</table>"
     : `<p class="sub" style="margin:0">No trade rows. ${esc(r.errors[0] ? r.errors[0].message : r.no_trade_reason || "")}</p>`;
-  const c = r.certificate;
+  drawCert(r.certificate);
+}
+
+function drawCert(c) {
   if (!c) { $("cert").innerHTML = ""; $("masked").textContent = ""; return; }
   const yes = (b, good) => `<span class="pill ${b === good ? "p-ok" : "p-bad"}">${b}</span>`;
   const bars = c.masked.filter(m => m.input === "prices.bars"), nBars = bars.reduce((a, m) => a + m.count, 0);
   $("cert").innerHTML = [["request_sha256", short(c.request_sha256)], ["engine_version", c.engine_version],
     ["prices_sha256", short(c.prices_sha256)], ["hindsight", yes(c.hindsight, false)],
     ["playbook_sha256", short(c.playbook_sha256)], ["reproducible", yes(c.reproducible, true) + (c.not_reproducible_because.length ? " " + c.not_reproducible_because.join(", ") : "")],
-    ["calendar", c.calendar.id + " " + short(c.calendar.sha256)], ["used_before_known", c.used_before_known.length ? `<span class="pill p-bad">${c.used_before_known.length}</span>` : '<span class="pill p-ok">none</span>'],
+    ["calendar", c.calendar.id + (c.calendar.sha256 ? " " + short(c.calendar.sha256) : "")], ["used_before_known", c.used_before_known.length ? `<span class="pill p-bad">${c.used_before_known.length}</span>` : '<span class="pill p-ok">none</span>'],
     ["masked", `${c.masked.length} input(s), ${nBars} price bar(s)`], ["mock", yes(c.mock, false)]]
     .map(([k, v]) => `<span>${k}</span><span class="${k.endsWith("sha256") || k === "calendar" ? "mono" : ""}">${v}</span>`).join("");
   $("masked").className = "masked" + (c.masked.length ? " hit" : "");
   $("masked").innerHTML = c.masked.length ? `<h3>Not used: known after as_of (${c.masked.length} input(s), ${nBars} price bar(s))</h3>` + c.masked.map(m => m.input === "prices.bars"
-      ? `${m.symbol} bars ${m.from}..${m.to} (${m.count})` : `${m.input} (known ${day(m.known_at)})`).join("<br>")
+      ? `${m.symbol} bars ${m.from}..${m.to} (${m.count})` : m.input === "factblocks" ? `${m.count} FactBlock(s) not in the ledger yet: ${m.ids.join(", ")}` : `${m.input} (known ${day(m.known_at)})`).join("<br>")
       + (CASE === "05" && nBars ? `<br><span class="pos">The leak-trap bars after as_of are masked; the answer is the same as case 01 at this as_of.</span>` : "")
     : "Masked: nothing. Every input was known at as_of.";
 }
@@ -205,7 +215,7 @@ function chart(r, asOf) {
   // x range: the bars plus the trigger, entry and exit; other events only when they fall inside it
   const trig = t ? t.trigger_at : null;
   const core = [all[0], all[all.length - 1], trig, t && t.entry.date, t && t.exit.date].filter(Boolean).map(sessionIdx);
-  const S = INFO.sessions, lo = Math.max(0, Math.min(...core) - 1), hi = Math.max(...core);
+  const S = SESS(), lo = Math.max(0, Math.min(...core) - 1), hi = Math.max(...core);
   const evs = [["said", fb.said_at, "var(--mute)"], ["known", fb.known_at, "var(--acc)"]];
   if (fb.verdict) evs.push(["verdict", fb.verdict.decided_at, "var(--bad)"]);
   if (t) { evs.push(["entry", t.entry.date, "var(--ok)"]); evs.push([t.exit.planned ? "exit (planned)" : "exit", t.exit.date, "var(--warn)"]); }
@@ -238,6 +248,108 @@ function chart(r, asOf) {
   });
   svg += `<line x1="${ax}" x2="${ax}" y1="${T - 4}" y2="${H - B + 4}" stroke="var(--ink)" stroke-width="2"/><text x="${Math.min(ax + 3, W - 62)}" y="${H - 3}" font-size="10.5" font-weight="600" fill="var(--ink)">as_of ${day(asOf).slice(5)}</text>`;
   $("chart").innerHTML = svg;
+}
+
+// ---- case 06: many FactBlocks (contract v1, mock data): which FactBlocks were evidence for each decision ----
+function drawCaseMulti() {
+  const c = INFO.cases[CASE], pb = c.playbook;
+  $("stmt").textContent = `${c.factblocks[0].speaker.name}: ${c.factblocks.length} calls on ACME (mock FactBlocks, synthetic prices)`;
+  $("fb").className = ""; $("claimTitle").textContent = "The claims (FactBlocks)";
+  $("pb").textContent = `Playbook ${pb.id} ${pb.version}: ${pb.name}. A later opposite call closes the position. Unit bet ${INFO.cases[CASE].factblocks.length ? "5%" : ""} of capital per call.`;
+  $("legend").style.display = "none"; $("tl").style.display = "none";
+  $("resTitle").textContent = "Decisions on the price, with their evidence";
+  const s = SESS();
+  $("slider").max = s.length - 1;
+  AS_OF = c.as_of; IDX = sessionIdx(c.as_of); $("slider").value = IDX;
+  drawAI();
+  $("fiveRows").innerHTML = ""; $("fiveSum").textContent = "";
+}
+
+function fbRows(r, asOf) {
+  const c = INFO.cases[CASE], byId = Object.fromEntries(r.trades.map(t => [t.factblock_id, t]));
+  const skip = Object.fromEntries(r.skipped.map(x => [x.factblock_id, x.reason]));
+  const rows = [...c.factblocks].sort((a, b) => a.said_at.localeCompare(b.said_at));
+  return `<table style="font-size:12px"><tr><th>FactBlock</th><th>said</th><th>in ledger</th><th>call</th><th>statement</th><th>at as_of</th></tr>` + rows.map(f => {
+    const known = Date.parse(f.known_at) <= Date.parse(asOf), t = byId[f.id];
+    const st = !known ? '<span class="pill p-mute">not known yet</span>' : t ? `<span class="pill ${t.hit == null ? "p-acc" : t.hit ? "p-ok" : "p-bad"}">${t.hit == null ? "open" : t.hit ? "right" : "wrong"}</span>` : `<span class="pill p-mute">${esc(skip[f.id] || "-")}</span>`;
+    const late = (Date.parse(f.known_at) - Date.parse(f.said_at)) > 864e5;
+    return `<tr style="${known ? "" : "color:#98a2b3"};cursor:${t ? "pointer" : "default"}" data-sel="${t ? f.id : ""}"><td class="mono">${f.id}</td><td>${day(f.said_at).slice(5)}</td>
+      <td${late ? ' style="color:var(--warn);font-weight:600"' : ""}>${day(f.known_at).slice(5)}${late ? " (late)" : ""}</td><td>${f.call.direction === "up" ? "long" : f.call.direction === "down" ? "short" : "none"}</td>
+      <td style="white-space:normal;max-width:260px">${esc(f.statement)}</td><td>${st}</td></tr>`; }).join("") + "</table>";
+}
+
+function drawResultMulti(out) {
+  const r = out.response, c = INFO.cases[CASE], s = r.summary || {};
+  LAST = out;
+  $("asof").textContent = "as_of " + day(out.as_of);
+  $("asofIso").textContent = out.as_of;
+  $("ms").textContent = out.server_ms.toFixed(2) + " ms on the server";
+  const notYet = c.factblocks.filter(f => Date.parse(f.known_at) > Date.parse(out.as_of)).length;
+  if (r.status === "refused") { $("state").className = "state s-ref"; $("state").textContent = `Refused (${r.errors[0].code}): ${r.errors[0].message}`; }
+  else { $("state").className = "state s-open"; $("state").textContent = `${c.factblocks.length - notYet} of ${c.factblocks.length} calls were in the ledger at as_of: ${s.n_trades || 0} trades (${s.n_resolved || 0} closed, ${s.n_pending || 0} open), excess ${pct(s.excess_mean)} per closed call, hit ${s.hit_rate == null ? "-" : Math.round(s.hit_rate * 100) + "%"}. ${notYet} not known yet: not used.`; }
+  $("fb").innerHTML = fbRows(r, out.as_of);
+  $("fb").onclick = e => { const tr = e.target.closest("tr[data-sel]"); if (tr && tr.dataset.sel) { SEL = tr.dataset.sel; drawResultMulti(LAST); } };
+  // default: a call that reached the ledger late (the point-in-time story), else the latest decision
+  if (!SEL || !r.trades.find(t => t.factblock_id === SEL))
+    SEL = (r.trades.find(t => Date.parse(t.known_at) - Date.parse(t.said_at) > 864e5) || r.trades[r.trades.length - 1] || {}).factblock_id || null;
+  chartMulti(r, out.as_of);
+  $("trades").innerHTML = evidence(r, out.as_of);
+  drawCert(r.certificate);
+}
+
+function chartMulti(r, asOf) {
+  const c = INFO.cases[CASE], S = SESS(), bars = c.bars.ACME, idx = c.bars.INDEX;
+  const W = 640, H = 170, L = 40, R = 8, T = 14, B = 16;
+  const X = d => L + sessionIdx(d) / (S.length - 1) * (W - L - R);
+  const known = d => Date.parse(d + "T20:00:00Z") <= Date.parse(asOf);
+  const ys = bars.map(b => b.close), ymin = Math.min(...ys) * 0.97, ymax = Math.max(...ys) * 1.03;
+  const Y = v => T + (ymax - v) / (ymax - ymin) * (H - T - B);
+  const k0 = bars[0].close / idx[0].close;
+  const line = (pts, st) => pts.length > 1 ? `<polyline fill="none" ${st} points="${pts.map(([d, v]) => X(d).toFixed(1) + "," + Y(v).toFixed(1)).join(" ")}"/>` : "";
+  let svg = "";
+  [ymin, (ymin + ymax) / 2, ymax].forEach(v => { svg += `<line x1="${L}" x2="${W - R}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${L - 4}" y="${Y(v) + 4}" font-size="10" text-anchor="end" fill="var(--mute)">${v.toFixed(0)}</text>`; });
+  const ax = X(day(asOf));
+  svg += `<rect x="${ax}" y="${T}" width="${Math.max(0, W - R - ax)}" height="${H - T - B}" fill="#f2f4f7"/>`;
+  const P = bars.map(b => [b.date, b.close]), I = idx.map(b => [b.date, b.close * k0]);
+  svg += line(I.filter(p => known(p[0])), 'stroke="#98a2b3" stroke-width="1.2" stroke-dasharray="4 3"') + line(P.filter(p => known(p[0])), 'stroke="var(--ink)" stroke-width="1.6"');
+  svg += line(P.filter(p => !known(p[0])), 'stroke="#d0d5dd" stroke-width="1.4" stroke-dasharray="2 3"');
+  // calls said but not in the ledger at as_of: grey ring at the said date, never traded
+  c.factblocks.filter(f => Date.parse(f.known_at) > Date.parse(asOf) && Date.parse(f.said_at) <= Date.parse(asOf)).forEach(f => {
+    const d = day(f.said_at), b = bars.find(x => x.date >= d) || bars[0];
+    svg += `<circle cx="${X(d)}" cy="${Y(b.close)}" r="5" fill="none" stroke="#98a2b3" stroke-width="1.5" stroke-dasharray="2 2"/><text x="${X(d)}" y="${Y(b.close) - 8}" font-size="9.5" text-anchor="middle" fill="var(--mute)">${f.id} not in ledger</text>`; });
+  r.trades.forEach(t => {
+    const col = t.hit == null ? "var(--acc)" : t.hit ? "var(--ok)" : "var(--bad)", sel = t.factblock_id === SEL;
+    const x1 = X(t.entry.date), y1 = Y(t.entry.price), end = t.exit || t.mark, x2 = X(end.date), y2 = Y(end.price);
+    const said = day(t.said_at);
+    if (said < t.entry.date && (Date.parse(t.known_at) - Date.parse(t.said_at)) > 864e5) // said long before it was in the ledger
+      svg += `<line x1="${X(said)}" x2="${x1}" y1="${y1}" y2="${y1}" stroke="var(--warn)" stroke-width="1.2" stroke-dasharray="2 2"/><circle cx="${X(said)}" cy="${y1}" r="2.5" fill="var(--warn)"/>`;
+    svg += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col}" stroke-width="${sel ? 3.5 : 2}" ${t.exit ? "" : 'stroke-dasharray="4 2"'} opacity="${sel ? 1 : 0.75}"/>`;
+    const up = t.direction === "up", tri = up ? `${x1},${y1 - 7} ${x1 - 5},${y1 + 2} ${x1 + 5},${y1 + 2}` : `${x1},${y1 + 7} ${x1 - 5},${y1 - 2} ${x1 + 5},${y1 - 2}`;
+    svg += `<polygon points="${tri}" fill="${col}" stroke="${sel ? "var(--ink)" : "none"}" stroke-width="1.5" data-sel="${t.factblock_id}" style="cursor:pointer"><title>${esc(t.factblock_id)}: ${esc((c.factblocks.find(f => f.id === t.factblock_id) || {}).statement || "")}</title></polygon>`;
+    svg += `<text x="${x1}" y="${up ? y1 + 13 : y1 - 10}" font-size="9" text-anchor="middle" fill="${col}" data-sel="${t.factblock_id}" style="cursor:pointer">${t.factblock_id.slice(3)}</text>`;
+  });
+  svg += `<line x1="${ax}" x2="${ax}" y1="${T - 4}" y2="${H - B + 4}" stroke="var(--ink)" stroke-width="2"/><text x="${Math.min(ax + 3, W - 62)}" y="${H - 3}" font-size="10.5" font-weight="600" fill="var(--ink)">as_of ${day(asOf).slice(5)}</text>`;
+  $("chart").setAttribute("viewBox", `0 0 ${W} ${H}`);
+  $("chart").innerHTML = svg;
+  $("chart").onclick = e => { const el = e.target.closest("[data-sel]"); if (el) { SEL = el.getAttribute("data-sel"); drawResultMulti(LAST); } };
+}
+
+function evidence(r, asOf) {
+  const c = INFO.cases[CASE], t = r.trades.find(x => x.factblock_id === SEL);
+  if (!t) return '<p class="sub">No trades at this as_of.</p>';
+  const f = c.factblocks.find(x => x.id === t.factblock_id), entryAt = Date.parse(t.entry.date + "T13:30:00Z");
+  // what the ledger held at the entry open: other calls by the same speaker on ACME known before it, with their status then
+  const prior = c.factblocks.filter(o => o.id !== f.id && o.call.symbol === "ACME" && Date.parse(o.known_at) < entryAt).map(o => {
+    const ot = r.trades.find(x => x.factblock_id === o.id);
+    const st = !ot ? (o.call.direction === "neutral" ? "no call" : "not traded") : ot.exit && ot.exit.date < t.entry.date ? (ot.hit ? "right" : "wrong") : "open";
+    return `<li><span class="mono">${o.id}</span> ${o.call.direction === "up" ? "long" : o.call.direction === "down" ? "short" : "none"}, in ledger ${day(o.known_at).slice(5)}: ${esc(o.statement)} <span class="pill ${st === "right" ? "p-ok" : st === "wrong" ? "p-bad" : "p-mute"}">${st} then</span></li>`; });
+  const later = c.factblocks.filter(o => Date.parse(o.known_at) >= entryAt).length;
+  const late = Math.round((Date.parse(f.known_at) - Date.parse(f.said_at)) / 864e5);
+  const ex = t.exit ? `exit ${t.exit.date} at ${num(t.exit.price)} (${t.exit_reason === "opposite_call" ? "closed by the opposite call " + t.closed_by : "horizon " + t.horizon_days + " days"}), excess <b class="${cls(t.excess)}">${pct(t.excess)}</b>` : `open, marked ${t.mark.date} at ${num(t.mark.price)}`;
+  return `<div style="font-size:13px"><b>Decision ${t.entry.date}: ${t.direction === "up" ? "long" : "short"} ACME at the open, ${num(t.entry.price)}.</b> ${ex}.
+    <div style="margin-top:6px"><span class="pill p-acc">evidence</span> <span class="mono">${f.id}</span> "${esc(f.statement)}" said ${day(f.said_at)}, in the ledger ${day(f.known_at)}${late > 1 ? ` <span style="color:var(--warn);font-weight:600">(${late} days later: the trade waits for the ledger, not the said date)</span>` : ""}.</div>
+    <div style="margin-top:4px"><span class="pill p-mute">also known then</span>${prior.length ? `<ul style="margin:4px 0 0 18px;padding:0">${prior.join("")}</ul>` : " nothing else from this speaker"}</div>
+    <div class="note">Not used for this decision: ${later} FactBlock(s) that reached the ledger after ${t.entry.date}. Click a triangle or a row to see another decision.</div></div>`;
 }
 
 let pending = 0;
@@ -279,8 +391,8 @@ async function five() {
   const same = new Set(outs.map(o => o.response_sha256)).size === 1;
   $("fiveSum").innerHTML = same ? '<span class="pill p-ok">5/5 identical responses</span>' : '<span class="pill p-bad">responses differ</span>';
   $("fiveRows").innerHTML = `<table><tr><th>run</th><th>response sha256 (without computed_at)</th><th class="n">excess</th><th class="n">server</th></tr>` +
-    outs.map((o, i) => { const t = o.response.trades[0];
-      return `<tr><td>${i + 1}</td><td class="mono">${o.response_sha256.slice(0, 24)}</td><td class="n">${t ? pct(t.excess) : o.response.status}</td><td class="n">${o.server_ms.toFixed(2)} ms</td></tr>`; }).join("") + "</table>" +
+    outs.map((o, i) => { const t = o.response.trades[0], x = V1() ? (o.response.summary || {}).excess_mean : t && t.excess;
+      return `<tr><td>${i + 1}</td><td class="mono">${o.response_sha256.slice(0, 24)}</td><td class="n">${x != null ? pct(x) : o.response.status}</td><td class="n">${o.server_ms.toFixed(2)} ms</td></tr>`; }).join("") + "</table>" +
     `<p class="note">Same request bytes, same engine, same as_of ${day(AS_OF)}: same answer every run.</p>`;
 }
 
@@ -288,7 +400,7 @@ async function main() {
   INFO = await api("/v0/demo");
   $("tabs").innerHTML = Object.entries(INFO.cases).map(([k, c]) => `<button data-c="${k}">${k} ${esc(c.label)}</button>`).join("");
   $("tabs").onclick = e => { const b = e.target.closest("button"); if (b) { CASE = b.dataset.c; drawCase(); rerun(); } };
-  $("slider").oninput = e => { IDX = +e.target.value; AS_OF = asOfFor(INFO.sessions[IDX]); rerun(); };
+  $("slider").oninput = e => { IDX = +e.target.value; AS_OF = asOfFor(SESS()[IDX]); rerun(); };
   $("five").onclick = five;
   const q = new URLSearchParams(location.search);
   if (INFO.cases[q.get("case")]) CASE = q.get("case");

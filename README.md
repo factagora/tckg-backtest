@@ -57,6 +57,9 @@ Contract: `tckg-backtest-io/v0` revision v0.3 (`contract/v0/`, byte copies of fa
 before `as_of`; after the exit it is closed). It shows the trades, the server time, the certificate, a "Run 5 times"
 check (response hashes), a price chart where bars after `as_of` are drawn faded (masked, not used), and, next to it, the recorded AI-prompt runs for the same request from
 `bench/results/` (recorded, not live; see [bench/RESULTS.md](bench/RESULTS.md)).
+Case 06 runs contract v1 on mock FactBlocks and synthetic prices (labelled as such): many calls on one price chart,
+each decision with the FactBlock it acted on and what else the ledger held at that moment; calls not yet in the ledger
+at `as_of` are drawn as grey rings and never trade.
 
 ![console, case 05 leak trap](docs/console.png)
 
