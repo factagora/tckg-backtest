@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tckg-backtest console</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#16181d;--mute:#667085;--line:#e4e7ec;--ok:#067647;--okbg:#ecfdf3;--bad:#b42318;--badbg:#fef3f2;--warn:#b54708;--warnbg:#fffaeb;--acc:#3538cd;--accbg:#eef4ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+header{display:flex;align-items:center;gap:16px;padding:12px 20px;background:var(--card);border-bottom:1px solid var(--line)}
+header h1{font-size:17px;margin:0;white-space:nowrap}
+header .sub{color:var(--mute);font-size:13px}
+.tabs{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+.tabs button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 10px;font:inherit;font-size:13px;cursor:pointer;color:var(--ink)}
+.tabs button.on{background:var(--acc);border-color:var(--acc);color:#fff}
+main{display:grid;grid-template-columns:1.25fr 1fr;gap:14px;padding:14px 20px;max-width:1400px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.card h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin:0 0 8px;display:flex;align-items:center;gap:8px}
+.col{display:flex;flex-direction:column;gap:14px;min-width:0}
+.stmt{font-size:16px;font-weight:600;margin:0 0 6px}
+.kv{display:grid;grid-template-columns:repeat(4,auto);gap:2px 14px;font-size:13px}
+.kv span:nth-child(odd){color:var(--mute)}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px}
+.timeline{position:relative;height:58px;margin:6px 4px 0}
+.timeline .axis{position:absolute;left:0;right:0;top:56px;height:2px;background:var(--line)}
+.mk{position:absolute;top:0;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;font-size:11px;white-space:nowrap;text-align:center;color:var(--mute)}
+.mk i{display:block;width:2px;flex:1;margin-top:2px;background:currentColor}
+.mk.k{color:var(--acc)} .mk.e{color:var(--ok)} .mk.x{color:var(--warn)} .mk.n{color:var(--bad)}
+input[type=range]{width:100%;margin:0;accent-color:var(--acc)}
+.asof{display:flex;align-items:baseline;gap:10px;margin-top:4px}
+.asof b{font-size:15px}
+.state{margin-top:8px;padding:8px 10px;border-radius:8px;font-weight:600}
+.s-ok{background:var(--okbg);color:var(--ok)} .s-open{background:var(--accbg);color:var(--acc)} .s-ref{background:var(--badbg);color:var(--bad)} .s-nt{background:var(--warnbg);color:var(--warn)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{text-align:left;padding:5px 6px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--mute);font-weight:500;font-size:12px}
+td.n{text-align:right;font-variant-numeric:tabular-nums}
+.pos{color:var(--ok)} .neg{color:var(--bad)}
+.cert{display:grid;grid-template-columns:auto 1fr auto 1fr;gap:3px 12px;font-size:13px}
+.cert span:nth-child(odd){color:var(--mute)}
+.pill{display:inline-block;padding:1px 8px;border-radius:99px;font-size:12px;font-weight:600}
+.p-ok{background:var(--okbg);color:var(--ok)} .p-bad{background:var(--badbg);color:var(--bad)} .p-mute{background:#f2f4f7;color:var(--mute)} .p-acc{background:var(--accbg);color:var(--acc)}
+.big{font-size:22px;font-weight:700}
+.row{display:flex;gap:18px;align-items:baseline;flex-wrap:wrap}
+button.act{border:0;background:var(--ink);color:#fff;border-radius:8px;padding:7px 12px;font:inherit;font-weight:600;cursor:pointer}
+.note{color:var(--mute);font-size:12px;margin:6px 0 0}
+.masked{margin-top:6px;font-size:12.5px}
+</style>
+</head>
+<body>
+<header>
+  <h1>tckg-backtest console</h1>
+  <div class="tabs" id="tabs"></div>
+</header>
+<main>
+  <div class="col">
+    <section class="card">
+      <h2>The claim (FactBlock)</h2>
+      <p class="stmt" id="stmt"></p>
+      <div class="kv" id="fb"></div>
+      <p class="note" id="pb"></p>
+    </section>
+    <section class="card">
+      <h2>as_of: what was knowable at this instant</h2>
+      <div class="timeline" id="tl"></div>
+      <input type="range" id="slider" min="0" max="0" step="1">
+      <div class="asof"><b id="asof"></b><span class="sub mono" id="asofIso"></span><span class="sub" style="margin-left:auto">drag to rerun</span></div>
+      <div class="state" id="state"></div>
+    </section>
+    <section class="card">
+      <h2>Result: 000660 vs benchmark 069500 <span class="pill p-acc">live</span><span class="pill p-mute" id="ms"></span></h2>
+      <div id="trades"></div>
+    </section>
+    <section class="card">
+      <h2>Certificate</h2>
+      <div class="cert" id="cert"></div>
+      <div class="masked" id="masked"></div>
+    </section>
+  </div>
+  <div class="col">
+    <section class="card">
+      <h2>Reproducible <span class="pill p-acc">live</span></h2>
+      <div class="row"><button class="act" id="five">Run 5 times</button><span id="fiveSum" class="sub"></span></div>
+      <div id="fiveRows" style="margin-top:8px"></div>
+    </section>
+    <section class="card">
+      <h2>Same request by AI prompt <span class="pill p-mute">recorded run, bench/RESULTS.md</span></h2>
+      <div id="ai"></div>
+    </section>
+  </div>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+let INFO, CASE = "01", IDX = 0, AS_OF = null;
+const pct = x => x == null ? "" : (x >= 0 ? "+" : "") + (x * 100).toFixed(2) + "%";
+const cls = x => x == null ? "" : x >= 0 ? "pos" : "neg";
+const num = x => x == null ? "-" : Number(x).toLocaleString("en-US");
+const day = s => s ? s.slice(0, 10) : "";
+const short = h => h ? h.slice(0, 12) : "-";
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+// as_of for a session = after its 15:30 KST close (06:30Z)
+const asOfFor = d => d + "T07:00:00Z";
+
+async function api(path, body) {
+  const r = await fetch(path, body ? {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify(body)} : {});
+  return r.json();
+}
+
+function sessionIdx(iso) {
+  const d = iso.slice(0, 10), s = INFO.sessions;
+  let i = s.findIndex(x => x >= d);
+  return i < 0 ? s.length - 1 : i;
+}
+
+function drawCase() {
+  const c = INFO.cases[CASE], fb = c.factblock, pb = c.playbook;
+  document.querySelectorAll("#tabs button").forEach(b => b.classList.toggle("on", b.dataset.c === CASE));
+  $("stmt").textContent = "“" + fb.statement + "”";
+  $("fb").innerHTML = [["speaker", fb.speaker.name], ["asset", fb.assets.map(a => a.symbol + " " + a.market).join(", ")],
+    ["said_at", fb.said_at], ["known_at (ledger)", fb.known_at], ["verdict", fb.verdict ? fb.verdict.value : "-"],
+    ["verdict decided", fb.verdict ? fb.verdict.decided_at : "-"], ["mode", c.mode], ["prices", "bundled daily bars"]]
+    .map(([k, v]) => `<span>${k}</span><span class="${k.includes("_at") || k.includes("decided") ? "mono" : ""}">${esc(v)}</span>`).join("");
+  $("pb").textContent = `Playbook ${pb.id} v${pb.version}: ${pb.name}. Trigger ${pb.trigger.event}${pb.trigger.verdict_in ? " in " + pb.trigger.verdict_in : ""}, enter at the first open after, hold ${pb.hold.sessions} sessions, benchmark ${pb.benchmark.symbol}.`;
+  const s = INFO.sessions;
+  $("slider").max = s.length - 1;
+  AS_OF = c.as_of; IDX = sessionIdx(c.as_of); $("slider").value = IDX;
+  drawAI();
+  $("fiveRows").innerHTML = ""; $("fiveSum").textContent = "";
+}
+
+function marks(resp) {
+  const c = INFO.cases[CASE], fb = c.factblock, m = [];
+  m.push(["said", fb.said_at, ""]);
+  m.push(["known", fb.known_at, "k"]);
+  if (fb.verdict) m.push(["verdict", fb.verdict.decided_at, "n"]);
+  const t = resp && resp.trades && resp.trades[0];
+  if (t) { m.push(["entry", t.entry.date, "e"]); m.push([t.exit.planned ? "exit (planned)" : "exit", t.exit.date, "x"]); }
+  const n = INFO.sessions.length - 1;
+  $("tl").innerHTML = '<div class="axis"></div>' + m.map(([l, d, k], j) => {
+    const left = (sessionIdx(d) / n * 100).toFixed(2);
+    return `<div class="mk ${k}" style="left:${left}%;top:${(j % 3) * 14}px;height:${58 - (j % 3) * 14}px">${l} ${day(d).slice(5)}<i></i></div>`;
+  }).join("");
+}
+
+function stateLine(r) {
+  const e = r.errors[0], t = r.trades[0];
+  if (r.status === "refused" && e.code === "trigger_after_as_of") return ["s-ref", "Refused (trigger_after_as_of): at this as_of the claim was not in the ledger yet, so there is nothing to trade."];
+  if (r.status === "refused" && e.code === "as_of_in_future") return ["s-ref", "Refused (as_of_in_future): this as_of is after the server clock. Nobody can backtest from the future."];
+  if (r.status === "refused") return ["s-ref", `Refused (${e.code}): ${e.message}`];
+  if (r.status === "no_trade") return ["s-nt", `No trade (${r.no_trade_reason}): the trigger had not happened by this as_of.`];
+  if (r.status !== "ok") return ["s-ref", `${r.status}: ${e ? e.message : ""}`];
+  if (t.open) return ["s-open", `Open: entered ${t.entry.date}, exit planned ${t.exit.date}. Marked at the ${t.marked_at} close, the last close at or before as_of.`];
+  return ["s-ok", `Closed: entered ${t.entry.date}, exited ${t.exit.date} at the open.`];
+}
+
+function drawResult(out) {
+  const r = out.response;
+  $("asof").textContent = "as_of " + day(out.as_of);
+  $("asofIso").textContent = out.as_of;
+  const [k, txt] = stateLine(r); $("state").className = "state " + k; $("state").textContent = txt;
+  $("ms").textContent = out.server_ms.toFixed(2) + " ms on the server";
+  marks(r);
+  $("trades").innerHTML = r.trades.length ? `<table><tr><th>entry</th><th>exit</th><th>mark</th><th class="n">ret</th><th class="n">benchmark</th><th class="n">excess</th></tr>` +
+    r.trades.map(t => `<tr><td>${t.entry.date} @ ${num(t.entry.price)}</td>
+      <td>${t.exit.date} ${t.exit.price != null ? "@ " + num(t.exit.price) : "(planned)"}</td>
+      <td>${t.open ? t.marked_at + " @ " + num(t.mark.price) : "-"}</td>
+      <td class="n ${cls(t.ret)}">${pct(t.ret)}</td><td class="n ${cls(t.benchmark_ret)}">${pct(t.benchmark_ret)}</td>
+      <td class="n ${cls(t.excess)}"><b>${pct(t.excess)}</b></td></tr>`).join("") + "</table>"
+    : `<p class="sub" style="margin:0">No trade rows. ${esc(r.errors[0] ? r.errors[0].message : r.no_trade_reason || "")}</p>`;
+  const c = r.certificate;
+  if (!c) { $("cert").innerHTML = ""; $("masked").textContent = ""; return; }
+  const yes = (b, good) => `<span class="pill ${b === good ? "p-ok" : "p-bad"}">${b}</span>`;
+  const bars = c.masked.filter(m => m.input === "prices.bars"), nBars = bars.reduce((a, m) => a + m.count, 0);
+  $("cert").innerHTML = [["request_sha256", short(c.request_sha256)], ["engine_version", c.engine_version],
+    ["prices_sha256", short(c.prices_sha256)], ["hindsight", yes(c.hindsight, false)],
+    ["playbook_sha256", short(c.playbook_sha256)], ["reproducible", yes(c.reproducible, true) + (c.not_reproducible_because.length ? " " + c.not_reproducible_because.join(", ") : "")],
+    ["calendar", c.calendar.id + " " + short(c.calendar.sha256)], ["used_before_known", c.used_before_known.length ? `<span class="pill p-bad">${c.used_before_known.length}</span>` : '<span class="pill p-ok">none</span>'],
+    ["masked", `${c.masked.length} input(s), ${nBars} price bar(s)`], ["mock", yes(c.mock, false)]]
+    .map(([k, v]) => `<span>${k}</span><span class="${k.endsWith("sha256") || k === "calendar" ? "mono" : ""}">${v}</span>`).join("");
+  $("masked").innerHTML = c.masked.length ? "<b>Masked (known after as_of, not used):</b> " + c.masked.map(m => m.input === "prices.bars"
+      ? `${m.symbol} bars ${m.from}..${m.to} (${m.count})` : `${m.input} (known ${day(m.known_at)})`).join("; ")
+      + (CASE === "05" && nBars ? `<br><span class="pos">The leak-trap bars after as_of are masked; the excess is the same as case 01.</span>` : "")
+    : "Masked: nothing. Every input was known at as_of.";
+}
+
+let pending = 0;
+async function rerun() {
+  const my = ++pending;
+  const out = await api("/v0/demo/run", {case: CASE, as_of: AS_OF});
+  if (my === pending) drawResult(out);
+  return out;
+}
+
+function answerOf(r) {
+  const t = r.trades[0]; if (!t) return null;
+  return {entry_date: t.entry.date, exit_date: t.exit.date, open: t.open, excess: t.excess};
+}
+
+function drawAI() {
+  const a = INFO.cases[CASE].ai;
+  if (!a) { $("ai").innerHTML = '<p class="sub">No recorded AI runs for this case.</p>'; return; }
+  const keys = new Set(a.runs.map(r => JSON.stringify(r.answer)));
+  const rounded = new Set(a.runs.map(r => { const x = r.answer || {}; return [x.entry_date, x.exit_date, x.open, x.excess == null ? null : x.excess.toFixed(4)].join(); }));
+  const ok = a.runs.filter(r => r.correct).length;
+  const med = a.runs.map(r => r.wall_s).sort((x, y) => x - y)[Math.floor(a.runs.length / 2)];
+  $("ai").innerHTML = `<div class="row" style="margin-bottom:6px"><span><span class="big">${ok}/${a.runs.length}</span> correct</span>
+      <span><span class="big">${keys.size}</span> distinct answers <span class="sub">(${rounded.size} when rounded to 4 decimals)</span></span><span><span class="big">${med.toFixed(1)} s</span> median</span></div>
+    <table><tr><th>run</th><th class="n">time</th><th>entry</th><th>exit</th><th>open</th><th class="n">excess</th><th></th></tr>` +
+    a.runs.map(r => { const x = r.answer || {};
+      return `<tr><td>${r.run}</td><td class="n">${r.wall_s.toFixed(1)} s</td><td>${x.entry_date || "-"}</td><td>${x.exit_date || "-"}</td>
+      <td>${x.open == null ? "-" : x.open}</td><td class="n">${x.excess == null ? '<span class="sub">none</span>' : pct(x.excess)}</td>
+      <td>${r.correct ? '<span class="pill p-ok">correct</span>' : '<span class="pill p-bad">wrong</span>'}</td></tr>`; }).join("") +
+    `</table><p class="note">${esc(a.model)}, ${esc(a.prompt_kind)} prompt, same request JSON and XKRX calendar, answers at as_of ${day(INFO.cases[CASE].as_of)} only.
+      Recorded 2026-11-09, not a live call. Source: ${esc(a.file)}. Correct = entry and exit dates match the golden and excess within 0.05 pp.
+      Future-info flags in these runs: ${a.runs.filter(r => r.future.length).length}/${a.runs.length}.</p>`;
+}
+
+async function five() {
+  $("fiveRows").innerHTML = ""; $("fiveSum").textContent = "running...";
+  const outs = [];
+  for (let i = 0; i < 5; i++) outs.push(await api("/v0/demo/run", {case: CASE, as_of: AS_OF}));
+  const same = new Set(outs.map(o => o.response_sha256)).size === 1;
+  $("fiveSum").innerHTML = same ? '<span class="pill p-ok">5/5 identical responses</span>' : '<span class="pill p-bad">responses differ</span>';
+  $("fiveRows").innerHTML = `<table><tr><th>run</th><th>response sha256 (without computed_at)</th><th class="n">excess</th><th class="n">server</th></tr>` +
+    outs.map((o, i) => { const t = o.response.trades[0];
+      return `<tr><td>${i + 1}</td><td class="mono">${o.response_sha256.slice(0, 24)}</td><td class="n">${t ? pct(t.excess) : o.response.status}</td><td class="n">${o.server_ms.toFixed(2)} ms</td></tr>`; }).join("") + "</table>" +
+    `<p class="note">Same request bytes, same engine, same as_of ${day(AS_OF)}: same answer every run.</p>`;
+}
+
+async function main() {
+  INFO = await api("/v0/demo");
+  $("tabs").innerHTML = Object.entries(INFO.cases).map(([k, c]) => `<button data-c="${k}">${k} ${esc(c.label)}</button>`).join("");
+  $("tabs").onclick = e => { const b = e.target.closest("button"); if (b) { CASE = b.dataset.c; drawCase(); rerun(); } };
+  $("slider").oninput = e => { IDX = +e.target.value; AS_OF = asOfFor(INFO.sessions[IDX]); rerun(); };
+  $("five").onclick = five;
+  const q = new URLSearchParams(location.search);
+  if (INFO.cases[q.get("case")]) CASE = q.get("case");
+  drawCase();
+  if (q.get("as_of")) { AS_OF = q.get("as_of"); $("slider").value = IDX = sessionIdx(AS_OF); }
+  rerun();
+}
+main();
+</script>
+</body>
+</html>

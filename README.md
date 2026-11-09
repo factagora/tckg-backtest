@@ -50,6 +50,26 @@ Benchmark (engine vs an AI prompt doing the same backtest): [bench/RESULTS.md](b
 
 Contract: `tckg-backtest-io/v0` revision v0.3 (`contract/v0/`, byte copies of factagora/tckg-trader `docs/tckg-backtest/v0/`).
 
+## Console
+
+`GET /` serves a one-page console: pick a case, drag `as_of` over the XKRX sessions, and the real engine reruns
+(before `known_at` it refuses with `trigger_after_as_of`; while the trade is open it is marked at the last close
+before `as_of`; after the exit it is closed). It shows the trades, the server time, the certificate, a "Run 5 times"
+check (response hashes) and, next to it, the recorded AI-prompt runs for the same request from
+`bench/results/` (recorded, not live; see [bench/RESULTS.md](bench/RESULTS.md)).
+
+![console, case 05 leak trap](docs/console.png)
+
+```
+pip install -e '.[dev]'
+TCKG_BACKTEST_TOKEN=dev uvicorn tckg_backtest.server:app --port 8080
+open http://127.0.0.1:8080/
+```
+
+The console calls `GET /v0/demo` and `POST /v0/demo/run {"case": "01"|"02"|"03"|"05", "as_of"?: ISO}` with no token.
+These run only the bundled `contract/v0` requests (05 = request 01 plus the bench leak bars after `as_of`); a client
+cannot send prices or playbooks. `POST /v0/backtest` still needs the Bearer token.
+
 ## API
 
 - `GET /v0/health`: open, returns contract, revision, engine version and `engine` (`mock` or `engine`).

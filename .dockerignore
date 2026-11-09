@@ -3,4 +3,6 @@ __pycache__/
 .pytest_cache/
 .git/
 bench/
+!bench/score.py
+!bench/results/20261109T013857Z-ai-claude-sonnet-5-5-short.json
 tests/

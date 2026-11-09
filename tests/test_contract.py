@@ -211,3 +211,24 @@ def test_tckg_source_maps_export(monkeypatch):
     assert fb["known_at"] == "2026-10-20T13:11:23.254773Z" and fb["verdict"] == {"value": "hit", "decided_at": "2026-10-29T00:36:00.138833Z"}
     got = run_backtest(tckg.request(fb, load("request-01-known-open.json")["playbook"], tckg.PRICES_FIXTURE), now=NOW)
     assert got["status"] == "ok" and got["trades"][0]["entry"]["date"] == "2026-10-21"
+
+
+def test_demo_runs_bundled_requests_without_token(monkeypatch):
+    monkeypatch.delenv("TCKG_BACKTEST_TOKEN", raising=False)
+    c = TestClient(app)
+    assert "tckg-backtest console" in c.get("/").text
+    info = c.get("/v0/demo").json()
+    assert set(info["cases"]) == {"01", "02", "03", "05"} and info["cases"]["02"]["ai"]["runs"]
+    one = c.post("/v0/demo/run", json={"case": "01"}).json()
+    assert one["response"]["trades"] == load("response-01-known-open.json")["trades"]
+    leak = c.post("/v0/demo/run", json={"case": "05"}).json()
+    assert leak["response"]["trades"] == one["response"]["trades"]
+    assert sum(m.get("count", 0) for m in leak["response"]["certificate"]["masked"]) == 20
+    early = c.post("/v0/demo/run", json={"case": "01", "as_of": "2026-10-15T00:00:00Z"}).json()["response"]
+    assert early["status"] == "refused" and early["errors"][0]["code"] == "trigger_after_as_of"
+    hashes = {c.post("/v0/demo/run", json={"case": "03"}).json()["response_sha256"] for _ in range(3)}
+    assert len(hashes) == 1
+    # The client picks a case and as_of only; anything else is refused, and /v0/backtest still needs the token.
+    for bad in [{"case": "04"}, {"case": "01", "prices": {}}, {"case": "01", "as_of": 5}, []]:
+        assert c.post("/v0/demo/run", json=bad).status_code == 400
+    assert c.post("/v0/backtest", json=load("request-01-known-open.json")).status_code == 401
