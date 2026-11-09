@@ -22,7 +22,9 @@ def latest() -> dict:
     return out
 
 
-def row(system: str, name: str, s: dict, x: dict) -> str:
+def row(system: str, name: str, s: dict | None, x: dict) -> str:
+    if s is None:
+        return f"| {name} | {system} | skipped (mock) | | | | | |"
     t = f"{s['median_s'] * 1e3:.3f} ms" if x["kind"] == "engine" else f"{s['median_s']:.1f} s"
     c = "0" if x["kind"] == "engine" else (f"${s['cost_usd_mean']:.4f}" if s["cost_usd_mean"] is not None else "n/a")
     n = s["n"]
@@ -50,8 +52,10 @@ def main() -> int:
     lines += ["", "## Definitions", "",
               "- Correct: entry date and exit date equal the golden response, and |excess - golden| <= 0.0005.",
               "- Distinct answers: number of different parsed answers (all fields) across the runs.",
-              "- Future-info flags: runs whose answer enters at or before the trigger time, or prices/marks a session "
-              "after as_of.",
+              "- Future-info flags: runs whose answer enters at or before the trigger time, prices or marks a session "
+              "after as_of, or uses a price from a bar after as_of.",
+              "- 05-leak-after-as-of: request 01 plus synthetic bars for 2026-11-09..20 (after as_of). The correct "
+              "answer ignores them, so the golden is response 01.",
               "- Time: engine is in-process `run_backtest` wall time (no HTTP, no import). AI is one Messages API "
               "call, wall time from this container.",
               "- Cost: from returned usage x assumed list price "

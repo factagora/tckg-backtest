@@ -30,7 +30,8 @@ def engine():
     try:
         from tckg_backtest.core import run_backtest
     except ImportError as e:
-        by_req = {json.dumps(r, sort_keys=True): g for r, g in GOLDENS.values()}
+        # shortcut: the stand-in only serves the contract's own requests (01-03); 05 is skipped until the engine lands
+        by_req = {json.dumps(load(n)[0], sort_keys=True): load(n)[1] for n in NAMES if not n.startswith("05")}
         return (lambda req: copy.deepcopy(by_req[json.dumps(req, sort_keys=True)])), f"mock ({e})"
     params = inspect.signature(run_backtest).parameters
     kw = {}
@@ -51,6 +52,9 @@ def main(argv=None) -> int:
     out = {"kind": "engine", "engine": label, "commit": commit, "python": sys.version.split()[0],
            "started_at": datetime.now(UTC).isoformat(timespec="seconds"), "requests": {}}
     for name, (request, golden) in GOLDENS.items():
+        if label.startswith("mock") and name.startswith("05"):
+            out["requests"][name] = {"summary": None, "skipped": "mock engine has no answer for a non-contract request"}
+            continue
         runs = []
         for i in range(a.runs):
             req = copy.deepcopy(request)
