@@ -70,7 +70,12 @@ def main() -> int:
               "- Cost: from returned usage x assumed list price "
               + "; ".join(f"{x['model']} ${x['price_per_mtok_usd_assumed'][0]}/${x['price_per_mtok_usd_assumed'][1]} "
                           "per MTok in/out" for x in ai if x.get("price_per_mtok_usd_assumed")) + ".",
-              "- Goldens: bench/v0, byte copy of factagora/tckg-trader docs/tckg-backtest/v0 at fb3e6c2.", "",
+              "- Goldens and inputs: bench/v0, byte copy of factagora/tckg-trader docs/tckg-backtest/v0 at fb3e6c2. "
+              "The engine and every AI run got these same request bytes. contract/v0 on master (v0.3) later changed "
+              "only factblock.known_at and verdict.decided_at by minutes; the trades (dates, prices, excess) are "
+              "unchanged.",
+              "- Engine time includes request schema validation and certificate hashes. On 05 the engine's "
+              "certificate lists the 20 masked bars after as_of.", "",
               "## Reproduce", "", "```", "python3 bench/engine.py --runs 5",
               "ANTHROPIC_API_KEY=... python3 bench/ai_prompt.py --model claude-sonnet-5-5 --runs 5",
               "python3 bench/report.py", "```", "",

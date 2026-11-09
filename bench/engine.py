@@ -2,7 +2,7 @@
 
     python3 bench/engine.py --runs 5
 
-Uses tckg_backtest.core.run_backtest from this checkout. If it is not importable (engine not merged yet), times a
+Uses tckg_backtest.run_backtest from this checkout. If it is not importable (engine not merged yet), times a
 stand-in that returns the golden response, and records kind "mock". Writes bench/results/<UTC timestamp>-engine.json.
 """
 from __future__ import annotations
@@ -28,7 +28,7 @@ GOLDENS = {n: load(n) for n in NAMES}
 def engine():
     """(callable(request) -> response, label)."""
     try:
-        from tckg_backtest.core import run_backtest
+        from tckg_backtest import run_backtest
     except ImportError as e:
         # shortcut: the stand-in only serves the contract's own requests (01-03); 05 is skipped until the engine lands
         by_req = {json.dumps(load(n)[0], sort_keys=True): load(n)[1] for n in NAMES if not n.startswith("05")}
@@ -39,7 +39,7 @@ def engine():
         kw["load_prices"] = None  # 01-03 carry inline bars
     if "now" in params:
         kw["now"] = datetime(2026, 11, 8, tzinfo=UTC)  # golden computed_at
-    return (lambda req: run_backtest(req, **kw)), "tckg_backtest.core.run_backtest"
+    return (lambda req: run_backtest(req, **kw)), "tckg_backtest.run_backtest"
 
 
 def main(argv=None) -> int:

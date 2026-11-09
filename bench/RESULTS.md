@@ -1,21 +1,25 @@
 # Bench: tckg-backtest engine vs an LLM prompted with the same rules
 
-Generated 20261109T013901Z by `python3 bench/report.py` from 20261109T013901Z-engine.json, 20261109T013316Z-ai-claude-sonnet-5-5-full.json, 20261109T013857Z-ai-claude-sonnet-5-5-short.json.
+Generated 20261109T014757Z by `python3 bench/report.py` from 20261109T014740Z-engine.json, 20261109T013316Z-ai-claude-sonnet-5-5-full.json, 20261109T013857Z-ai-claude-sonnet-5-5-short.json, 20261109T014656Z-ai-claude-opus-5-5-short.json.
 
 | Request | System | Median time | Cost per run (est.) | Correct | Distinct answers | Future-info flags | Parse failures |
 |---|---|---|---|---|---|---|---|
-| 01-known-open | engine (MOCK: mock (No module named 'tckg_backtest'), commit e06dea7) | 0.061 ms | 0 | 5/5 | 1/5 (1/5) | 0/5 | 0/5 |
+| 01-known-open | engine (tckg_backtest.run_backtest, commit 0161e94) | 2.488 ms | 0 | 5/5 | 1/5 (1/5) | 0/5 | 0/5 |
 | 01-known-open | claude-sonnet-5-5, full prompt | 14.1 s | $0.0238 | 5/5 | 3/5 (1/5) | 0/5 | 0/5 |
 | 01-known-open | claude-sonnet-5-5, short prompt | 11.2 s | $0.0186 | 5/5 | 2/5 (1/5) | 0/5 | 0/5 |
-| 02-hindsight-said | engine (MOCK: mock (No module named 'tckg_backtest'), commit e06dea7) | 0.072 ms | 0 | 5/5 | 1/5 (1/5) | 0/5 | 0/5 |
+| 01-known-open | claude-opus-5-5, short prompt | 17.1 s | $0.0385 | 5/5 | 2/5 (1/5) | 0/5 | 0/5 |
+| 02-hindsight-said | engine (tckg_backtest.run_backtest, commit 0161e94) | 3.117 ms | 0 | 5/5 | 1/5 (1/5) | 0/5 | 0/5 |
 | 02-hindsight-said | claude-sonnet-5-5, full prompt | 13.2 s | $0.0246 | 4/5 | 5/5 (2/5) | 0/5 | 0/5 |
 | 02-hindsight-said | claude-sonnet-5-5, short prompt | 12.6 s | $0.0203 | 1/5 | 5/5 (3/5) | 0/5 | 0/5 |
-| 03-candidate-playbook | engine (MOCK: mock (No module named 'tckg_backtest'), commit e06dea7) | 0.047 ms | 0 | 5/5 | 1/5 (1/5) | 0/5 | 0/5 |
+| 02-hindsight-said | claude-opus-5-5, short prompt | 23.6 s | $0.0547 | 5/5 | 1/5 (1/5) | 0/5 | 0/5 |
+| 03-candidate-playbook | engine (tckg_backtest.run_backtest, commit 0161e94) | 1.720 ms | 0 | 5/5 | 1/5 (1/5) | 0/5 | 0/5 |
 | 03-candidate-playbook | claude-sonnet-5-5, full prompt | 14.0 s | $0.0227 | 5/5 | 2/5 (1/5) | 0/5 | 0/5 |
 | 03-candidate-playbook | claude-sonnet-5-5, short prompt | 12.1 s | $0.0185 | 5/5 | 4/5 (1/5) | 0/5 | 0/5 |
-| 05-leak-after-as-of | engine (MOCK: mock (No module named 'tckg_backtest'), commit e06dea7) | skipped (mock) | | | | | |
+| 03-candidate-playbook | claude-opus-5-5, short prompt | 19.2 s | $0.0404 | 5/5 | 1/5 (1/5) | 0/5 | 0/5 |
+| 05-leak-after-as-of | engine (tckg_backtest.run_backtest, commit 0161e94) | 2.645 ms | 0 | 5/5 | 1/5 (1/5) | 0/5 | 0/5 |
 | 05-leak-after-as-of | claude-sonnet-5-5, full prompt | 13.5 s | $0.0262 | 5/5 | 4/5 (1/5) | 0/5 | 0/5 |
 | 05-leak-after-as-of | claude-sonnet-5-5, short prompt | 11.3 s | $0.0211 | 5/5 | 3/5 (1/5) | 0/5 | 0/5 |
+| 05-leak-after-as-of | claude-opus-5-5, short prompt | 16.2 s | $0.0412 | 5/5 | 2/5 (1/5) | 0/5 | 0/5 |
 
 ## Definitions
 
@@ -26,8 +30,9 @@ Generated 20261109T013901Z by `python3 bench/report.py` from 20261109T013901Z-en
 - Future-info flags: runs whose answer enters at or before the trigger time, prices or marks a session after as_of, or uses a price from a bar after as_of.
 - 05-leak-after-as-of: request 01 plus synthetic bars for 2026-11-09..20 (after as_of). The correct answer ignores them, so the golden is response 01.
 - Time: engine is in-process `run_backtest` wall time (no HTTP, no import). AI is one Messages API call, wall time from this container.
-- Cost: from returned usage x assumed list price claude-sonnet-5-5 $2.0/$10.0 per MTok in/out; claude-sonnet-5-5 $2.0/$10.0 per MTok in/out.
-- Goldens: bench/v0, byte copy of factagora/tckg-trader docs/tckg-backtest/v0 at fb3e6c2.
+- Cost: from returned usage x assumed list price claude-sonnet-5-5 $2.0/$10.0 per MTok in/out; claude-sonnet-5-5 $2.0/$10.0 per MTok in/out; claude-opus-5-5 $4.0/$20.0 per MTok in/out.
+- Goldens and inputs: bench/v0, byte copy of factagora/tckg-trader docs/tckg-backtest/v0 at fb3e6c2. The engine and every AI run got these same request bytes. contract/v0 on master (v0.3) later changed only factblock.known_at and verdict.decided_at by minutes; the trades (dates, prices, excess) are unchanged.
+- Engine time includes request schema validation and certificate hashes. On 05 the engine's certificate lists the 20 masked bars after as_of.
 
 ## Reproduce
 

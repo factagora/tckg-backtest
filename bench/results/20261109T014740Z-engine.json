@@ -1,15 +1,15 @@
 {
  "kind": "engine",
- "engine": "mock (No module named 'tckg_backtest')",
- "commit": "e06dea7",
+ "engine": "tckg_backtest.run_backtest",
+ "commit": "0161e94",
  "python": "3.13.18",
- "started_at": "2026-11-09T01:39:01+00:00",
+ "started_at": "2026-11-09T01:47:40+00:00",
  "requests": {
   "01-known-open": {
    "summary": {
     "n": 5,
-    "median_s": 6.139300012364401e-05,
-    "max_s": 0.0001638560001993028,
+    "median_s": 0.0024884420004127605,
+    "max_s": 0.004455738000160636,
     "cost_usd_mean": 0.0,
     "correct": 5,
     "distinct": 1,
@@ -20,7 +20,7 @@
    "runs": [
     {
      "run": 1,
-     "wall_s": 0.0001638560001993028,
+     "wall_s": 0.004455738000160636,
      "cost_usd": 0.0,
      "answer": {
       "entry_date": "2026-10-21",
@@ -46,11 +46,11 @@
       "future": []
      },
      "certificate_mock": false,
-     "engine_version": "0.0.0+golden"
+     "engine_version": "0.1.0"
     },
     {
      "run": 2,
-     "wall_s": 6.664400007139193e-05,
+     "wall_s": 0.0026335779998589715,
      "cost_usd": 0.0,
      "answer": {
       "entry_date": "2026-10-21",
@@ -76,11 +76,11 @@
       "future": []
      },
      "certificate_mock": false,
-     "engine_version": "0.0.0+golden"
+     "engine_version": "0.1.0"
     },
     {
      "run": 3,
-     "wall_s": 6.139300012364401e-05,
+     "wall_s": 0.0024884420004127605,
      "cost_usd": 0.0,
      "answer": {
       "entry_date": "2026-10-21",
@@ -106,11 +106,11 @@
       "future": []
      },
      "certificate_mock": false,
-     "engine_version": "0.0.0+golden"
+     "engine_version": "0.1.0"
     },
     {
      "run": 4,
-     "wall_s": 5.8570999954099534e-05,
+     "wall_s": 0.002425624999887077,
      "cost_usd": 0.0,
      "answer": {
       "entry_date": "2026-10-21",
@@ -136,11 +136,11 @@
       "future": []
      },
      "certificate_mock": false,
-     "engine_version": "0.0.0+golden"
+     "engine_version": "0.1.0"
     },
     {
      "run": 5,
-     "wall_s": 5.8458999774302356e-05,
+     "wall_s": 0.0023788789999343862,
      "cost_usd": 0.0,
      "answer": {
       "entry_date": "2026-10-21",
@@ -166,15 +166,15 @@
       "future": []
      },
      "certificate_mock": false,
-     "engine_version": "0.0.0+golden"
+     "engine_version": "0.1.0"
     }
    ]
   },
   "02-hindsight-said": {
    "summary": {
     "n": 5,
-    "median_s": 7.15760002094612e-05,
-    "max_s": 7.6002000241715e-05,
+    "median_s": 0.0031165679997684492,
+    "max_s": 0.003227040999718156,
     "cost_usd_mean": 0.0,
     "correct": 5,
     "distinct": 1,
@@ -185,7 +185,7 @@
    "runs": [
     {
      "run": 1,
-     "wall_s": 7.15760002094612e-05,
+     "wall_s": 0.003018030000021099,
      "cost_usd": 0.0,
      "answer": {
       "entry_date": "2026-08-19",
@@ -211,11 +211,11 @@
       "future": []
      },
      "certificate_mock": false,
-     "engine_version": "0.0.0+golden"
+     "engine_version": "0.1.0"
     },
     {
      "run": 2,
-     "wall_s": 6.619100031457492e-05,
+     "wall_s": 0.003077191000102175,
      "cost_usd": 0.0,
      "answer": {
       "entry_date": "2026-08-19",
@@ -241,11 +241,11 @@
       "future": []
      },
      "certificate_mock": false,
-     "engine_version": "0.0.0+golden"
+     "engine_version": "0.1.0"
     },
     {
      "run": 3,
-     "wall_s": 6.984800029385951e-05,
+     "wall_s": 0.003117599000233895,
      "cost_usd": 0.0,
      "answer": {
       "entry_date": "2026-08-19",
@@ -271,11 +271,11 @@
       "future": []
      },
      "certificate_mock": false,
-     "engine_version": "0.0.0+golden"
+     "engine_version": "0.1.0"
     },
     {
      "run": 4,
-     "wall_s": 7.6002000241715e-05,
+     "wall_s": 0.0031165679997684492,
      "cost_usd": 0.0,
      "answer": {
       "entry_date": "2026-08-19",
@@ -301,11 +301,11 @@
       "future": []
      },
      "certificate_mock": false,
-     "engine_version": "0.0.0+golden"
+     "engine_version": "0.1.0"
     },
     {
      "run": 5,
-     "wall_s": 7.324000034714118e-05,
+     "wall_s": 0.003227040999718156,
      "cost_usd": 0.0,
      "answer": {
       "entry_date": "2026-08-19",
@@ -331,15 +331,15 @@
       "future": []
      },
      "certificate_mock": false,
-     "engine_version": "0.0.0+golden"
+     "engine_version": "0.1.0"
     }
    ]
   },
   "03-candidate-playbook": {
    "summary": {
     "n": 5,
-    "median_s": 4.7310999889305094e-05,
-    "max_s": 5.357899999580695e-05,
+    "median_s": 0.0017204610003318521,
+    "max_s": 0.0017983490001824975,
     "cost_usd_mean": 0.0,
     "correct": 5,
     "distinct": 1,
@@ -350,7 +350,7 @@
    "runs": [
     {
      "run": 1,
-     "wall_s": 5.357899999580695e-05,
+     "wall_s": 0.0016496560001542093,
      "cost_usd": 0.0,
      "answer": {
       "entry_date": "2026-10-30",
@@ -376,11 +376,11 @@
       "future": []
      },
      "certificate_mock": false,
-     "engine_version": "0.0.0+golden"
+     "engine_version": "0.1.0"
     },
     {
      "run": 2,
-     "wall_s": 4.74580001537106e-05,
+     "wall_s": 0.0017347769999105367,
      "cost_usd": 0.0,
      "answer": {
       "entry_date": "2026-10-30",
@@ -406,11 +406,11 @@
       "future": []
      },
      "certificate_mock": false,
-     "engine_version": "0.0.0+golden"
+     "engine_version": "0.1.0"
     },
     {
      "run": 3,
-     "wall_s": 4.7310999889305094e-05,
+     "wall_s": 0.0017983490001824975,
      "cost_usd": 0.0,
      "answer": {
       "entry_date": "2026-10-30",
@@ -436,11 +436,11 @@
       "future": []
      },
      "certificate_mock": false,
-     "engine_version": "0.0.0+golden"
+     "engine_version": "0.1.0"
     },
     {
      "run": 4,
-     "wall_s": 4.395099995235796e-05,
+     "wall_s": 0.0017204610003318521,
      "cost_usd": 0.0,
      "answer": {
       "entry_date": "2026-10-30",
@@ -466,11 +466,11 @@
       "future": []
      },
      "certificate_mock": false,
-     "engine_version": "0.0.0+golden"
+     "engine_version": "0.1.0"
     },
     {
      "run": 5,
-     "wall_s": 4.7229999836417846e-05,
+     "wall_s": 0.001685473000179627,
      "cost_usd": 0.0,
      "answer": {
       "entry_date": "2026-10-30",
@@ -496,14 +496,175 @@
       "future": []
      },
      "certificate_mock": false,
-     "engine_version": "0.0.0+golden"
+     "engine_version": "0.1.0"
     }
    ]
   },
   "05-leak-after-as-of": {
-   "summary": null,
-   "skipped": "mock engine has no answer for a non-contract request"
+   "summary": {
+    "n": 5,
+    "median_s": 0.002644688000145834,
+    "max_s": 0.002900400999806152,
+    "cost_usd_mean": 0.0,
+    "correct": 5,
+    "distinct": 1,
+    "distinct_material": 1,
+    "future": 0,
+    "parse_fail": 0
+   },
+   "runs": [
+    {
+     "run": 1,
+     "wall_s": 0.002900400999806152,
+     "cost_usd": 0.0,
+     "answer": {
+      "entry_date": "2026-10-21",
+      "entry_price": 1260000,
+      "entry_benchmark_price": 88665,
+      "exit_date": "2026-11-18",
+      "exit_price": null,
+      "exit_benchmark_price": null,
+      "open": true,
+      "marked_at": "2026-11-06",
+      "mark_price": 1176000,
+      "mark_benchmark_price": 79005,
+      "ret": -0.06666666666666665,
+      "benchmark_ret": -0.1089494163424124,
+      "excess": 0.042282749675745745
+     },
+     "answer_key": "0b5256f7ef44415579c983adc26d7a65d315fbe15906f9920ff839b7f74cb0e1",
+     "score": {
+      "parsed": true,
+      "dates_ok": true,
+      "excess_ok": true,
+      "correct": true,
+      "future": []
+     },
+     "certificate_mock": false,
+     "engine_version": "0.1.0"
+    },
+    {
+     "run": 2,
+     "wall_s": 0.002657243000157905,
+     "cost_usd": 0.0,
+     "answer": {
+      "entry_date": "2026-10-21",
+      "entry_price": 1260000,
+      "entry_benchmark_price": 88665,
+      "exit_date": "2026-11-18",
+      "exit_price": null,
+      "exit_benchmark_price": null,
+      "open": true,
+      "marked_at": "2026-11-06",
+      "mark_price": 1176000,
+      "mark_benchmark_price": 79005,
+      "ret": -0.06666666666666665,
+      "benchmark_ret": -0.1089494163424124,
+      "excess": 0.042282749675745745
+     },
+     "answer_key": "0b5256f7ef44415579c983adc26d7a65d315fbe15906f9920ff839b7f74cb0e1",
+     "score": {
+      "parsed": true,
+      "dates_ok": true,
+      "excess_ok": true,
+      "correct": true,
+      "future": []
+     },
+     "certificate_mock": false,
+     "engine_version": "0.1.0"
+    },
+    {
+     "run": 3,
+     "wall_s": 0.002569683000274381,
+     "cost_usd": 0.0,
+     "answer": {
+      "entry_date": "2026-10-21",
+      "entry_price": 1260000,
+      "entry_benchmark_price": 88665,
+      "exit_date": "2026-11-18",
+      "exit_price": null,
+      "exit_benchmark_price": null,
+      "open": true,
+      "marked_at": "2026-11-06",
+      "mark_price": 1176000,
+      "mark_benchmark_price": 79005,
+      "ret": -0.06666666666666665,
+      "benchmark_ret": -0.1089494163424124,
+      "excess": 0.042282749675745745
+     },
+     "answer_key": "0b5256f7ef44415579c983adc26d7a65d315fbe15906f9920ff839b7f74cb0e1",
+     "score": {
+      "parsed": true,
+      "dates_ok": true,
+      "excess_ok": true,
+      "correct": true,
+      "future": []
+     },
+     "certificate_mock": false,
+     "engine_version": "0.1.0"
+    },
+    {
+     "run": 4,
+     "wall_s": 0.0025888790000863082,
+     "cost_usd": 0.0,
+     "answer": {
+      "entry_date": "2026-10-21",
+      "entry_price": 1260000,
+      "entry_benchmark_price": 88665,
+      "exit_date": "2026-11-18",
+      "exit_price": null,
+      "exit_benchmark_price": null,
+      "open": true,
+      "marked_at": "2026-11-06",
+      "mark_price": 1176000,
+      "mark_benchmark_price": 79005,
+      "ret": -0.06666666666666665,
+      "benchmark_ret": -0.1089494163424124,
+      "excess": 0.042282749675745745
+     },
+     "answer_key": "0b5256f7ef44415579c983adc26d7a65d315fbe15906f9920ff839b7f74cb0e1",
+     "score": {
+      "parsed": true,
+      "dates_ok": true,
+      "excess_ok": true,
+      "correct": true,
+      "future": []
+     },
+     "certificate_mock": false,
+     "engine_version": "0.1.0"
+    },
+    {
+     "run": 5,
+     "wall_s": 0.002644688000145834,
+     "cost_usd": 0.0,
+     "answer": {
+      "entry_date": "2026-10-21",
+      "entry_price": 1260000,
+      "entry_benchmark_price": 88665,
+      "exit_date": "2026-11-18",
+      "exit_price": null,
+      "exit_benchmark_price": null,
+      "open": true,
+      "marked_at": "2026-11-06",
+      "mark_price": 1176000,
+      "mark_benchmark_price": 79005,
+      "ret": -0.06666666666666665,
+      "benchmark_ret": -0.1089494163424124,
+      "excess": 0.042282749675745745
+     },
+     "answer_key": "0b5256f7ef44415579c983adc26d7a65d315fbe15906f9920ff839b7f74cb0e1",
+     "score": {
+      "parsed": true,
+      "dates_ok": true,
+      "excess_ok": true,
+      "correct": true,
+      "future": []
+     },
+     "certificate_mock": false,
+     "engine_version": "0.1.0"
+    }
+   ]
   }
  },
- "mock": true
+ "mock": false
 }
