@@ -12,7 +12,15 @@ body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 -apple-system
 header{background:var(--card);border-bottom:1px solid var(--line);padding:10px 0 8px}
 header .top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
 header h1{font-size:17px;margin:0;white-space:nowrap}
-.tagline{color:var(--ink);font-size:14px}
+.tagline{color:var(--mute);font-size:13px}
+.headline{font-size:30px;font-weight:700;line-height:1.2;margin:6px 0 8px;letter-spacing:-.01em}
+.strip{display:grid;grid-template-columns:1fr 1fr 1.6fr;gap:8px;margin:0 0 8px}
+.strip div{border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:13px;color:var(--mute)}
+.strip b{font-size:20px;color:var(--ink);margin-left:6px}
+.strip .gap{background:var(--warnbg);border-color:#fedf89;color:var(--warn)}
+.strip .gap b{color:var(--warn)}
+.big2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 10px}
+.big2 div{border-radius:8px;padding:8px 12px;font-size:16px;font-weight:600}
 .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .tabs button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:5px 10px;font:inherit;font-size:13px;cursor:pointer;color:var(--ink)}
 .tabs button.on{background:var(--acc);border-color:var(--acc);color:#fff}
@@ -67,7 +75,9 @@ tr[data-sel]{cursor:pointer}
 <header>
   <div class="wrap">
     <div class="top"><h1>tckg-backtest console</h1>
-      <span class="tagline">Backtest a claim using only what was public on that date. Future data is blocked, and the page shows the proof.</span></div>
+      <span class="tagline">Backtest a claim using only what was known on that date. Future data is blocked, and every answer comes with a receipt.</span></div>
+    <div class="headline" id="headline"></div>
+    <div class="strip" id="strip"></div>
     <div class="tabs" id="tabs"></div>
     <div class="scen" id="scen"></div>
   </div>
@@ -75,7 +85,7 @@ tr[data-sel]{cursor:pointer}
 
 <div class="timebar"><div class="wrap">
   <div class="tb-row">
-    <div class="tb-date">Pretend today is <span id="date"></span> <small class="mono" id="iso"></small></div>
+    <div class="tb-date">Rewind to <span id="date"></span> <small class="mono" id="iso"></small></div>
     <button class="btn" id="prev" title="one trading day back">&#9664;</button>
     <button class="btn" id="next" title="one trading day forward">&#9654;</button>
     <button class="btn dark" id="play">Play</button>
@@ -103,7 +113,7 @@ tr[data-sel]{cursor:pointer}
         <div class="legend" style="margin-top:4px"><span><b style="border-color:var(--ink)"></b>public by this date</span><span><b style="border-color:var(--grey);border-top-style:dashed"></b>not public yet: not used</span><span><b style="border-color:var(--acc);border-top-width:3px"></b>used for the selected decision</span></div></div>
     </div>
     <div class="grid2">
-      <div class="card"><h3>Proof: no peeking at the future</h3><div id="proof"></div></div>
+      <div class="card"><h3>Receipt <span class="tagline">what this answer used and did not use</span></h3><div id="proof"></div></div>
       <div class="card"><h3>Same answer every run</h3><div id="five"></div></div>
     </div>
     <div class="card" id="aiCard"><h3>Same request by AI prompt <span class="pill p-mute">recorded run, bench/RESULTS.md</span></h3><div id="ai"></div></div>
@@ -151,14 +161,14 @@ function vmOf(out) {
   const r = out.response, c = C(), asOf = out.as_of;
   let facts, trades, speaker, asset, index, mainSym, benchSym;
   if (V1()) {
-    mainSym = "ACME"; benchSym = "INDEX"; speaker = c.factblocks[0].speaker.name; asset = "ACME (mock stock)"; index = "mock index";
+    mainSym = "ACME"; benchSym = "INDEX"; speaker = c.factblocks[0].speaker.name; asset = "ACME (mock stock)"; index = "the market (mock index)";
     facts = c.factblocks.map(f => ({id: f.id, kind: "claim", text: f.statement, said: f.said_at, known: f.known_at, dir: f.call.direction}));
     trades = r.trades.map(t => ({id: t.factblock_id, dir: t.direction, entry: t.entry, end: t.exit || t.mark, open: !t.exit,
       exit: t.exit, planned: null, ret: t.ret, bench: t.benchmark_ret, excess: t.excess, hit: t.hit, reason: t.exit_reason,
       closedBy: t.closed_by, horizon: t.horizon_days, uses: [t.factblock_id]}));
   } else {
     const fb = c.factblock, pb = c.playbook, t = r.trades[0];
-    mainSym = fb.assets[0].symbol; benchSym = pb.benchmark.symbol; speaker = fb.speaker.name; asset = "SK hynix (000660)"; index = "KOSPI 200 ETF (069500)";
+    mainSym = fb.assets[0].symbol; benchSym = pb.benchmark.symbol; speaker = fb.speaker.name; asset = "SK hynix (000660)"; index = "the market (KOSPI 200 ETF)";
     facts = [{id: "claim", kind: "claim", text: fb.statement, said: fb.said_at, known: fb.known_at, dir: "up"}];
     if (fb.verdict) facts.push({id: "outcome", kind: "outcome", text: `Outcome: ${fb.verdict.value === "hit" ? "it happened (buyback announced)" : fb.verdict.value}`, said: null, known: fb.verdict.decided_at});
     const uses = pb.trigger.event === "verdict_decided" ? ["claim", "outcome"] : ["claim"];
@@ -190,18 +200,41 @@ function sentence(vm) {
   if (r.status === "refused") return ["s-ref", `Refused: ${e.message}`];
   if (V1()) {
     const pub = vm.facts.length - vm.hiddenFacts.length;
-    return ["s-open", `On ${d}, ${pub} of ${vm.facts.length} calls are public: ${s.n_trades || 0} trades (${s.n_resolved || 0} closed, ${s.n_pending || 0} open), ${pct(s.excess_mean, 1)} vs index per closed call.`];
+    return ["s-open", `On ${d}, ${pub} of ${vm.facts.length} calls are public: ${s.n_trades || 0} trades (${s.n_resolved || 0} closed, ${s.n_pending || 0} open), ${pct(s.excess_mean, 1)} vs the market per closed call.`];
   }
   const outc = vm.facts.find(f => f.kind === "outcome"), outTxt = outc ? (known(outc.known, vm.asOf) ? ", the outcome is too" : ", the outcome is not") : "";
   if (r.status === "no_trade") return ["s-nt", `On ${d} the claim is public${outTxt}. This rule waits for the outcome: no trade yet.`];
   const t = vm.trades[0];
   if (!t) return ["s-nt", `${r.status}`];
   const hind = r.certificate && r.certificate.hindsight ? " (hindsight: before it was public)" : "";
-  if (t.open) return ["s-open", `On ${d} the claim is public${outTxt}. Bought ${nice(t.entry.date)}${hind}, still holding: ${pct(t.excess, 1)} vs index.`];
-  return ["s-ok", `Bought ${nice(t.entry.date)}${hind}, sold ${nice(t.exit.date)}: ${pct(t.excess, 1)} vs index.`];
+  if (t.open) return ["s-open", `On ${d} the claim is public${outTxt}. Bought ${nice(t.entry.date)}${hind}, still holding: ${pct(t.excess, 1)} vs the market.`];
+  return ["s-ok", `Bought ${nice(t.entry.date)}${hind}, sold ${nice(t.exit.date)}: ${pct(t.excess, 1)} vs the market.`];
+}
+
+function headline(vm) {
+  const r = vm.r, e = r.errors[0], d = nice(vm.asOf), s = r.summary || {}, t = vm.trades[0];
+  if (r.status === "refused" && e.code === "as_of_in_future") return `${d} has not happened yet. Nobody can backtest the future.`;
+  if (r.status === "refused" && e.code === "trigger_after_as_of") return `${d}: nobody knew this yet. Nothing to trade.`;
+  if (r.status === "refused") return `${d}: refused (${e.code}).`;
+  if (V1()) return `${d}: ${vm.facts.length - vm.hiddenFacts.length} of ${vm.facts.length} calls were known. Following them: ${pct(s.excess_mean, 1)} vs the market per closed call.`;
+  if (r.status === "no_trade") return `${d}: the claim is known, the outcome is not. This rule waits.`;
+  if (!t) return `${d}: ${r.status}.`;
+  if (CASE === "05") return `Planted future prices: ignored. Same answer: ${pct(t.excess, 1)} vs the market.`;
+  if (CASE === "02") return `If you pretend you knew on ${nice(t.entry.date)}: ${pct(t.excess, 1)} vs the market.`;
+  if (t.open) return `${nice(t.entry.date)}: you could act on it. Following it so far: ${pct(t.excess, 1)} vs the market.`;
+  return `Followed from when it was known: ${pct(t.excess, 1)} vs the market.`;
+}
+
+async function drawStrip() {
+  // both through the engine at their default dates, not hardcoded
+  const [k, h] = await Promise.all(["01", "02"].map(c => api("/v0/demo/run", {case: c, as_of: INFO.cases[c].as_of})));
+  const xk = k.response.trades[0].excess, xh = h.response.trades[0].excess;
+  $("strip").innerHTML = `<div>What was knowable<b class="${cls(xk)}">${pct(xk, 1)}</b></div><div>Hindsight backtest<b>${pct(xh, 1)}</b></div>
+    <div class="gap">Gap<b>${((xh - xk) * 100).toFixed(1)} pts</b> that nobody had at the time. Most backtests quietly use it.</div>`;
 }
 
 function drawTimebar(vm) {
+  $("headline").textContent = headline(vm);
   $("date").textContent = niceY(vm.asOf); $("iso").textContent = vm.asOf;
   const [k, txt] = sentence(vm); $("sentence").className = "sentence " + k; $("sentence").textContent = txt;
   const n = SESS().length - 1, w = $("track").clientWidth || 1000, ends = [-1e9, -1e9, -1e9];
@@ -224,17 +257,17 @@ function drawTiles(vm, ms) {
   const r = vm.r, s = r.summary || {}, a = C().ai, t = vm.trades[0];
   const tiles = [];
   if (V1()) {
-    tiles.push(["vs index, per closed call", `<span class="${cls(s.excess_mean)}">${pct(s.excess_mean, 1)}</span>`, `portfolio ${pct(s.total_return, 1)}, index leg ${pct(s.benchmark_return, 1)}`]);
+    tiles.push(["vs the market, per closed call", `<span class="${cls(s.excess_mean)}">${pct(s.excess_mean, 1)}</span>`, `portfolio ${pct(s.total_return, 1)}, market leg ${pct(s.benchmark_return, 1)}`]);
     tiles.push(["Calls traded", `${s.n_trades || 0}`, `${s.n_resolved || 0} closed (${s.hit_rate == null ? "-" : Math.round(s.hit_rate * 100) + "% right"}), ${s.n_pending || 0} open`]);
   } else {
-    tiles.push(["vs index", t ? `<span class="${cls(t.excess)}">${pct(t.excess, 1)}</span>` : "-", t ? `stock ${pct(t.ret, 1)}, index ${pct(t.bench, 1)}` : "no position"]);
+    tiles.push(["vs the market", t ? `<span class="${cls(t.excess)}">${pct(t.excess, 1)}</span>` : "-", t ? `stock ${pct(t.ret, 1)}, market ${pct(t.bench, 1)}` : "no position"]);
     tiles.push(["Position", t ? (t.open ? "Open" : "Closed") : r.status === "refused" ? "None" : "No trade", t ? `bought ${nice(t.entry.date)}, ${t.open ? "valued at the " + nice(t.end.date) + " close" : "sold " + nice(t.exit.date)}` : "nothing knowable to act on"]);
   }
   const nHidden = vm.hiddenFacts.length + (vm.hiddenBars ? 1 : 0);
   tiles.push(["Hidden: from the future", `${nHidden} input${nHidden === 1 ? "" : "s"}`,
     [vm.hiddenFacts.length ? `${vm.hiddenFacts.length} ${V1() ? "call" : "fact"}${vm.hiddenFacts.length > 1 ? "s" : ""} not public yet` : "", vm.hiddenBars ? `${vm.hiddenBars} days of prices` : ""].filter(Boolean).join(", ") || "everything was public"]);
   tiles.push(["Engine vs AI prompt", a ? `${ms.toFixed(0)} ms <span style="font-size:14px;color:var(--mute)">vs</span> ${aiMedian(a).toFixed(1)} s` : `Engine ${ms.toFixed(1)} ms`,
-    a ? `AI (recorded): ${aiOk(a)}/${a.runs.length} correct, ${aiDistinct(a)} different answer${aiDistinct(a) > 1 ? "s" : ""} in ${a.runs.length} runs` : "no recorded AI runs for mock data"]);
+    a ? `AI (recorded): ${aiOk(a)}/${a.runs.length} correct, ${aiExact(a)} different answer${aiExact(a) > 1 ? "s" : ""} in ${a.runs.length} runs` : "no recorded AI runs for mock data"]);
   $("tiles").innerHTML = tiles.map(([k, v, s]) => `<div class="card tile"><div class="k">${k}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join("");
 }
 
@@ -286,7 +319,7 @@ function drawChart(vm) {
   svg += `<line x1="${ax}" x2="${ax}" y1="${T - 4}" y2="${H - B + 4}" stroke="var(--ink)" stroke-width="2"/><text x="${Math.min(ax + 4, W - 120)}" y="${H - 5}" font-size="11.5" font-weight="700" fill="var(--ink)">today = ${nice(vm.asOf)}</text>`;
   $("chart").innerHTML = svg;
   $("legend").innerHTML = `<span><b style="border-color:var(--ink)"></b>${esc(vm.asset)} close</span><span><b style="border-color:#98a2b3;border-top-style:dashed"></b>${esc(vm.index)}, scaled</span>
-    <span>&#9650; buy, &#9660; sell short; line to the exit: <span class="pos">green</span> beat the index, <span class="neg">red</span> lost to it, <span style="color:var(--acc)">blue dashed</span> still open</span>
+    <span>&#9650; buy, &#9660; sell short; line to the exit: <span class="pos">green</span> beat the market, <span class="neg">red</span> lost to it, <span style="color:var(--acc)">blue dashed</span> still open</span>
     <span>Click a triangle for its evidence.</span>`;
 }
 
@@ -302,13 +335,13 @@ function drawEvidence(vm) {
   const later = vm.facts.filter(f => !t.uses.includes(f.id) && Date.parse(f.known) >= at);
   const statusThen = f => { const o = vm.trades.find(x => x.id === f.id);
     if (!o) return f.dir === "neutral" ? ["no call", "p-mute"] : f.kind === "outcome" ? ["known, not used by this rule", "p-mute"] : ["not traded", "p-mute"];
-    return o.exit && o.exit.date < t.entry.date ? (o.excess >= 0 ? ["had beaten the index", "p-ok"] : ["had lost to the index", "p-bad"]) : ["still open then", "p-mute"]; };
+    return o.exit && o.exit.date < t.entry.date ? (o.excess >= 0 ? ["had beaten the market", "p-ok"] : ["had lost to the market", "p-bad"]) : ["still open then", "p-mute"]; };
   const usedLi = used.map(f => {
     const early = Date.parse(f.known) > at, late = f.said && Date.parse(f.known) - Date.parse(f.said) > 864e5;
     return `<li><b>${esc(f.text)}</b> ${f.said ? `said ${nice(f.said)}, ` : ""}public ${nice(f.known)}
       ${early ? '<span class="pill p-bad">used before it was public (hindsight)</span>' : late ? `<span class="pill p-warn">public ${Math.round((Date.parse(f.known) - Date.parse(f.said)) / 864e5)} days after it was said: the trade waited</span>` : ""}</li>`; }).join("");
   const ex = t.exit ? `sold ${nice(t.exit.date)} at ${num(t.exit.price)}${t.reason === "opposite_call" ? ` (closed by the opposite call ${t.closedBy.slice(3)})` : ""}` : `still open, valued at the ${nice(t.end.date)} close (${num(t.end.price)})`;
-  $("evidence").innerHTML = `<p class="concl">${t.dir === "up" ? "Bought" : "Sold short"} ${V1() ? "ACME" : "SK hynix"} on ${nice(t.entry.date)} at ${num(t.entry.price)}, ${ex}: <b class="${cls(t.excess)}">${pct(t.excess, 1)} vs index</b>.</p>
+  $("evidence").innerHTML = `<p class="concl">${t.dir === "up" ? "Bought" : "Sold short"} ${V1() ? "ACME" : "SK hynix"} on ${nice(t.entry.date)} at ${num(t.entry.price)}, ${ex}: <b class="${cls(t.excess)}">${pct(t.excess, 1)} vs the market</b>.</p>
     <div><span class="pill p-acc">used</span><ul class="ev">${usedLi}</ul></div>
     ${before.length ? `<div style="margin-top:6px"><span class="pill p-mute">also public then</span><ul class="ev">${before.map(f => { const [s, k] = statusThen(f); return `<li>${esc(f.text)} <span class="pill ${k}">${s}</span></li>`; }).join("")}</ul></div>` : ""}
     <p class="note">Not public at the buy, so not used: ${later.length ? later.map(f => esc(V1() ? f.id.slice(3) : f.text)).join(", ") : "nothing"}.${V1() ? " Click another triangle, a graph node, or a row below." : ""}</p>
@@ -319,7 +352,7 @@ function callsTable(vm) {
   return `<details><summary>All ${vm.facts.length} calls at this date</summary><table style="margin-top:4px"><tr><th>call</th><th>said</th><th>public</th><th></th><th>at this date</th></tr>` +
     [...vm.facts].sort((a, b) => a.said.localeCompare(b.said)).map(f => {
       const t = vm.trades.find(x => x.id === f.id), pub = known(f.known, vm.asOf);
-      const st = !pub ? '<span class="pill p-mute">not public yet</span>' : !t ? `<span class="pill p-mute">${f.dir === "neutral" ? "no call" : "not traded"}</span>` : t.open ? '<span class="pill p-acc">open</span>' : t.excess >= 0 ? '<span class="pill p-ok">beat index</span>' : '<span class="pill p-bad">lost to index</span>';
+      const st = !pub ? '<span class="pill p-mute">not public yet</span>' : !t ? `<span class="pill p-mute">${f.dir === "neutral" ? "no call" : "not traded"}</span>` : t.open ? '<span class="pill p-acc">open</span>' : t.excess >= 0 ? '<span class="pill p-ok">beat market</span>' : '<span class="pill p-bad">lost to market</span>';
       return `<tr ${t ? `data-sel="${f.id}"` : ""} class="${f.id === SEL ? "sel" : ""}" style="${pub ? "" : "color:var(--grey)"}"><td class="mono">${f.id.slice(3)}</td><td>${nice(f.said)}</td><td>${nice(f.known)}</td><td>${esc(f.text)}</td><td>${st}</td></tr>`; }).join("") + "</table></details>";
 }
 
@@ -406,14 +439,19 @@ async function runFive() {
 }
 
 const aiMedian = a => a.runs.map(r => r.wall_s).sort((x, y) => x - y)[Math.floor(a.runs.length / 2)];
+const aiExact = a => new Set(a.runs.map(r => JSON.stringify(r.answer))).size;
 const aiOk = a => a.runs.filter(r => r.correct).length;
 const aiDistinct = a => new Set(a.runs.map(r => { const x = r.answer || {}; return [x.entry_date, x.exit_date, x.open, x.excess == null ? null : x.excess.toFixed(4)].join(); })).size;
 function drawAI(ms) {
   const a = C().ai;
   $("aiCard").style.display = a ? "" : "none";
   if (!a) return;
-  $("ai").innerHTML = `<p class="concl">The same request as text to ${esc(a.model)} (${esc(a.prompt_kind)} prompt): <b>${aiOk(a)}/${a.runs.length} correct</b>, ${aiDistinct(a)} different answer${aiDistinct(a) > 1 ? "s" : ""} in ${a.runs.length} runs (rounded to 4 decimals), ${aiMedian(a).toFixed(1)} s median${ms ? `; the engine took ${Math.min(...ms).toFixed(1)} ms` : ""}. It answers only the default date (${nice(C().as_of)}).</p>
-    <table><tr><th>run</th><th class="n">time</th><th>buy</th><th>sell</th><th>open</th><th class="n">vs index</th><th></th></tr>` +
+  const xs = a.runs.map(r => (r.answer || {}).excess).filter(x => x != null), spread = xs.length ? (Math.max(...xs) - Math.min(...xs)) * 100 : null;
+  const exact = aiExact(a), within = aiDistinct(a) === 1 && exact > 1 && spread != null ? ` (all within ${Math.max(spread, 0.01).toFixed(2)} pts)` : "";
+  $("ai").innerHTML = `<div class="big2"><div class="s-ref">Same question to an AI model: ${aiMedian(a).toFixed(1)} s, ${exact} different answer${exact > 1 ? "s" : ""}${within}</div>
+    <div class="s-ok">tckg-backtest: ~${ms ? Math.round(Math.min(...ms)) : "5"} ms, 1 answer, with a receipt</div></div>
+    <p class="concl">The same request as text to ${esc(a.model)} (${esc(a.prompt_kind)} prompt): <b>${aiOk(a)}/${a.runs.length} correct</b>, ${aiDistinct(a)} different answer${aiDistinct(a) > 1 ? "s" : ""} in ${a.runs.length} runs (rounded to 4 decimals), ${aiMedian(a).toFixed(1)} s median${ms ? `; the engine took ${Math.min(...ms).toFixed(1)} ms` : ""}. It answers only the default date (${nice(C().as_of)}).</p>
+    <table><tr><th>run</th><th class="n">time</th><th>buy</th><th>sell</th><th>open</th><th class="n">vs the market</th><th></th></tr>` +
     a.runs.map(r => { const x = r.answer || {};
       return `<tr><td>${r.run}</td><td class="n">${r.wall_s.toFixed(1)} s</td><td>${x.entry_date || "-"}</td><td>${x.exit_date || "-"}</td><td>${x.open == null ? "-" : x.open}</td>
       <td class="n">${x.excess == null ? '<span class="note">none</span>' : pct(x.excess)}</td><td>${r.correct ? '<span class="pill p-ok">correct</span>' : '<span class="pill p-bad">wrong</span>'}</td></tr>`; }).join("") +
@@ -441,6 +479,7 @@ function stopPlay() { if (PLAY) { clearInterval(PLAY); PLAY = null; $("play").te
 
 async function main() {
   INFO = await api("/v0/demo");
+  drawStrip();
   $("tabs").innerHTML = Object.entries(INFO.cases).map(([k, c]) => `<button data-c="${k}">${k} ${esc(c.label)}</button>`).join("");
   $("tabs").onclick = e => { const b = e.target.closest("button"); if (b) { stopPlay(); CASE = b.dataset.c; drawCase(); rerun(); } };
   $("slider").oninput = e => { stopPlay(); setIdx(+e.target.value); };
