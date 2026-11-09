@@ -123,7 +123,7 @@ tr[data-sel]{cursor:pointer}
 
 <script>
 const $ = id => document.getElementById(id);
-let INFO, CASE = "01", IDX = 0, AS_OF = null, SEL = null, LAST = null, PLAY = null, FIVE_T = null;
+let LASTMS = null, INFO, CASE = "01", IDX = 0, AS_OF = null, SEL = null, LAST = null, PLAY = null, FIVE_T = null;
 const pct = (x, d = 2) => x == null ? "-" : (x >= 0 ? "+" : "") + (x * 100).toFixed(d) + "%";
 const cls = x => x == null ? "" : x >= 0 ? "pos" : "neg";
 const num = x => x == null ? "-" : Number(x).toLocaleString("en-US");
@@ -131,6 +131,9 @@ const day = s => s ? s.slice(0, 10) : "";
 const nice = s => new Date(day(s) + "T12:00:00Z").toLocaleDateString("en-US", {month: "short", day: "numeric", timeZone: "UTC"});
 const niceY = s => new Date(day(s) + "T12:00:00Z").toLocaleDateString("en-US", {month: "short", day: "numeric", year: "numeric", timeZone: "UTC"});
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+// the speaker's local date: KST for the real XKRX claim (said_at 15:00Z = next day in Seoul), New York date for the mock US case
+const kst = iso => new Date(Date.parse(iso) + 9 * 3600e3).toISOString();
+const saidTxt = f => V1() ? nice(f.said) : `${niceY(kst(f.said))} (KST)`;
 const known = (iso, asOf) => Date.parse(iso) <= Date.parse(asOf);
 const C = () => INFO.cases[CASE];
 const V1 = () => C().contract === "v1";
@@ -139,7 +142,7 @@ const SESS = () => C().sessions || INFO.sessions;
 const asOfFor = d => d + (V1() ? "T22:00:00Z" : "T07:00:00Z");
 const openAt = d => Date.parse(d + (V1() ? "T13:30:00Z" : "T00:00:00Z"));
 const SCEN = {
-  "01": "Real data. One claim by SK hynix IR (said Aug 18, 2026; made public in the record Oct 20). The rule buys at the first open after the claim is public, holds 20 trading days, and compares with the KOSPI 200 ETF.",
+  "01": "Real data. One claim by SK hynix IR (said Aug 19, 2026 KST; made public in the record Oct 20). The rule buys at the first open after the claim is public, holds 20 trading days, and compares with the KOSPI 200 ETF.",
   "02": "Real data. Same claim and rule, but trading from the day it was said, before it was public. That is hindsight: the number looks better, and the proof flags it.",
   "03": "Real data. Same claim, another rule: buy once the outcome (the buyback was announced) is public, hold 5 trading days.",
   "05": "Real data plus planted fake prices after the chosen date. They are hidden from the engine, so the answer is the same as in the first scenario.",
@@ -241,7 +244,7 @@ function drawTimebar(vm) {
   const ticks = [];
   if (V1()) vm.facts.forEach(f => ticks.push([f.id.slice(3), f.known, Date.parse(f.known) - Date.parse(f.said) > 864e5 ? "var(--warn)" : "var(--grey)"]));
   else {
-    vm.facts.forEach(f => { if (f.said) ticks.push(["said", f.said, "var(--mute)"]); ticks.push([f.kind === "outcome" ? "outcome public" : "made public", f.known, f.kind === "outcome" ? "var(--bad)" : "var(--acc)"]); });
+    vm.facts.forEach(f => { if (f.said) ticks.push(["said", kst(f.said), "var(--mute)"]); ticks.push([f.kind === "outcome" ? "outcome public" : "made public", f.known, f.kind === "outcome" ? "var(--bad)" : "var(--acc)"]); });
     vm.trades.forEach(t => { ticks.push(["buy", t.entry.date, "var(--ok)"]); ticks.push([t.planned ? "sell (planned)" : "sell", t.planned || (t.exit && t.exit.date), "var(--warn)"]); });
   }
   $("track").innerHTML = ticks.filter(t => t[1]).map(([l, d, col]) => [l, d, col, sessionIdx(d) / n * w]).sort((a, b) => a[3] - b[3]).map(([l, d, col, x]) => {
@@ -296,7 +299,7 @@ function drawChart(vm) {
   // single-claim scenarios: said / made public / outcome public as flags on the chart (only those inside the range)
   if (!V1()) {
     const flags = [];
-    vm.facts.forEach(f => { if (f.said) flags.push([f.said, "said", "var(--mute)"]); flags.push([f.known, f.kind === "outcome" ? "outcome public" : "made public", f.kind === "outcome" ? "var(--bad)" : "var(--acc)"]); });
+    vm.facts.forEach(f => { if (f.said) flags.push([kst(f.said), "said", "var(--mute)"]); flags.push([f.known, f.kind === "outcome" ? "outcome public" : "made public", f.kind === "outcome" ? "var(--bad)" : "var(--acc)"]); });
     flags.filter(([d]) => sessionIdx(d) >= lo && sessionIdx(d) <= hi && day(d) >= S[lo]).forEach(([d, l, col], j) => {
       const x = X(day(d)); svg += `<line x1="${x}" x2="${x}" y1="${T - 18 + (j % 2) * 11}" y2="${H - B}" stroke="${col}" stroke-dasharray="3 3"/><text x="${Math.min(x + 3, W - R - (l.length + 7) * 6)}" y="${T - 20 + (j % 2) * 11}" font-size="11" fill="${col}">${l} ${nice(d)}</text>`; });
   }
@@ -338,7 +341,7 @@ function drawEvidence(vm) {
     return o.exit && o.exit.date < t.entry.date ? (o.excess >= 0 ? ["had beaten the market", "p-ok"] : ["had lost to the market", "p-bad"]) : ["still open then", "p-mute"]; };
   const usedLi = used.map(f => {
     const early = Date.parse(f.known) > at, late = f.said && Date.parse(f.known) - Date.parse(f.said) > 864e5;
-    return `<li><b>${esc(f.text)}</b> ${f.said ? `said ${nice(f.said)}, ` : ""}public ${nice(f.known)}
+    return `<li><b>${esc(f.text)}</b> ${f.said ? `said ${saidTxt(f)}, ` : ""}public ${nice(f.known)}
       ${early ? '<span class="pill p-bad">used before it was public (hindsight)</span>' : late ? `<span class="pill p-warn">public ${Math.round((Date.parse(f.known) - Date.parse(f.said)) / 864e5)} days after it was said: the trade waited</span>` : ""}</li>`; }).join("");
   const ex = t.exit ? `sold ${nice(t.exit.date)} at ${num(t.exit.price)}${t.reason === "opposite_call" ? ` (closed by the opposite call ${t.closedBy.slice(3)})` : ""}` : `still open, valued at the ${nice(t.end.date)} close (${num(t.end.price)})`;
   $("evidence").innerHTML = `<p class="concl">${t.dir === "up" ? "Bought" : "Sold short"} ${V1() ? "ACME" : "SK hynix"} on ${nice(t.entry.date)} at ${num(t.entry.price)}, ${ex}: <b class="${cls(t.excess)}">${pct(t.excess, 1)} vs the market</b>.</p>
@@ -435,7 +438,7 @@ async function runFive() {
     <table><tr><th>run</th><th>answer fingerprint (sha256, without the timestamp)</th><th class="n">server</th></tr>` +
     outs.map((o, i) => `<tr><td>${i + 1}</td><td class="mono">${o.response_sha256.slice(0, 32)}</td><td class="n">${o.server_ms.toFixed(2)} ms</td></tr>`).join("") +
     `</table><p class="note">Runs by itself whenever the date or scenario changes. Same request, same engine: same bytes.</p>`;
-  drawAI(ms);
+  LASTMS = ms; drawAI(ms);
 }
 
 const aiMedian = a => a.runs.map(r => r.wall_s).sort((x, y) => x - y)[Math.floor(a.runs.length / 2)];
@@ -448,7 +451,7 @@ function drawAI(ms) {
   if (!a) return;
   const xs = a.runs.map(r => (r.answer || {}).excess).filter(x => x != null), spread = xs.length ? (Math.max(...xs) - Math.min(...xs)) * 100 : null;
   const exact = aiExact(a), within = aiDistinct(a) === 1 && exact > 1 && spread != null ? ` (all within ${Math.max(spread, 0.01).toFixed(2)} pts)` : "";
-  $("ai").innerHTML = `<div class="big2"><div class="s-ref">Same question to an AI model: ${aiMedian(a).toFixed(1)} s, ${exact} different answer${exact > 1 ? "s" : ""}${within}</div>
+  const html = `<div class="big2"><div class="s-ref">Same question to an AI model: ${aiMedian(a).toFixed(1)} s, ${exact} different answer${exact > 1 ? "s" : ""}${within}</div>
     <div class="s-ok">tckg-backtest: ~${ms ? Math.round(Math.min(...ms)) : "5"} ms, 1 answer, with a receipt</div></div>
     <p class="concl">The same request as text to ${esc(a.model)} (${esc(a.prompt_kind)} prompt): <b>${aiOk(a)}/${a.runs.length} correct</b>, ${aiDistinct(a)} different answer${aiDistinct(a) > 1 ? "s" : ""} in ${a.runs.length} runs (rounded to 4 decimals), ${aiMedian(a).toFixed(1)} s median${ms ? `; the engine took ${Math.min(...ms).toFixed(1)} ms` : ""}. It answers only the default date (${nice(C().as_of)}).</p>
     <table><tr><th>run</th><th class="n">time</th><th>buy</th><th>sell</th><th>open</th><th class="n">vs the market</th><th></th></tr>` +
@@ -456,6 +459,9 @@ function drawAI(ms) {
       return `<tr><td>${r.run}</td><td class="n">${r.wall_s.toFixed(1)} s</td><td>${x.entry_date || "-"}</td><td>${x.exit_date || "-"}</td><td>${x.open == null ? "-" : x.open}</td>
       <td class="n">${x.excess == null ? '<span class="note">none</span>' : pct(x.excess)}</td><td>${r.correct ? '<span class="pill p-ok">correct</span>' : '<span class="pill p-bad">wrong</span>'}</td></tr>`; }).join("") +
     `</table><p class="note">Recorded 2026-11-09, not a live call (${esc(a.file)}). Correct = buy and sell dates match the engine and the result is within 0.05 percentage points. Runs that used future information: ${a.runs.filter(r => r.future.length).length} of ${a.runs.length}.</p>`;
+  // the recorded AI runs answer the default date only; at any other date they are not comparable
+  const off = day(AS_OF) !== day(C().as_of);
+  $("ai").innerHTML = off ? `<p class="sentence s-nt" style="margin:4px 0 8px">AI runs were recorded at ${nice(C().as_of)}; this page is at ${nice(AS_OF)}. <button class="btn" id="goDefault">Move to ${nice(C().as_of)} to compare</button></p><div style="opacity:.4">${html}</div>` : html;
 }
 
 // ---------- wiring ----------
@@ -465,7 +471,7 @@ function drawAll(out) {
   // default selection: a call that reached the record late (the point-in-time story), else the latest decision
   if (!SEL || !vm.trades.find(t => t.id === SEL))
     SEL = (vm.trades.find(t => { const f = vm.facts.find(z => z.id === t.id); return V1() && f && Date.parse(f.known) - Date.parse(f.said) > 864e5; }) || vm.trades[vm.trades.length - 1] || {}).id || null;
-  drawTimebar(vm); drawTiles(vm, out.server_ms); drawChart(vm); drawEvidence(vm); drawGraph(vm); drawProof(vm);
+  drawTimebar(vm); drawTiles(vm, out.server_ms); drawChart(vm); drawEvidence(vm); drawGraph(vm); drawProof(vm); drawAI(LASTMS);
 }
 let pending = 0;
 async function rerun() {
@@ -493,6 +499,7 @@ async function main() {
     PLAY = setInterval(() => { if (IDX >= SESS().length - 1) return stopPlay(); setIdx(IDX + step); }, 220);
   };
   const pick = e => { const el = e.target.closest("[data-sel]"); if (el && el.getAttribute("data-sel")) { SEL = el.getAttribute("data-sel"); drawAll(LAST); } };
+  $("ai").onclick = e => { if (e.target.id === "goDefault") { stopPlay(); AS_OF = C().as_of; IDX = sessionIdx(AS_OF); $("slider").value = IDX; rerun(); } };
   $("chart").onclick = pick; $("graph").onclick = pick; $("evidence").onclick = pick;
   const q = new URLSearchParams(location.search);
   if (INFO.cases[q.get("case")]) CASE = q.get("case");
