@@ -57,7 +57,13 @@ Built at the hackathon on 2026-11-09: the contract tests, the engine, the Cloud 
 
 ## What TCKG and FactBlock are
 
-TCKG (Temporal Causal Knowledge Graph) is a knowledge graph database specialized for time series and causal relationships. FactBlock is an open-source knowledge ledger format optimized for linking and proving knowledge such as predictions and claims as track-record evidence ordered by causality and time; TCKG is built on FactBlock.
+- **[FactBlock](https://github.com/factagora/factblock)** (open source): a knowledge ledger format for claims and predictions. Each block records who said what, when it was said, when it became known, and how it turned out, linked by causality and time so it can serve as track-record evidence.
+- **[TCKG](https://docs.tckg.factagora.com/)** (Temporal Causal Knowledge Graph): a knowledge graph database built on FactBlock and specialized for time series and causal relationships. It stamps `known_at` on the server and answers every read as of a point in time, which is what lets this engine say what was knowable on a given date. TCKG is a private hosted service; this repo uses it only over its API ([docs](https://docs.tckg.factagora.com/)).
+- **tckg-backtest** (this repo, open source): reads one FactBlock from TCKG, applies one trading rule, and returns trades plus a receipt.
+
+## About Factagora
+
+[Factagora](http://factagora.com/) builds tools that check claims and predictions against what actually happened, so people can decide on track records instead of hunches. Our app [factagora.ai](https://factagora.ai) keeps a public ledger of claims, predictions and their outcomes; tckg-backtest is the engine behind its "what if I had acted on it" numbers.
 
 ## Architecture
 
