@@ -2,7 +2,7 @@
   "contract": "tckg-backtest-io/v0",
   "status": "ok",
   "no_trade_reason": null,
-  "request_sha256": "62e0ff29da9261082754de2f098f388102a0b4bcda269db0ac21257bd24fdedf",
+  "request_sha256": "3630b059da070dafd651823a48ee544244e47277311f770e815bc5128dcaf1f9",
   "trades": [
     {
       "symbol": "000660",
@@ -11,7 +11,7 @@
       "direction": "long",
       "entry_basis": "known",
       "trigger": "known_at",
-      "trigger_at": "2026-10-20T13:04:41Z",
+      "trigger_at": "2026-10-20T13:11:23.254773Z",
       "entry": {
         "date": "2026-10-21",
         "at": "2026-10-21T00:00:00Z",
@@ -52,7 +52,7 @@
     "mode": "as_known",
     "engine_version": "0.0.0+golden",
     "mock": false,
-    "request_sha256": "62e0ff29da9261082754de2f098f388102a0b4bcda269db0ac21257bd24fdedf",
+    "request_sha256": "3630b059da070dafd651823a48ee544244e47277311f770e815bc5128dcaf1f9",
     "prices_sha256": "94ee350b68b656ea376cbee7ac2e6d00ca8742976cd7ed3c32b5a9f76c153d7c",
     "playbook_sha256": "9fb041d306a22c0d69f26b32024d8a66e25f6da16c19d4bb71434eaf745b4574",
     "calendar": {

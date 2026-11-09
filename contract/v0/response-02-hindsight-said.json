@@ -2,7 +2,7 @@
   "contract": "tckg-backtest-io/v0",
   "status": "ok",
   "no_trade_reason": null,
-  "request_sha256": "136c42028853271631a15ebc115c1f6f23a69c7ec96036be946ee21f27b70643",
+  "request_sha256": "fb9b7af8a161061d303a5c544547dac22eedfeb040c9c18fa8ec7d24bef1132d",
   "trades": [
     {
       "symbol": "000660",
@@ -31,7 +31,7 @@
       "ret": 0.09126213592233001,
       "benchmark_ret": 0.016660983095435178,
       "excess": 0.07460115282689483,
-      "note": "Hindsight: entered as if the FactBlock were known when said (day precision, taken at the start of the speaker's local day); the ledger had it from 2026-10-20T13:04:41Z."
+      "note": "Hindsight: entered as if the FactBlock were known when said (day precision, taken at the start of the speaker's local day); the ledger had it from 2026-10-20T13:11:23.254773Z."
     }
   ],
   "summary": {
@@ -48,7 +48,7 @@
     "mode": "hindsight_said_at",
     "engine_version": "0.0.0+golden",
     "mock": false,
-    "request_sha256": "136c42028853271631a15ebc115c1f6f23a69c7ec96036be946ee21f27b70643",
+    "request_sha256": "fb9b7af8a161061d303a5c544547dac22eedfeb040c9c18fa8ec7d24bef1132d",
     "prices_sha256": "fbff5426485e94ee51052a8f8ea6d47f4ddbc6e8f75490fa76bb93ceff3209e5",
     "playbook_sha256": "9fb041d306a22c0d69f26b32024d8a66e25f6da16c19d4bb71434eaf745b4574",
     "calendar": {
@@ -65,7 +65,7 @@
     "used_before_known": [
       {
         "input": "factblock",
-        "known_at": "2026-10-20T13:04:41Z",
+        "known_at": "2026-10-20T13:11:23.254773Z",
         "used_at": "2026-08-18T15:00:00Z"
       }
     ],

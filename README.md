@@ -42,10 +42,9 @@ python -m tckg_backtest.sources.tckg --id stmt:skh-20260819-additional-return-at
 
 stderr: `factblock stmt:skh-20260819-additional-return-at-q3 read from TCKG (https://tckg.factagora.com, space theme:kr-memory-semis, as_of 2026-11-08T00:00:00Z); left out (not XKRX): us:SKHY`.
 Checked 2026-11-09: the ledger's own block gives the same trades as goldens 01-03 (excess +4.23%, +7.46% hindsight,
--8.81% on `buyback-disclosure`). The request differs from the golden only in fields factagora.ai's copy of the claim
-overrides (id, kind, statement, speaker) and two timestamps: the ledger's `known_at` 2026-10-20T13:11:23.254773Z
-(golden 13:04:41Z) and verdict write 2026-10-29T00:36:00.138833Z (golden 00:45:00Z, io-v0 12 marked its minute
-unconfirmed). Neither moves an entry session, so the numbers are the same.
+-8.81% on `buyback-disclosure`). Since contract v0.3 the goldens use the ledger's times (`known_at`
+2026-10-20T13:11:23.254773Z, verdict write 2026-10-29T00:36:00.138833Z); the built request still differs from golden
+01 in the fields factagora.ai's copy of the claim overrides (id, kind, statement, speaker).
 
 Benchmark (engine vs an AI prompt doing the same backtest): [bench/RESULTS.md](bench/RESULTS.md).
 

@@ -8,11 +8,11 @@
   },
   "said_at": "2026-08-18T15:00:00Z",
   "said_at_precision": "day",
-  "known_at": "2026-10-20T13:04:41Z",
+  "known_at": "2026-10-20T13:11:23.254773Z",
   "backfilled": false,
   "verdict": {
     "value": "hit",
-    "decided_at": "2026-10-29T00:45:00Z"
+    "decided_at": "2026-10-29T00:36:00.138833Z"
   },
   "assets": [
     {
