@@ -115,6 +115,15 @@ def fingerprint(x) -> str:
     return hashlib.sha256(json.dumps(x, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 
 
+def material(ans) -> str:
+    """Dates, open flag and excess to 4 decimals: what a reader of the result would see as a different answer."""
+    if not isinstance(ans, dict):
+        return "unparsed"
+    ex = ans.get("excess")
+    return json.dumps([ans.get("entry_date"), ans.get("exit_date"), ans.get("open"),
+                       round(ex, 4) if isinstance(ex, (int, float)) else ex])
+
+
 def summarize(runs: list[dict]) -> dict:
     """runs: [{wall_s, cost_usd, answer_key, score}] for one request and one system."""
     walls = [r["wall_s"] for r in runs if r["wall_s"] == r["wall_s"]] or [float("nan")]  # drop NaN (API error runs)
@@ -123,5 +132,6 @@ def summarize(runs: list[dict]) -> dict:
             "cost_usd_mean": statistics.mean(costs) if costs else None,
             "correct": sum(r["score"]["correct"] for r in runs),
             "distinct": len({r["answer_key"] for r in runs}),
+            "distinct_material": len({material(r.get("answer")) for r in runs}),
             "future": sum(bool(r["score"]["future"]) for r in runs),
             "parse_fail": sum(not r["score"]["parsed"] for r in runs)}

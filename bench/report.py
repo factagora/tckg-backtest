@@ -28,7 +28,7 @@ def row(system: str, name: str, s: dict | None, x: dict) -> str:
     t = f"{s['median_s'] * 1e3:.3f} ms" if x["kind"] == "engine" else f"{s['median_s']:.1f} s"
     c = "0" if x["kind"] == "engine" else (f"${s['cost_usd_mean']:.4f}" if s["cost_usd_mean"] is not None else "n/a")
     n = s["n"]
-    return (f"| {name} | {system} | {t} | {c} | {s['correct']}/{n} | {s['distinct']}/{n} | {s['future']}/{n} "
+    return (f"| {name} | {system} | {t} | {c} | {s['correct']}/{n} | {s['distinct']}/{n} ({s.get('distinct_material', '?')}/{n}) | {s['future']}/{n} "
             f"| {s['parse_fail']}/{n} |")
 
 
@@ -51,7 +51,15 @@ def main() -> int:
     ai = [x for k, x in got.items() if k != "engine"]
     lines += ["", "## Definitions", "",
               "- Correct: entry date and exit date equal the golden response, and |excess - golden| <= 0.0005.",
-              "- Distinct answers: number of different parsed answers (all fields) across the runs.",
+              "- Distinct answers: number of different parsed answers across the runs, all fields exact; in brackets, "
+              "counting only dates, open flag and excess rounded to 4 decimals (most exact differences are float "
+              "digits).",
+              "- AI runs went through `claude -p` (bench/ai_prompt.py --via cli): Claude Code login, tools off, system "
+              "prompt replaced by one line, from an empty directory. Time includes CLI start (about 1.5 s); "
+              "`duration_api_ms` per run is in the result file. Cost column = returned tokens x list price; the "
+              "CLI's own total_cost_usd (with cache pricing) is also in the file.",
+              "- The AI gets the full contract rules in plain English (see the prompt). A user who only types "
+              "'backtest this' gets less help.",
               "- Future-info flags: runs whose answer enters at or before the trigger time, prices or marks a session "
               "after as_of, or uses a price from a bar after as_of.",
               "- 05-leak-after-as-of: request 01 plus synthetic bars for 2026-11-09..20 (after as_of). The correct "

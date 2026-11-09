@@ -1,0 +1,509 @@
+{
+ "kind": "engine",
+ "engine": "mock (No module named 'tckg_backtest')",
+ "commit": "318ae4a",
+ "python": "3.13.18",
+ "started_at": "2026-11-09T01:33:39+00:00",
+ "requests": {
+  "01-known-open": {
+   "summary": {
+    "n": 5,
+    "median_s": 9.088699994208582e-05,
+    "max_s": 0.00011388799998712784,
+    "cost_usd_mean": 0.0,
+    "correct": 5,
+    "distinct": 1,
+    "distinct_material": 1,
+    "future": 0,
+    "parse_fail": 0
+   },
+   "runs": [
+    {
+     "run": 1,
+     "wall_s": 0.00011388799998712784,
+     "cost_usd": 0.0,
+     "answer": {
+      "entry_date": "2026-10-21",
+      "entry_price": 1260000,
+      "entry_benchmark_price": 88665,
+      "exit_date": "2026-11-18",
+      "exit_price": null,
+      "exit_benchmark_price": null,
+      "open": true,
+      "marked_at": "2026-11-06",
+      "mark_price": 1176000,
+      "mark_benchmark_price": 79005,
+      "ret": -0.06666666666666665,
+      "benchmark_ret": -0.1089494163424124,
+      "excess": 0.042282749675745745
+     },
+     "answer_key": "0b5256f7ef44415579c983adc26d7a65d315fbe15906f9920ff839b7f74cb0e1",
+     "score": {
+      "parsed": true,
+      "dates_ok": true,
+      "excess_ok": true,
+      "correct": true,
+      "future": []
+     },
+     "certificate_mock": false,
+     "engine_version": "0.0.0+golden"
+    },
+    {
+     "run": 2,
+     "wall_s": 0.00010498300002836913,
+     "cost_usd": 0.0,
+     "answer": {
+      "entry_date": "2026-10-21",
+      "entry_price": 1260000,
+      "entry_benchmark_price": 88665,
+      "exit_date": "2026-11-18",
+      "exit_price": null,
+      "exit_benchmark_price": null,
+      "open": true,
+      "marked_at": "2026-11-06",
+      "mark_price": 1176000,
+      "mark_benchmark_price": 79005,
+      "ret": -0.06666666666666665,
+      "benchmark_ret": -0.1089494163424124,
+      "excess": 0.042282749675745745
+     },
+     "answer_key": "0b5256f7ef44415579c983adc26d7a65d315fbe15906f9920ff839b7f74cb0e1",
+     "score": {
+      "parsed": true,
+      "dates_ok": true,
+      "excess_ok": true,
+      "correct": true,
+      "future": []
+     },
+     "certificate_mock": false,
+     "engine_version": "0.0.0+golden"
+    },
+    {
+     "run": 3,
+     "wall_s": 9.088699994208582e-05,
+     "cost_usd": 0.0,
+     "answer": {
+      "entry_date": "2026-10-21",
+      "entry_price": 1260000,
+      "entry_benchmark_price": 88665,
+      "exit_date": "2026-11-18",
+      "exit_price": null,
+      "exit_benchmark_price": null,
+      "open": true,
+      "marked_at": "2026-11-06",
+      "mark_price": 1176000,
+      "mark_benchmark_price": 79005,
+      "ret": -0.06666666666666665,
+      "benchmark_ret": -0.1089494163424124,
+      "excess": 0.042282749675745745
+     },
+     "answer_key": "0b5256f7ef44415579c983adc26d7a65d315fbe15906f9920ff839b7f74cb0e1",
+     "score": {
+      "parsed": true,
+      "dates_ok": true,
+      "excess_ok": true,
+      "correct": true,
+      "future": []
+     },
+     "certificate_mock": false,
+     "engine_version": "0.0.0+golden"
+    },
+    {
+     "run": 4,
+     "wall_s": 8.55369999044342e-05,
+     "cost_usd": 0.0,
+     "answer": {
+      "entry_date": "2026-10-21",
+      "entry_price": 1260000,
+      "entry_benchmark_price": 88665,
+      "exit_date": "2026-11-18",
+      "exit_price": null,
+      "exit_benchmark_price": null,
+      "open": true,
+      "marked_at": "2026-11-06",
+      "mark_price": 1176000,
+      "mark_benchmark_price": 79005,
+      "ret": -0.06666666666666665,
+      "benchmark_ret": -0.1089494163424124,
+      "excess": 0.042282749675745745
+     },
+     "answer_key": "0b5256f7ef44415579c983adc26d7a65d315fbe15906f9920ff839b7f74cb0e1",
+     "score": {
+      "parsed": true,
+      "dates_ok": true,
+      "excess_ok": true,
+      "correct": true,
+      "future": []
+     },
+     "certificate_mock": false,
+     "engine_version": "0.0.0+golden"
+    },
+    {
+     "run": 5,
+     "wall_s": 8.361400000467256e-05,
+     "cost_usd": 0.0,
+     "answer": {
+      "entry_date": "2026-10-21",
+      "entry_price": 1260000,
+      "entry_benchmark_price": 88665,
+      "exit_date": "2026-11-18",
+      "exit_price": null,
+      "exit_benchmark_price": null,
+      "open": true,
+      "marked_at": "2026-11-06",
+      "mark_price": 1176000,
+      "mark_benchmark_price": 79005,
+      "ret": -0.06666666666666665,
+      "benchmark_ret": -0.1089494163424124,
+      "excess": 0.042282749675745745
+     },
+     "answer_key": "0b5256f7ef44415579c983adc26d7a65d315fbe15906f9920ff839b7f74cb0e1",
+     "score": {
+      "parsed": true,
+      "dates_ok": true,
+      "excess_ok": true,
+      "correct": true,
+      "future": []
+     },
+     "certificate_mock": false,
+     "engine_version": "0.0.0+golden"
+    }
+   ]
+  },
+  "02-hindsight-said": {
+   "summary": {
+    "n": 5,
+    "median_s": 9.933100000125705e-05,
+    "max_s": 0.00012350199995125877,
+    "cost_usd_mean": 0.0,
+    "correct": 5,
+    "distinct": 1,
+    "distinct_material": 1,
+    "future": 0,
+    "parse_fail": 0
+   },
+   "runs": [
+    {
+     "run": 1,
+     "wall_s": 0.00010742399990704143,
+     "cost_usd": 0.0,
+     "answer": {
+      "entry_date": "2026-08-19",
+      "entry_price": 1545000,
+      "entry_benchmark_price": 102635,
+      "exit_date": "2026-09-16",
+      "exit_price": 1686000,
+      "exit_benchmark_price": 104345,
+      "open": false,
+      "marked_at": null,
+      "mark_price": null,
+      "mark_benchmark_price": null,
+      "ret": 0.09126213592233001,
+      "benchmark_ret": 0.016660983095435178,
+      "excess": 0.07460115282689483
+     },
+     "answer_key": "514389ab0be7d9c0355b58a60267bd6e64258b8a275637e2479f0fddbfec92f1",
+     "score": {
+      "parsed": true,
+      "dates_ok": true,
+      "excess_ok": true,
+      "correct": true,
+      "future": []
+     },
+     "certificate_mock": false,
+     "engine_version": "0.0.0+golden"
+    },
+    {
+     "run": 2,
+     "wall_s": 9.933100000125705e-05,
+     "cost_usd": 0.0,
+     "answer": {
+      "entry_date": "2026-08-19",
+      "entry_price": 1545000,
+      "entry_benchmark_price": 102635,
+      "exit_date": "2026-09-16",
+      "exit_price": 1686000,
+      "exit_benchmark_price": 104345,
+      "open": false,
+      "marked_at": null,
+      "mark_price": null,
+      "mark_benchmark_price": null,
+      "ret": 0.09126213592233001,
+      "benchmark_ret": 0.016660983095435178,
+      "excess": 0.07460115282689483
+     },
+     "answer_key": "514389ab0be7d9c0355b58a60267bd6e64258b8a275637e2479f0fddbfec92f1",
+     "score": {
+      "parsed": true,
+      "dates_ok": true,
+      "excess_ok": true,
+      "correct": true,
+      "future": []
+     },
+     "certificate_mock": false,
+     "engine_version": "0.0.0+golden"
+    },
+    {
+     "run": 3,
+     "wall_s": 0.00012350199995125877,
+     "cost_usd": 0.0,
+     "answer": {
+      "entry_date": "2026-08-19",
+      "entry_price": 1545000,
+      "entry_benchmark_price": 102635,
+      "exit_date": "2026-09-16",
+      "exit_price": 1686000,
+      "exit_benchmark_price": 104345,
+      "open": false,
+      "marked_at": null,
+      "mark_price": null,
+      "mark_benchmark_price": null,
+      "ret": 0.09126213592233001,
+      "benchmark_ret": 0.016660983095435178,
+      "excess": 0.07460115282689483
+     },
+     "answer_key": "514389ab0be7d9c0355b58a60267bd6e64258b8a275637e2479f0fddbfec92f1",
+     "score": {
+      "parsed": true,
+      "dates_ok": true,
+      "excess_ok": true,
+      "correct": true,
+      "future": []
+     },
+     "certificate_mock": false,
+     "engine_version": "0.0.0+golden"
+    },
+    {
+     "run": 4,
+     "wall_s": 9.819399997468281e-05,
+     "cost_usd": 0.0,
+     "answer": {
+      "entry_date": "2026-08-19",
+      "entry_price": 1545000,
+      "entry_benchmark_price": 102635,
+      "exit_date": "2026-09-16",
+      "exit_price": 1686000,
+      "exit_benchmark_price": 104345,
+      "open": false,
+      "marked_at": null,
+      "mark_price": null,
+      "mark_benchmark_price": null,
+      "ret": 0.09126213592233001,
+      "benchmark_ret": 0.016660983095435178,
+      "excess": 0.07460115282689483
+     },
+     "answer_key": "514389ab0be7d9c0355b58a60267bd6e64258b8a275637e2479f0fddbfec92f1",
+     "score": {
+      "parsed": true,
+      "dates_ok": true,
+      "excess_ok": true,
+      "correct": true,
+      "future": []
+     },
+     "certificate_mock": false,
+     "engine_version": "0.0.0+golden"
+    },
+    {
+     "run": 5,
+     "wall_s": 9.784300004866964e-05,
+     "cost_usd": 0.0,
+     "answer": {
+      "entry_date": "2026-08-19",
+      "entry_price": 1545000,
+      "entry_benchmark_price": 102635,
+      "exit_date": "2026-09-16",
+      "exit_price": 1686000,
+      "exit_benchmark_price": 104345,
+      "open": false,
+      "marked_at": null,
+      "mark_price": null,
+      "mark_benchmark_price": null,
+      "ret": 0.09126213592233001,
+      "benchmark_ret": 0.016660983095435178,
+      "excess": 0.07460115282689483
+     },
+     "answer_key": "514389ab0be7d9c0355b58a60267bd6e64258b8a275637e2479f0fddbfec92f1",
+     "score": {
+      "parsed": true,
+      "dates_ok": true,
+      "excess_ok": true,
+      "correct": true,
+      "future": []
+     },
+     "certificate_mock": false,
+     "engine_version": "0.0.0+golden"
+    }
+   ]
+  },
+  "03-candidate-playbook": {
+   "summary": {
+    "n": 5,
+    "median_s": 7.512899992434541e-05,
+    "max_s": 8.102700007839303e-05,
+    "cost_usd_mean": 0.0,
+    "correct": 5,
+    "distinct": 1,
+    "distinct_material": 1,
+    "future": 0,
+    "parse_fail": 0
+   },
+   "runs": [
+    {
+     "run": 1,
+     "wall_s": 7.400300000881543e-05,
+     "cost_usd": 0.0,
+     "answer": {
+      "entry_date": "2026-10-30",
+      "entry_price": 1444000,
+      "entry_benchmark_price": 91495,
+      "exit_date": "2026-11-06",
+      "exit_price": 1089000,
+      "exit_benchmark_price": 77065,
+      "open": false,
+      "marked_at": null,
+      "mark_price": null,
+      "mark_benchmark_price": null,
+      "ret": -0.24584487534626043,
+      "benchmark_ret": -0.1577135362588119,
+      "excess": -0.08813133908744852
+     },
+     "answer_key": "4e3420955cd88c5b20e686ce3b0f11811111bd2a1c1ff9de3b13e7a9dd4305ac",
+     "score": {
+      "parsed": true,
+      "dates_ok": true,
+      "excess_ok": true,
+      "correct": true,
+      "future": []
+     },
+     "certificate_mock": false,
+     "engine_version": "0.0.0+golden"
+    },
+    {
+     "run": 2,
+     "wall_s": 7.512899992434541e-05,
+     "cost_usd": 0.0,
+     "answer": {
+      "entry_date": "2026-10-30",
+      "entry_price": 1444000,
+      "entry_benchmark_price": 91495,
+      "exit_date": "2026-11-06",
+      "exit_price": 1089000,
+      "exit_benchmark_price": 77065,
+      "open": false,
+      "marked_at": null,
+      "mark_price": null,
+      "mark_benchmark_price": null,
+      "ret": -0.24584487534626043,
+      "benchmark_ret": -0.1577135362588119,
+      "excess": -0.08813133908744852
+     },
+     "answer_key": "4e3420955cd88c5b20e686ce3b0f11811111bd2a1c1ff9de3b13e7a9dd4305ac",
+     "score": {
+      "parsed": true,
+      "dates_ok": true,
+      "excess_ok": true,
+      "correct": true,
+      "future": []
+     },
+     "certificate_mock": false,
+     "engine_version": "0.0.0+golden"
+    },
+    {
+     "run": 3,
+     "wall_s": 7.621899999321613e-05,
+     "cost_usd": 0.0,
+     "answer": {
+      "entry_date": "2026-10-30",
+      "entry_price": 1444000,
+      "entry_benchmark_price": 91495,
+      "exit_date": "2026-11-06",
+      "exit_price": 1089000,
+      "exit_benchmark_price": 77065,
+      "open": false,
+      "marked_at": null,
+      "mark_price": null,
+      "mark_benchmark_price": null,
+      "ret": -0.24584487534626043,
+      "benchmark_ret": -0.1577135362588119,
+      "excess": -0.08813133908744852
+     },
+     "answer_key": "4e3420955cd88c5b20e686ce3b0f11811111bd2a1c1ff9de3b13e7a9dd4305ac",
+     "score": {
+      "parsed": true,
+      "dates_ok": true,
+      "excess_ok": true,
+      "correct": true,
+      "future": []
+     },
+     "certificate_mock": false,
+     "engine_version": "0.0.0+golden"
+    },
+    {
+     "run": 4,
+     "wall_s": 6.657300014012435e-05,
+     "cost_usd": 0.0,
+     "answer": {
+      "entry_date": "2026-10-30",
+      "entry_price": 1444000,
+      "entry_benchmark_price": 91495,
+      "exit_date": "2026-11-06",
+      "exit_price": 1089000,
+      "exit_benchmark_price": 77065,
+      "open": false,
+      "marked_at": null,
+      "mark_price": null,
+      "mark_benchmark_price": null,
+      "ret": -0.24584487534626043,
+      "benchmark_ret": -0.1577135362588119,
+      "excess": -0.08813133908744852
+     },
+     "answer_key": "4e3420955cd88c5b20e686ce3b0f11811111bd2a1c1ff9de3b13e7a9dd4305ac",
+     "score": {
+      "parsed": true,
+      "dates_ok": true,
+      "excess_ok": true,
+      "correct": true,
+      "future": []
+     },
+     "certificate_mock": false,
+     "engine_version": "0.0.0+golden"
+    },
+    {
+     "run": 5,
+     "wall_s": 8.102700007839303e-05,
+     "cost_usd": 0.0,
+     "answer": {
+      "entry_date": "2026-10-30",
+      "entry_price": 1444000,
+      "entry_benchmark_price": 91495,
+      "exit_date": "2026-11-06",
+      "exit_price": 1089000,
+      "exit_benchmark_price": 77065,
+      "open": false,
+      "marked_at": null,
+      "mark_price": null,
+      "mark_benchmark_price": null,
+      "ret": -0.24584487534626043,
+      "benchmark_ret": -0.1577135362588119,
+      "excess": -0.08813133908744852
+     },
+     "answer_key": "4e3420955cd88c5b20e686ce3b0f11811111bd2a1c1ff9de3b13e7a9dd4305ac",
+     "score": {
+      "parsed": true,
+      "dates_ok": true,
+      "excess_ok": true,
+      "correct": true,
+      "future": []
+     },
+     "certificate_mock": false,
+     "engine_version": "0.0.0+golden"
+    }
+   ]
+  },
+  "05-leak-after-as-of": {
+   "summary": null,
+   "skipped": "mock engine has no answer for a non-contract request"
+  }
+ },
+ "mock": true
+}
