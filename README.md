@@ -55,6 +55,11 @@ No AI run used future data (0 of 60). The difference is speed, consistency, and 
 
 Built at the hackathon on 2026-11-09: the contract tests, the engine, the Cloud Run service with bearer auth, the console and the benchmark.
 
+## What's next
+
+- **Live trading with this engine.** Randy Baek (Factagora) will run his systematic trading on signals checked by tckg-backtest, and publish how the returns turned out, trade by trade, on the public ledger at [factagora.ai](https://factagora.ai).
+- **Measuring TCKG itself.** Along the way we will measure how [TCKG](https://docs.tckg.factagora.com/) performs as a new ontology database built for time series and causal data: point-in-time read speed, how often a backtest's inputs had to be masked or backfilled, and whether its measured causal links held up out of sample.
+
 ## What TCKG and FactBlock are
 
 - **[FactBlock](https://github.com/factagora/factblock)** (open source): a knowledge ledger format for claims and predictions. Each block records who said what, when it was said, when it became known, and how it turned out, linked by causality and time so it can serve as track-record evidence.
