@@ -1,0 +1,235 @@
+{
+ "contract": "tckg-backtest-io/v1",
+ "status": "ok",
+ "request_sha256": "21345b851285ab539f1787677e64f95def02f7aa747afe7e228477a8c7c95b9c",
+ "trades": [
+  {
+   "factblock_id": "fb-1-long-30d",
+   "speaker_id": "speaker:example",
+   "symbol": "AAA",
+   "market": "US",
+   "direction": "up",
+   "trigger": "known_at",
+   "trigger_at": "2026-01-05T15:10:00Z",
+   "said_at": "2026-01-05T15:00:00Z",
+   "known_at": "2026-01-05T15:10:00Z",
+   "horizon_days": 30,
+   "horizon_explicit": true,
+   "entry": {
+    "date": "2026-01-06",
+    "price": 101.0
+   },
+   "exit": {
+    "date": "2026-02-05",
+    "price": 112.25
+   },
+   "exit_reason": "horizon",
+   "closed_by": null,
+   "mark": {
+    "date": "2026-03-31",
+    "price": 131.25
+   },
+   "ret": 0.10938613861386148,
+   "benchmark_raw_ret": 0.03588516746411474,
+   "benchmark_ret": 0.03588516746411474,
+   "excess": 0.07350097114974674,
+   "hit": 1
+  },
+  {
+   "factblock_id": "fb-2-short-closed-by-flip",
+   "speaker_id": "speaker:example",
+   "symbol": "BBB",
+   "market": "US",
+   "direction": "down",
+   "trigger": "known_at",
+   "trigger_at": "2026-01-12T15:10:00Z",
+   "said_at": "2026-01-12T15:00:00Z",
+   "known_at": "2026-01-12T15:10:00Z",
+   "horizon_days": 90,
+   "horizon_explicit": false,
+   "entry": {
+    "date": "2026-01-13",
+    "price": 49.3
+   },
+   "exit": {
+    "date": "2026-02-03",
+    "price": 47.75
+   },
+   "exit_reason": "opposite_call",
+   "closed_by": "fb-3-flip-long-pending",
+   "mark": {
+    "date": "2026-03-31",
+    "price": 43.75
+   },
+   "ret": 0.029440162271805237,
+   "benchmark_raw_ret": 0.024525316455696222,
+   "benchmark_ret": -0.024525316455696222,
+   "excess": 0.05396547872750146,
+   "hit": 1
+  },
+  {
+   "factblock_id": "fb-3-flip-long-pending",
+   "speaker_id": "speaker:example",
+   "symbol": "BBB",
+   "market": "US",
+   "direction": "up",
+   "trigger": "known_at",
+   "trigger_at": "2026-02-02T15:10:00Z",
+   "said_at": "2026-02-02T15:00:00Z",
+   "known_at": "2026-02-02T15:10:00Z",
+   "horizon_days": 90,
+   "horizon_explicit": false,
+   "entry": {
+    "date": "2026-02-03",
+    "price": 47.8
+   },
+   "exit": null,
+   "exit_reason": "pending",
+   "closed_by": null,
+   "mark": {
+    "date": "2026-03-31",
+    "price": 43.75
+   },
+   "ret": null,
+   "benchmark_raw_ret": null,
+   "benchmark_ret": null,
+   "excess": null,
+   "hit": null
+  },
+  {
+   "factblock_id": "fb-4-backfilled",
+   "speaker_id": "speaker:example",
+   "symbol": "AAA",
+   "market": "US",
+   "direction": "up",
+   "trigger": "known_at",
+   "trigger_at": "2026-03-02T09:00:00Z",
+   "said_at": "2026-01-20T15:00:00Z",
+   "known_at": "2026-03-02T09:00:00Z",
+   "horizon_days": 10,
+   "horizon_explicit": true,
+   "entry": {
+    "date": "2026-03-03",
+    "price": 121.0
+   },
+   "exit": {
+    "date": "2026-03-13",
+    "price": 125.25
+   },
+   "exit_reason": "horizon",
+   "closed_by": null,
+   "mark": {
+    "date": "2026-03-31",
+    "price": 131.25
+   },
+   "ret": 0.03312396694214881,
+   "benchmark_raw_ret": 0.012743628185907019,
+   "benchmark_ret": 0.012743628185907019,
+   "excess": 0.02038033875624179,
+   "hit": 1
+  }
+ ],
+ "skipped": [
+  {
+   "factblock_id": "fb-6-neutral",
+   "reason": "neutral"
+  },
+  {
+   "factblock_id": "fb-5-known-after-as-of",
+   "reason": "not_known_at_as_of"
+  }
+ ],
+ "summary": {
+  "n_trades": 4,
+  "n_resolved": 3,
+  "n_pending": 1,
+  "excess_mean": 0.049282262877829996,
+  "hit_rate": 1.0,
+  "total_return": 0.008597513391390775,
+  "benchmark_return": 0.001205173959716277,
+  "max_drawdown": 0.0,
+  "initial_capital": 100000,
+  "unit": 5000.0,
+  "curve": [
+   {
+    "date": "2026-02-03",
+    "factblock_id": "fb-2-short-closed-by-flip",
+    "value": 100147.20081135903,
+    "benchmark": 99877.37341772152
+   },
+   {
+    "date": "2026-02-05",
+    "factblock_id": "fb-1-long-30d",
+    "value": 100694.13150442834,
+    "benchmark": 100056.79925504209
+   },
+   {
+    "date": "2026-03-13",
+    "factblock_id": "fb-4-backfilled",
+    "value": 100859.75133913908,
+    "benchmark": 100120.51739597163
+   }
+  ]
+ },
+ "certificate": {
+  "as_of": "2026-04-01T00:00:00Z",
+  "mode": "as_known",
+  "engine_version": "0.1.0",
+  "mock": false,
+  "request_sha256": "21345b851285ab539f1787677e64f95def02f7aa747afe7e228477a8c7c95b9c",
+  "prices_sha256": "f2acf3f9ef529c5a17f266fe73ae8a9e2b1a3bff21f3bec9d8925f3441e9a7eb",
+  "playbook_sha256": "31d232e7e633466bb73094775e78788fd470336af7f1da4908b7d2e31b57db85",
+  "factblocks_sha256": "fa54da167ea4922c8244de32e5b9cc107016f34e8b90b183318b982c6791e416",
+  "calendar": {
+   "id": "bars",
+   "note": "sessions are the dates of the bars given"
+  },
+  "hindsight": false,
+  "backfilled": true,
+  "reproducible": false,
+  "not_reproducible_because": [
+   "backfilled_known_at"
+  ],
+  "masked": [
+   {
+    "input": "factblocks",
+    "field": "known_at",
+    "count": 1,
+    "ids": [
+     "fb-5-known-after-as-of"
+    ]
+   },
+   {
+    "input": "prices.bars",
+    "symbol": "AAA",
+    "from": "2026-04-01",
+    "to": "2026-04-30",
+    "count": 22
+   },
+   {
+    "input": "prices.bars",
+    "symbol": "BBB",
+    "from": "2026-04-01",
+    "to": "2026-04-30",
+    "count": 22
+   },
+   {
+    "input": "prices.bars",
+    "symbol": "SPY",
+    "from": "2026-04-01",
+    "to": "2026-04-30",
+    "count": 22
+   }
+  ],
+  "used_before_known": [],
+  "assumptions": [
+   "one equal unit per call, no compounding, positions may overlap",
+   "entered at the open of the first bar after the trigger's exchange date",
+   "exited at the close of the first bar on or after entry date + horizon days",
+   "the bars given are the session calendar; prices as given (source in prices.inline.source)",
+   "no dividends, no taxes; cost_bps charged on entry and on exit"
+  ]
+ },
+ "errors": [],
+ "computed_at": "2026-11-09T00:00:00Z"
+}

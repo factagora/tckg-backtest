@@ -73,6 +73,7 @@ cannot send prices or playbooks. `POST /v0/backtest` still needs the Bearer toke
 ## API
 
 - `GET /v0/health`: open, returns contract, revision, engine version and `engine` (`mock` or `engine`).
+- `POST /v1/backtest`: same token. Many FactBlocks with a call each x one claims Playbook, unit-bet portfolio, certificate ([contract/v1](contract/v1/README.md)). Same trades as factagora.ai `/backtests` claims_v1 in `hindsight_said_at` mode; `as_known` trades from when the ledger had each call.
 - `POST /v0/backtest`: needs `Authorization: Bearer $TCKG_BACKTEST_TOKEN` (401 `unauthorized` otherwise). Body is a `request.schema.json` request; reply is a `response.schema.json` response.
 
 Env: `TCKG_BACKTEST_TOKEN` (required, no token means every POST is 401), `TCKG_BACKTEST_ENGINE` (unset: the engine computes; `mock`: serve the goldens with `mock_reason: service_mock`).
