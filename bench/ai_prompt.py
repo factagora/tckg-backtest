@@ -1,6 +1,7 @@
 """Baseline: ask an LLM to do the io-v0 backtest by hand from the same request JSON, calendar and rules.
 
     python3 bench/ai_prompt.py --model claude-sonnet-5-5 --runs 5
+    python3 bench/ai_prompt.py --via cli --model claude-sonnet-5-5 --runs 5   # through `claude -p`, no API key needed
     python3 bench/ai_prompt.py --dry-run          # print the prompt for request 01, no API call
 
 Needs ANTHROPIC_API_KEY. Writes bench/results/<UTC timestamp>-ai-<model>.json with the prompt, raw text, parsed
@@ -12,7 +13,9 @@ import argparse
 import json
 import os
 import re
+import subprocess
 import sys
+import tempfile
 import time
 import urllib.error
 import urllib.request
@@ -85,6 +88,32 @@ def call(model: str, text: str, key: str) -> tuple[dict, float]:
     return out, time.perf_counter() - t0
 
 
+CLI_SYSTEM = "You are a careful analyst."
+
+
+def call_cli(model: str, text: str, key: str | None = None) -> tuple[dict, float]:
+    """One `claude -p` turn with tools off, the system prompt replaced and user settings, hooks and MCP skipped
+    (run from an empty directory). Uses the Claude Code login, so no API key. Returns a Messages-API-shaped dict."""
+    cmd = ["claude", "-p", "--model", model, "--output-format", "json", "--tools", "", "--system-prompt", CLI_SYSTEM,
+           "--setting-sources", "project", "--no-session-persistence", "--strict-mcp-config"]
+    t0 = time.perf_counter()
+    with tempfile.TemporaryDirectory() as d:
+        r = subprocess.run(cmd, input=text, capture_output=True, text=True, cwd=d, timeout=900)
+    wall = time.perf_counter() - t0
+    try:
+        x = json.loads(r.stdout)
+    except ValueError:
+        raise SystemExit(f"claude -p failed: {r.returncode} {r.stderr[:300]!r} {r.stdout[:300]!r}")
+    if x.get("is_error"):
+        raise SystemExit(f"claude -p error: {str(x.get('result'))[:300]}")
+    u = x["usage"]
+    return {"content": [{"type": "text", "text": x.get("result") or ""}], "model": ",".join(x.get("modelUsage", {})),
+            "stop_reason": x.get("stop_reason"), "cli_cost_usd": x.get("total_cost_usd"),
+            "duration_api_ms": x.get("duration_api_ms"),
+            "usage": {"input_tokens": u["input_tokens"] + u.get("cache_creation_input_tokens", 0)
+                      + u.get("cache_read_input_tokens", 0), "output_tokens": u["output_tokens"]}}, wall
+
+
 def cost(model: str, usage: dict) -> float | None:
     p = PRICE_PER_MTOK.get(model)
     return None if p is None else (usage["input_tokens"] * p[0] + usage["output_tokens"] * p[1]) / 1e6
@@ -96,15 +125,19 @@ def main(argv=None) -> int:
     ap.add_argument("--runs", type=int, default=5)
     ap.add_argument("--only", choices=NAMES, action="append", help="request name; repeatable (default: 01-03)")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--via", choices=("api", "cli"), default="api", help="cli: `claude -p` with the Claude Code login")
     a = ap.parse_args(argv)
     names = a.only or list(NAMES)
     if a.dry_run:
         print(prompt(load(names[0])[0]))
         return 0
     key = os.environ.get("ANTHROPIC_API_KEY")
-    if not key:
-        raise SystemExit("ANTHROPIC_API_KEY is not set")
-    out = {"kind": "ai", "model": a.model, "max_tokens": MAX_TOKENS, "temperature": "API default", "thinking": "API default (adaptive)", "effort": "API default",
+    if a.via == "api" and not key:
+        raise SystemExit("ANTHROPIC_API_KEY is not set (or use --via cli)")
+    do_call = call if a.via == "api" else call_cli
+    out = {"kind": "ai", "model": a.model, "via": a.via,
+           "cli": {"system_prompt": CLI_SYSTEM, "note": "Claude Code harness, tools off; wall time includes CLI start"}
+           if a.via == "cli" else None, "max_tokens": MAX_TOKENS, "temperature": "API default", "thinking": "API default (adaptive)", "effort": "API default",
            "price_per_mtok_usd_assumed": PRICE_PER_MTOK.get(a.model), "instruction": INSTRUCTION,
            "started_at": datetime.now(UTC).isoformat(timespec="seconds"), "requests": {}}
     for name in names:
@@ -112,13 +145,15 @@ def main(argv=None) -> int:
         text, runs = prompt(request), []
         for i in range(a.runs):
             try:
-                resp, wall = call(a.model, text, key)
+                resp, wall = do_call(a.model, text, key)
             except (SystemExit, OSError) as e:  # keep the runs already paid for; an API error counts as a parse failure
                 resp, wall = {"content": [{"type": "text", "text": f"API error: {e}"}], "usage": None}, float("nan")
             raw = "".join(b.get("text", "") for b in resp.get("content", []) if b.get("type") == "text")
             ans = parse(raw)
             runs.append({"run": i + 1, "wall_s": wall, "model_returned": resp.get("model"), "usage": resp.get("usage"),
-                         "stop_reason": resp.get("stop_reason"), "cost_usd": cost(a.model, resp["usage"]) if resp["usage"] else None,
+                         "stop_reason": resp.get("stop_reason"),
+                         "cost_usd": cost(a.model, resp["usage"]) if resp["usage"] else None,
+                         "cli_cost_usd": resp.get("cli_cost_usd"), "duration_api_ms": resp.get("duration_api_ms"),
                          "answer": ans, "answer_key": fingerprint(ans) if ans is not None else "parse_fail:" + fingerprint(raw),
                          "score": score(ans, request, golden), "raw_text": raw})
             print(f"{name} run {i + 1}: {wall:.1f}s {runs[-1]['score']}", flush=True)
