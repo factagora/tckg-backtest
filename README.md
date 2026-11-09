@@ -32,11 +32,20 @@ Without a TCKG key the checked-in SK hynix FactBlock (`tckg_backtest/sources/fix
 python -m tckg_backtest.sources.tckg --run             # fixture FactBlock + fixture prices -> response
 ```
 
-With a key the FactBlock is read from TCKG (`TCKG_URL` defaults to `https://tckg.factagora.com`):
+With a key the FactBlock is read from TCKG (`TCKG_URL` defaults to `https://tckg.factagora.com`) through
+`GET /v1/export` at `as_of` (nodes and verdict resolutions) and `POST /v1/memories/lookup` (backfill). Read only.
 
 ```
-TCKG_API_KEY=... python -m tckg_backtest.sources.tckg --id <node id> --space <space> --prices prices.csv --run
+export TCKG_API_KEY="$(gcloud secrets versions access latest --secret=tckg-api-key --project=tckg-trader)"
+python -m tckg_backtest.sources.tckg --id stmt:skh-20260819-additional-return-at-q3 --space theme:kr-memory-semis --run
 ```
+
+stderr: `factblock stmt:skh-20260819-additional-return-at-q3 read from TCKG (https://tckg.factagora.com, space theme:kr-memory-semis, as_of 2026-11-08T00:00:00Z); left out (not XKRX): us:SKHY`.
+Checked 2026-11-09: the ledger's own block gives the same trades as goldens 01-03 (excess +4.23%, +7.46% hindsight,
+-8.81% on `buyback-disclosure`). The request differs from the golden only in fields factagora.ai's copy of the claim
+overrides (id, kind, statement, speaker) and two timestamps: the ledger's `known_at` 2026-10-20T13:11:23.254773Z
+(golden 13:04:41Z) and verdict write 2026-10-29T00:36:00.138833Z (golden 00:45:00Z, io-v0 12 marked its minute
+unconfirmed). Neither moves an entry session, so the numbers are the same.
 
 Benchmark (engine vs an AI prompt doing the same backtest): [bench/RESULTS.md](bench/RESULTS.md).
 

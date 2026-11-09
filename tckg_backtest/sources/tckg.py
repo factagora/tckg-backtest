@@ -12,9 +12,11 @@ from __future__ import annotations
 
 import argparse
 import csv
+import io
 import json
 import os
 import sys
+import tarfile
 import urllib.parse
 import urllib.request
 from datetime import UTC, datetime, time
@@ -41,26 +43,42 @@ def _call(method: str, path: str, key: str, body: dict | None = None, **params) 
 
 
 def _utc(s: str) -> str:
-    return _t(s).astimezone(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
+    """UTC with Z; sub-seconds kept (truncating a known_at would make the block look known earlier than it was)."""
+    t = _t(s).astimezone(UTC)
+    return t.isoformat(timespec="microseconds" if t.microsecond else "seconds").replace("+00:00", "Z")
+
+
+def _export(space: str, as_of: str, key: str) -> dict[str, list[dict]]:
+    """GET /v1/export: the space as known at as_of, {table: rows} from a tar.gz of JSONL (nodes, edges, resolutions)."""
+    url = os.environ.get("TCKG_URL", URL).rstrip("/") + "/v1/export?" + urllib.parse.urlencode({"as_of": as_of, "space": space})
+    with urllib.request.urlopen(urllib.request.Request(url, headers={"authorization": f"Bearer {key}"}), timeout=120) as r:
+        data = r.read()
+    with tarfile.open(fileobj=io.BytesIO(data)) as t:
+        return {Path(m.name).stem: [json.loads(x) for x in t.extractfile(m).read().decode().splitlines() if x.strip()]
+                for m in t.getmembers() if m.isfile() and m.name.endswith(".jsonl")}
 
 
 def fetch_factblock(block_id: str, space: str, as_of: str, key: str) -> dict:
-    """The contract factblock (io-v0 2.2) for a TCKG node: the node as known at as_of, known_at and backfill from lookup."""
-    item = _call("GET", f"/v1/memories/{urllib.parse.quote(block_id, safe='')}", key, as_of=as_of, space=space)["item"]
-    if item is None:
+    """The contract factblock (io-v0 2.2) for a TCKG node, read as known at as_of. GET /v1/memories/{id} is a
+    valid-time read (no_value_at for a commitment) and carries no verdicts, so the space export is read instead."""
+    ex = _export(space, as_of, key)
+    node = next((n for n in ex.get("nodes", []) if n["id"] == block_id), None)
+    if node is None:
         raise SystemExit(f"{block_id}: not in TCKG space {space} as of {as_of}")
     seen = _call("POST", "/v1/memories/lookup", key, body={"ids": [block_id], "space": space})["items"][0]
-    p = item.get("payload", {})
+    p = node.get("payload") or {}
     speaker = p.get("speaker", "")
-    # shortcut: verdicts are not on GET rows (they come with the space export); used only when the row carries one
-    v = item.get("verdict")
-    return {"id": item["id"], "kind": item["kind"], "statement": item["statement"],
+    # verdict.decided_at is when the ledger recorded it (io-v0 2.2): the resolution row's known_at
+    res = sorted((r for r in ex.get("resolutions", []) if r["target_id"] == block_id), key=lambda r: _t(r["known_at"]))
+    v = res[-1] if res else None
+    return {"id": node["id"], "kind": node["kind"], "statement": node["statement"],
             "speaker": speaker if isinstance(speaker, dict) else {"id": p.get("speaker_id", speaker), "name": speaker},
-            "said_at": _utc(item["asserted_at"]), "said_at_precision": p.get("asserted_at_precision", "instant"),
-            "known_at": _utc(seen["known_at"]), "backfilled": bool(seen.get("backfill_batch")),
-            "verdict": {"value": v["value"], "decided_at": _utc(v["decided_at"])} if v and v.get("value") in ("hit", "miss") else None,
-            # v0 is XKRX only: other markets are left out by name and listed by main()
-            "assets": [{"symbol": a.split(":", 1)[1], "market": "XKRX"} for a in p.get("assets", []) if a.startswith("krx:")]}
+            "said_at": _utc(node["asserted_at"]), "said_at_precision": p.get("asserted_at_precision", "instant"),
+            "known_at": _utc(node["known_at"]), "backfilled": bool(seen.get("backfill_batch")),
+            "verdict": {"value": v["outcome"], "decided_at": _utc(v["known_at"])} if v and v["outcome"] in ("hit", "miss") else None,
+            # v0 is XKRX only: other markets are left out by name (io-v0 2.2), main() lists them
+            "assets": [{"symbol": a.split(":", 1)[1], "market": "XKRX"} for a in p.get("assets", []) if a.startswith("krx:")],
+            "_left_out": [a for a in p.get("assets", []) if not a.startswith("krx:")]}
 
 
 def _num(s: str):
@@ -104,7 +122,7 @@ def request(fb: dict, playbook: dict, prices: Path, *, mode: str = "as_known", a
 def main(argv=None) -> None:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--id", help="TCKG node id (needs TCKG_API_KEY)")
-    ap.add_argument("--space", default="default")
+    ap.add_argument("--space", default="theme:kr-memory-semis")
     ap.add_argument("--prices", type=Path, default=PRICES_FIXTURE, help="CSV: symbol,date,open,close[,open_at,close_at]")
     ap.add_argument("--playbook", type=Path, help="Playbook JSON (default claim-follow-20)")
     ap.add_argument("--mode", default="as_known", choices=["as_known", "hindsight_said_at"])
@@ -114,7 +132,9 @@ def main(argv=None) -> None:
     key = os.environ.get("TCKG_API_KEY")
     if key and a.id:
         fb = fetch_factblock(a.id, a.space, a.as_of, key)
-        print(f"factblock {a.id} read from TCKG ({os.environ.get('TCKG_URL', URL)})", file=sys.stderr)
+        left = fb.pop("_left_out")
+        print(f"factblock {a.id} read from TCKG ({os.environ.get('TCKG_URL', URL)}, space {a.space}, as_of {a.as_of})"
+              + (f"; left out (not XKRX): {', '.join(left)}" if left else ""), file=sys.stderr)
     else:
         fb = json.loads(FACTBLOCK_FIXTURE.read_text())
         print("factblock from the checked-in fixture (no TCKG_API_KEY or --id): SK hynix, "

@@ -194,3 +194,20 @@ def test_tckg_source_rebuilds_golden_request(name):
     got = tckg.request(json.loads(tckg.FACTBLOCK_FIXTURE.read_text()), want["playbook"], tckg.PRICES_FIXTURE,
                        mode=want["mode"], as_of=want["as_of"])
     assert request_sha256(got) == request_sha256(want)
+
+
+def test_tckg_source_maps_export(monkeypatch):
+    """fetch_factblock from export rows (synthetic, no network): known_at kept to the microsecond, verdict from the
+    resolution's ledger write time, non-XKRX assets left out by name."""
+    from tckg_backtest.sources import tckg
+    node = {"id": "stmt:x", "kind": "commitment", "statement": "s", "asserted_at": "2026-08-18T15:00:00+00:00",
+            "known_at": "2026-10-20T13:11:23.254773+00:00",
+            "payload": {"speaker": "SK hynix", "asserted_at_precision": "day", "assets": ["krx:000660", "us:SKHY"]}}
+    res = {"target_id": "stmt:x", "outcome": "hit", "known_at": "2026-10-29T00:36:00.138833+00:00"}
+    monkeypatch.setattr(tckg, "_export", lambda *a: {"nodes": [node], "resolutions": [res]})
+    monkeypatch.setattr(tckg, "_call", lambda *a, **k: {"items": [{"backfill_batch": None}]})
+    fb = tckg.fetch_factblock("stmt:x", "sp", "2026-11-08T00:00:00Z", "k")
+    assert fb.pop("_left_out") == ["us:SKHY"]
+    assert fb["known_at"] == "2026-10-20T13:11:23.254773Z" and fb["verdict"] == {"value": "hit", "decided_at": "2026-10-29T00:36:00.138833Z"}
+    got = run_backtest(tckg.request(fb, load("request-01-known-open.json")["playbook"], tckg.PRICES_FIXTURE), now=NOW)
+    assert got["status"] == "ok" and got["trades"][0]["entry"]["date"] == "2026-10-21"
