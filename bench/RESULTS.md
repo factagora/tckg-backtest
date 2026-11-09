@@ -1,12 +1,12 @@
 # Bench: tckg-backtest engine vs an LLM prompted with the same rules
 
-Generated 20261109T010956Z by `python3 bench/report.py` from 20261109T010940Z-engine.json.
+Generated 20261109T011030Z by `python3 bench/report.py` from 20261109T011029Z-engine.json.
 
 | Request | System | Median time | Cost per run (est.) | Correct | Distinct answers | Future-info flags | Parse failures |
 |---|---|---|---|---|---|---|---|
-| 01-known-open | engine (MOCK: mock (No module named 'tckg_backtest'), commit b5d42a5) | 0.061 ms | 0 | 5/5 | 1/5 | 0/5 | 0/5 |
-| 02-hindsight-said | engine (MOCK: mock (No module named 'tckg_backtest'), commit b5d42a5) | 0.069 ms | 0 | 5/5 | 1/5 | 0/5 | 0/5 |
-| 03-candidate-playbook | engine (MOCK: mock (No module named 'tckg_backtest'), commit b5d42a5) | 0.048 ms | 0 | 5/5 | 1/5 | 0/5 | 0/5 |
+| 01-known-open | engine (MOCK: mock (No module named 'tckg_backtest'), commit 4a1cc2c) | 0.086 ms | 0 | 5/5 | 1/5 | 0/5 | 0/5 |
+| 02-hindsight-said | engine (MOCK: mock (No module named 'tckg_backtest'), commit 4a1cc2c) | 0.100 ms | 0 | 5/5 | 1/5 | 0/5 | 0/5 |
+| 03-candidate-playbook | engine (MOCK: mock (No module named 'tckg_backtest'), commit 4a1cc2c) | 0.071 ms | 0 | 5/5 | 1/5 | 0/5 | 0/5 |
 
 ## Definitions
 

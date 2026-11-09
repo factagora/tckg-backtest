@@ -86,9 +86,10 @@ def fingerprint(x) -> str:
 
 def summarize(runs: list[dict]) -> dict:
     """runs: [{wall_s, cost_usd, answer_key, score}] for one request and one system."""
-    return {"n": len(runs), "median_s": statistics.median(r["wall_s"] for r in runs),
-            "max_s": max(r["wall_s"] for r in runs),
-            "cost_usd_mean": statistics.mean(r["cost_usd"] for r in runs) if all(r["cost_usd"] is not None for r in runs) else None,
+    walls = [r["wall_s"] for r in runs if r["wall_s"] == r["wall_s"]] or [float("nan")]  # drop NaN (API error runs)
+    costs = [r["cost_usd"] for r in runs if r["cost_usd"] is not None]
+    return {"n": len(runs), "median_s": statistics.median(walls), "max_s": max(walls),
+            "cost_usd_mean": statistics.mean(costs) if costs else None,
             "correct": sum(r["score"]["correct"] for r in runs),
             "distinct": len({r["answer_key"] for r in runs}),
             "future": sum(bool(r["score"]["future"]) for r in runs),
