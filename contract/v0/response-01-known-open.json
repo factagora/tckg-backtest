@@ -1,0 +1,77 @@
+{
+  "contract": "tckg-backtest-io/v0",
+  "status": "ok",
+  "no_trade_reason": null,
+  "request_sha256": "3630b059da070dafd651823a48ee544244e47277311f770e815bc5128dcaf1f9",
+  "trades": [
+    {
+      "symbol": "000660",
+      "market": "XKRX",
+      "benchmark": "069500",
+      "direction": "long",
+      "entry_basis": "known",
+      "trigger": "known_at",
+      "trigger_at": "2026-10-20T13:11:23.254773Z",
+      "entry": {
+        "date": "2026-10-21",
+        "at": "2026-10-21T00:00:00Z",
+        "price": 1260000,
+        "benchmark_price": 88665
+      },
+      "exit": {
+        "date": "2026-11-18",
+        "at": "2026-11-18T00:00:00Z",
+        "price": null,
+        "benchmark_price": null,
+        "planned": true
+      },
+      "open": true,
+      "marked_at": "2026-11-06",
+      "mark": {
+        "at": "2026-11-06T06:30:00Z",
+        "price": 1176000,
+        "benchmark_price": 79005
+      },
+      "ret": -0.06666666666666665,
+      "benchmark_ret": -0.1089494163424124,
+      "excess": 0.042282749675745745,
+      "note": "Open: the exit is planned at the 2026-11-18 open; marked at the 2026-11-06 close, the last close at or before as_of."
+    }
+  ],
+  "summary": {
+    "n_trades": 1,
+    "n_closed": 0,
+    "n_open": 1,
+    "ret_mean": -0.06666666666666665,
+    "benchmark_ret_mean": -0.1089494163424124,
+    "excess_mean": 0.042282749675745745,
+    "portfolio": null
+  },
+  "certificate": {
+    "as_of": "2026-11-08T00:00:00Z",
+    "mode": "as_known",
+    "engine_version": "0.0.0+golden",
+    "mock": false,
+    "request_sha256": "3630b059da070dafd651823a48ee544244e47277311f770e815bc5128dcaf1f9",
+    "prices_sha256": "94ee350b68b656ea376cbee7ac2e6d00ca8742976cd7ed3c32b5a9f76c153d7c",
+    "playbook_sha256": "9fb041d306a22c0d69f26b32024d8a66e25f6da16c19d4bb71434eaf745b4574",
+    "calendar": {
+      "id": "XKRX",
+      "sha256": "3d3fb1164075c491b3742aa2b8b0047084c488690cbc6ad2dfd287b12469d790"
+    },
+    "hindsight": false,
+    "backfilled": false,
+    "reproducible": true,
+    "not_reproducible_because": [],
+    "masked": [],
+    "used_before_known": [],
+    "assumptions": [
+      "gross of costs and taxes",
+      "no dividends",
+      "filled at the session's open or close price",
+      "unadjusted prices; an open is known from open_at and a close from close_at"
+    ]
+  },
+  "errors": [],
+  "computed_at": "2026-11-08T00:00:00Z"
+}

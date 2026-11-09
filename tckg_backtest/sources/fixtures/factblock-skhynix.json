@@ -1,0 +1,23 @@
+{
+  "id": "6535ff93-703b-4692-b995-1e1dd79a976d",
+  "kind": "prediction",
+  "statement": "SK hynix announces additional shareholder returns with its Q3 results",
+  "speaker": {
+    "id": "org:skhynix",
+    "name": "SK hynix (fair disclosure, IR)"
+  },
+  "said_at": "2026-08-18T15:00:00Z",
+  "said_at_precision": "day",
+  "known_at": "2026-10-20T13:11:23.254773Z",
+  "backfilled": false,
+  "verdict": {
+    "value": "hit",
+    "decided_at": "2026-10-29T00:36:00.138833Z"
+  },
+  "assets": [
+    {
+      "symbol": "000660",
+      "market": "XKRX"
+    }
+  ]
+}

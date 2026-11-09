@@ -1,0 +1,19 @@
+[project]
+name = "tckg-backtest"
+version = "0.1.0"
+description = "Point-in-time backtest for one FactBlock x one Playbook rule, with a certificate"
+requires-python = ">=3.11"
+dependencies = ["fastapi", "uvicorn", "jsonschema"]
+
+[project.optional-dependencies]
+dev = ["pytest", "httpx"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["tckg_backtest"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

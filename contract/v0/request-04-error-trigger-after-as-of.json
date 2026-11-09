@@ -1,0 +1,63 @@
+{
+  "contract": "tckg-backtest-io/v0",
+  "mode": "as_known",
+  "as_of": "2026-10-15T00:00:00Z",
+  "factblock": {
+    "id": "6535ff93-703b-4692-b995-1e1dd79a976d",
+    "kind": "prediction",
+    "statement": "SK hynix announces additional shareholder returns with its Q3 results",
+    "speaker": {
+      "id": "org:skhynix",
+      "name": "SK hynix (fair disclosure, IR)"
+    },
+    "said_at": "2026-08-18T15:00:00Z",
+    "said_at_precision": "day",
+    "known_at": "2026-10-20T13:11:23.254773Z",
+    "backfilled": false,
+    "verdict": {
+      "value": "hit",
+      "decided_at": "2026-10-29T00:36:00.138833Z"
+    },
+    "assets": [
+      {
+        "symbol": "000660",
+        "market": "XKRX"
+      }
+    ]
+  },
+  "playbook": {
+    "id": "claim-follow-20",
+    "version": 1,
+    "name": "Follow the claim from when it is known, hold 20 sessions",
+    "trigger": {
+      "event": "known_at"
+    },
+    "entry": {
+      "at": "first_open_after"
+    },
+    "hold": {
+      "sessions": 20
+    },
+    "exit": {
+      "at": "open"
+    },
+    "direction": "long",
+    "benchmark": {
+      "symbol": "069500",
+      "market": "XKRX"
+    }
+  },
+  "prices": {
+    "inline": {
+      "currency": "KRW",
+      "source": "gs://tckg-trader-data/daily/prices.csv (KIS daily bars, unadjusted)",
+      "bars": {
+        "000660": [],
+        "069500": []
+      }
+    }
+  },
+  "calendar": {
+    "id": "XKRX"
+  }
+}
