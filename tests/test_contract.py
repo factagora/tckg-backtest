@@ -184,3 +184,13 @@ def test_backtest_http_mock_mode(client, monkeypatch):
     assert client.get("/v0/health").json()["engine"] == "mock"
     r = client.post("/v0/backtest", json=load("request-01-known-open.json"), headers={"Authorization": f"Bearer {TOKEN}"})
     assert r.json()["certificate"]["mock_reason"] == "service_mock" and r.headers["X-Tckg-Backtest-Version"] == "0.0.0+mock"
+
+
+@pytest.mark.parametrize("name", NAMES)
+def test_tckg_source_rebuilds_golden_request(name):
+    """The fixture FactBlock + fixture prices give byte-identical golden requests (io-v0 2.1 window)."""
+    from tckg_backtest.sources import tckg
+    want = load(f"request-{name}.json")
+    got = tckg.request(json.loads(tckg.FACTBLOCK_FIXTURE.read_text()), want["playbook"], tckg.PRICES_FIXTURE,
+                       mode=want["mode"], as_of=want["as_of"])
+    assert request_sha256(got) == request_sha256(want)
